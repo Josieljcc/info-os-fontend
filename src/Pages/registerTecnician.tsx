@@ -12,7 +12,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { RiKey2Line } from "react-icons/ri";
 import { RiCellphoneLine } from "react-icons/ri";
 import ButtonPrimary from "../components/buttonPrimary/buttonPrimary";
-import BackgroundFooter from "../components/backgroundFooter/backgroundFooter";
+import BackgroundFooter from "../components/backgroundPanel/backgroundPanel";
 
 const RegisterTechnician = () => {
   const { registerTechnician } = useRegister();
