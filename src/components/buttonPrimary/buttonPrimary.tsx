@@ -8,13 +8,13 @@ interface ButtonPrimaryProps
 
 function ButtonPrimary({
   children,
-  color = "bg-[#71717A]",
+  color = "bg-sky-700",
   ...props
-}: ButtonPrimaryProps) {
+}: Readonly<ButtonPrimaryProps>) {
   return (
     <button
       {...props}
-      className={`${color} w-full rounded-lg p-2 text-white font-bold flex items-center justify-center shadow-lg  transform transition-transform duration-200 hover:scale-105`}
+      className={`${color} disabled:bg-zinc-600 transition-all duration-200 w-full rounded-lg p-2 text-white font-bold flex items-center justify-center shadow-lg`}
     >
       {children}
     </button>
