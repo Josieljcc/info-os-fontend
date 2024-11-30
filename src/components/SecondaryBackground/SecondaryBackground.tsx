@@ -1,4 +1,4 @@
-import Logo from "../../../assets/Logo2.png";
+import Logo from "../../../assets/logoInfosWhite.png";
 
 const SecondaryBackground = () => {
   return (
