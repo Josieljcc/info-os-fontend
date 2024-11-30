@@ -10,7 +10,10 @@ const technicianSchema = z.object({
   email: z.string().email("Email inválido"),
   password: z.string().min(6, "A senha deve conter no mínimo 6 caracteres."),
   name: z.string().min(1, "O nome é obrigatorio!"),
-  phone: z.string().regex(phoneRegex, "Número de telefone inválido"),
+  phone: z
+    .string()
+    .max(12, "Número de telefone inválido")
+    .regex(phoneRegex, "Número de telefone inválido"),
 });
 
 export default technicianSchema;
