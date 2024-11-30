@@ -4,7 +4,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   Icon: React.FC;
   formName: string;
   className?: string;
-  position?: string;
+  position?: "left-2" | "right-2";
 }
 
 const Input = ({

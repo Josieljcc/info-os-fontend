@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useRegister from "../hook/useRegister";
 import "react-toastify/dist/ReactToastify.css";
 import Input from "../components/input/input";
-import logo from "../../assets/Logo.png";
+import logo from "../../assets/logoInfos.png";
 import { LuUser2 } from "react-icons/lu";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiKey2Line, RiCellphoneLine } from "react-icons/ri";
@@ -27,6 +27,7 @@ const RegisterTechnician = () => {
 
   const onSubmit: SubmitHandler<registerTechnicianType> = (data) =>
     registerTechnician(data);
+
   return (
     <div className="h-screen md:flex md:flex-row-reverse">
       <div className="h-[80%] bg-main-bg bg-cover bg-center flex flex-col justify-center pt-24 px-8 pb-5 md:relative md:h-full md:w-1/2 md:items-center md:p-0">
@@ -75,13 +76,12 @@ const RegisterTechnician = () => {
                 <p className="text-red-500 text-sm">{errors.phone.message}</p>
               )}
             </FormProvider>
-            <div className="px-8 pt-6 pb-10">
-              <ButtonPrimary
-                children="Criar"
-                disabled={!isValid}
-                onClick={handleSubmit(onSubmit)}
-              />
-            </div>
+            <ButtonPrimary
+              children="Criar"
+              disabled={!isValid}
+              onClick={handleSubmit(onSubmit)}
+              className="mx-8 mt-6 mb-10"
+            />
           </div>
         </div>
       </div>
