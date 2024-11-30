@@ -9,10 +9,9 @@ import Input from "../components/input/input";
 import logo from "../../assets/Logo.png";
 import { LuUser2 } from "react-icons/lu";
 import { MdOutlineMailOutline } from "react-icons/md";
-import { RiKey2Line } from "react-icons/ri";
-import { RiCellphoneLine } from "react-icons/ri";
+import { RiKey2Line, RiCellphoneLine } from "react-icons/ri";
 import ButtonPrimary from "../components/buttonPrimary/buttonPrimary";
-import BackgroundFooter from "../components/backgroundPanel/backgroundPanel";
+import SecondaryBackground from "../components/SecondaryBackground/SecondaryBackground";
 
 const RegisterTechnician = () => {
   const { registerTechnician } = useRegister();
@@ -23,7 +22,7 @@ const RegisterTechnician = () => {
 
   const {
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = methods;
 
   const onSubmit: SubmitHandler<registerTechnicianType> = (data) =>
@@ -79,13 +78,14 @@ const RegisterTechnician = () => {
             <div className="px-8 pt-6 pb-10">
               <ButtonPrimary
                 children="Criar"
+                disabled={!isValid}
                 onClick={handleSubmit(onSubmit)}
               />
             </div>
           </div>
         </div>
       </div>
-      <BackgroundFooter />
+      <SecondaryBackground />
     </div>
   );
 };
