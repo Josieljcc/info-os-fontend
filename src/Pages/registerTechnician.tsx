@@ -12,6 +12,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { RiKey2Line, RiCellphoneLine } from "react-icons/ri";
 import ButtonPrimary from "../components/buttonPrimary/buttonPrimary";
 import SecondaryBackground from "../components/SecondaryBackground/SecondaryBackground";
+import { Link } from "react-router-dom";
 
 const RegisterTechnician = () => {
   const { registerTechnician } = useRegister();
@@ -76,11 +77,18 @@ const RegisterTechnician = () => {
                 <p className="text-red-500 text-sm">{errors.phone.message}</p>
               )}
             </FormProvider>
+            <p className="text-zinc-200 text-center">
+              Já tem cadastro?
+              {" "}
+              <Link to="/login" className="text-blue-400 underline hover:text-blue-500 transition-all duration-200">
+                Acesse aqui
+              </Link>
+            </p>
             <ButtonPrimary
               children="Criar"
               disabled={!isValid}
               onClick={handleSubmit(onSubmit)}
-              className="mx-8 mt-6 mb-10"
+              className="mx-8 mt-4 mb-10"
             />
           </div>
         </div>
