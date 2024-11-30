@@ -3,7 +3,7 @@ import { z } from "zod";
 export type registerTechnicianType = z.infer<typeof technicianSchema>;
 
 const phoneRegex = RegExp(
-  "(?:(^\\+\\d{2})?)(?:([1-9]{2})|([0-9]{3})?)(\\d{4,5}).?(\\d{4})"
+  "(?:(^\\+\\d{2})?)(?:([1-9]{2})|(\\d{3})?)(\\d{4,5}).?(\\d{4})"
 );
 
 const technicianSchema = z.object({
