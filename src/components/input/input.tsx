@@ -24,7 +24,7 @@ const Input = ({
       <input
         {...register(formName)}
         {...props}
-        className={`h-10 w-full pl-6 shadow-md rounded-lg border-2 border-transparent placeholder-white bg-[#52525B] p-2 hover:border-blue-500 focus:border-blue-500 focus:outline-none ${className}`}
+        className={`h-10 w-full pl-8 shadow-md rounded-lg border-2 border-transparent placeholder-zinc-500 bg-[#52525B] p-2 hover:border-blue-500 focus:border-blue-500 focus:outline-none ${className}`}
       />
     </div>
   );

@@ -29,8 +29,8 @@ const RegisterTechnician = () => {
   const onSubmit: SubmitHandler<registerTechnicianType> = (data) =>
     registerTechnician(data);
   return (
-    <div className="md:flex md:flex-row-reverse">
-      <div className="h-full bg-main-bg bg-cover bg-center flex flex-col justify-center pt-24 px-8 pb-5 md:relative md:h-screen md:w-1/2 md:items-center md:p-0">
+    <div className="h-screen md:flex md:flex-row-reverse">
+      <div className="h-[80%] bg-main-bg bg-cover bg-center flex flex-col justify-center pt-24 px-8 pb-5 md:relative md:h-full md:w-1/2 md:items-center md:p-0">
         <div className="bg-[#3F3F46] rounded-lg shadow-lg md:w-1/2">
           <div className="flex justify-center p-8">
             <img src={logo} alt="logo info OS" />
@@ -44,7 +44,7 @@ const RegisterTechnician = () => {
                 placeholder="Nome"
               />
               {errors.name && (
-                <p className="text-red-500">{errors.name.message}</p>
+                <p className="text-red-500 text-sm">{errors.name.message}</p>
               )}
               <Input
                 Icon={MdOutlineMailOutline}
@@ -53,7 +53,7 @@ const RegisterTechnician = () => {
                 placeholder="Email"
               />
               {errors.email && (
-                <p className="text-red-500">{errors.email.message}</p>
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
               )}
               <Input
                 Icon={RiKey2Line}
@@ -62,7 +62,9 @@ const RegisterTechnician = () => {
                 placeholder="Senha"
               />
               {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.password.message}
+                </p>
               )}
               <Input
                 Icon={RiCellphoneLine}
@@ -71,7 +73,7 @@ const RegisterTechnician = () => {
                 placeholder="Telefone"
               />
               {errors.phone && (
-                <p className="text-red-500">{errors.phone.message}</p>
+                <p className="text-red-500 text-sm">{errors.phone.message}</p>
               )}
             </FormProvider>
             <div className="px-8 pt-6 pb-10">
