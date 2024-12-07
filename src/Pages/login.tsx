@@ -6,6 +6,8 @@ import ButtonPrimary from "../components/buttonPrimary/buttonPrimary";
 import useLogin from "../hook/useLogin";
 import SecondaryBackground from "../components/SecondaryBackground/SecondaryBackground";
 import logo from "../../assets/logoInfos.png";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { RiKey2Line } from "react-icons/ri";
 
 const Login = () => {
   const { postLogin } = useLogin();
@@ -32,11 +34,11 @@ const Login = () => {
           </div>
           <div className="flex flex-col gap-3 px-3">
             <FormProvider {...methods}>
-              <Input formName="email" placeholder="Email" />
+              <Input formName="email" placeholder="Email" Icon={MdOutlineMailOutline} />
               {errors.email && (
                 <p className="text-red-500 text-sm">{errors.email.message}</p>
               )}
-              <Input formName="password" type="password" placeholder="Senha" />
+              <Input formName="password" type="password" placeholder="Senha" Icon={RiKey2Line} />
               {errors.password && (
                 <p className="text-red-500 text-sm">
                   {errors.password.message}
