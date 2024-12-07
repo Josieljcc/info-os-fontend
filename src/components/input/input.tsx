@@ -1,8 +1,8 @@
 import { useFormContext } from "react-hook-form";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  Icon: React.FC;
   formName: string;
+  Icon?: React.FC;
   className?: string;
   position?: "left-2" | "right-2";
 }
