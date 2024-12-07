@@ -13,3 +13,15 @@ export enum notifyPositionMap {
   bottomRight = "bottom-right",
   bottomCenter = "bottom-center",
 }
+
+export enum role {
+  admin = "admin",
+  technician = "technician",
+  client = "client",
+}
+
+export type User = {
+  token: string;
+  email: string;
+  role: role;
+};
