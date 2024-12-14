@@ -31,7 +31,7 @@ const RegisterTechnician = () => {
 
   return (
     <div className="h-screen md:flex md:flex-row-reverse">
-      <div className="h-[80%] bg-main-bg bg-cover bg-center flex flex-col justify-center pt-24 px-8 pb-5 md:relative md:h-full md:w-1/2 md:items-center md:p-0">
+      <div className="h-[90%] bg-main-bg bg-cover bg-center flex flex-col justify-center pt-24 px-8 pb-5 md:relative md:h-full md:w-1/2 md:items-center md:p-0">
         <div className="bg-[#3F3F46] rounded-lg shadow-lg md:w-1/2">
           <div className="flex justify-center p-8">
             <img src={logo} alt="logo info OS" />
@@ -78,9 +78,11 @@ const RegisterTechnician = () => {
               )}
             </FormProvider>
             <p className="text-zinc-200 text-center">
-              Já tem cadastro?
-              {" "}
-              <Link to="/login" className="text-blue-400 underline hover:text-blue-500 transition-all duration-200">
+              Já tem cadastro?{" "}
+              <Link
+                to="/login"
+                className="text-blue-400 underline hover:text-blue-500 transition-all duration-200"
+              >
                 Acesse aqui
               </Link>
             </p>
