@@ -7,9 +7,12 @@ import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import clientSchema, { registerClientType } from "../schemas/registerClient";
 import { FormProvider, useForm } from "react-hook-form";
 import ButtonPrimary from "../components/buttonPrimary/buttonPrimary";
+import useRegister from "../hook/useRegister";
 
 const RegisterClient = () => {
   const { user, setUser } = useContext(UserContext);
+
+  const { registerClient } = useRegister();
 
   const navigate = useNavigate();
 
@@ -23,7 +26,7 @@ const RegisterClient = () => {
   } = methods;
 
   const handleCreateClient = (data: registerClientType) => {
-    console.log(data);
+    registerClient(data, user.token);
   };
 
   useEffect(() => {
