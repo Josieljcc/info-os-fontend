@@ -11,8 +11,9 @@ import { LuUser2 } from "react-icons/lu";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiKey2Line, RiCellphoneLine } from "react-icons/ri";
 import ButtonPrimary from "../components/buttonPrimary/buttonPrimary";
-import SecondaryBackground from "../components/SecondaryBackground/SecondaryBackground";
+
 import { Link } from "react-router-dom";
+import SecondaryBackground from "../components/SecondaryBackground/secondaryBackground";
 
 const RegisterTechnician = () => {
   const { registerTechnician } = useRegister();
