@@ -26,7 +26,7 @@ const FormClient = () => {
   };
 
   return (
-    <div className="h-full flex flex-col gap-4 font-medium">
+    <div className="h-full flex flex-col gap-4 font-medium  w-3/4 md:w-1/2">
       <FormProvider {...methods}>
         <Input
           formName="name"

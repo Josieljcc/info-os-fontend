@@ -13,7 +13,7 @@ import { RiKey2Line, RiCellphoneLine } from "react-icons/ri";
 import ButtonPrimary from "../components/buttonPrimary/buttonPrimary";
 
 import { Link } from "react-router-dom";
-import SecondaryBackground from "../components/SecondaryBackground/secondaryBackground";
+import SecondaryBackground from "../components/SecondaryBackground/SecondaryBackground";
 
 const RegisterTechnician = () => {
   const { registerTechnician } = useRegister();

@@ -16,8 +16,8 @@ const FormDrawer = ({ children, buttonTitle, title = "" }: FormDrawerProps) => {
   return (
     <Drawer>
       <DrawerTrigger className="text-white">{buttonTitle}</DrawerTrigger>
-      <DrawerContent className="flex justify-center px-[31.25rem] ">
-        <DrawerHeader>
+      <DrawerContent className="flex justify-center">
+        <DrawerHeader className="flex justify-center flex-col items-center">
           <DrawerTitle className="text-neutral-200 text-center text-4xl font-semibold pb-24 ">
             {title}{" "}
           </DrawerTitle>
