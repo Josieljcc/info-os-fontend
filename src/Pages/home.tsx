@@ -1,5 +1,6 @@
 import FormClient from "@/components/formClient/formClient";
 import FormDrawer from "@/components/formDrawer/formDrawer";
+import FormPart from "@/components/formPart/formPart";
 
 import UserContext from "@/context/userContext";
 import { role } from "@/types";
@@ -27,8 +28,11 @@ const Home = () => {
   return (
     <div className="h-screen w-full bg-[#141414] ">
       <h1>HOME</h1>
-      <FormDrawer buttonTitle="Open" title="Cadastrar Cliente">
+      <FormDrawer buttonTitle="Cliente" title="Cadastrar Cliente">
         <FormClient />
+      </FormDrawer>
+      <FormDrawer buttonTitle="Peças" title="Cadastrar Peças">
+        <FormPart />
       </FormDrawer>
     </div>
   );
