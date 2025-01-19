@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+      - VITE_BACK_END_BASE_URL=${VITE_BACK_END_BASE_URL}
+    restart: always
+  cloudflare:
+    image: ghcr.io/ryanccn/cloudflare-ddns:latest
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TOKEN}
