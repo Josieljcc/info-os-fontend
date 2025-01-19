@@ -15,13 +15,12 @@ COPY src ./src
 COPY public ./public
 
 # Instalar dependências e construir o projeto
-RUN npm install --production --ignore-scripts
+RUN npm install --ignore-scripts
 RUN npm run build
 
 # Etapa 2: Servir arquivos estáticos
 FROM nginx:stable-alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-USER nginx
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
