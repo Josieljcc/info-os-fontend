@@ -11,6 +11,6 @@ services:
       - NODE_ENV=production
       - VITE_BACK_END_BASE_URL=${VITE_BACK_END_BASE_URL}
     restart: always
-  cloudflare:
-    image: ghcr.io/ryanccn/cloudflare-ddns:latest
-    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TOKEN}
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token eyJhIjoiOTZiNGY0ODU5NGU5NDgyYmFhZjBjZGY0ODJiZGY4MzMiLCJ0IjoiNDVlMjk4ZGEtOGY5ZC00NzQzLWFkNmUtYTFkYThiYjA4YWYzIiwicyI6IlpUSmpOemRrTVdFdE5tUXlZUzAwWlRneExUZ3hPREV0WW1NNU16WTVPVEE0TjJWayJ9
