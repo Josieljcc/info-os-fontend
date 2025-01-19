@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useRegister from "../hook/useRegister";
 import "react-toastify/dist/ReactToastify.css";
 import Input from "../components/input/input";
-import logo from "../../assets/logoInfos.png";
+import logo from "../../public/assets/logoInfos.png";
 import { LuUser2 } from "react-icons/lu";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiKey2Line, RiCellphoneLine } from "react-icons/ri";

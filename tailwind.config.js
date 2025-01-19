@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "main-bg": "url('/assets/main.png')",
+        "main-bg": "url('/public/assets/main.png')",
       },
       borderRadius: {
         lg: "var(--radius)",

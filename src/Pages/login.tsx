@@ -5,7 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import ButtonPrimary from "../components/buttonPrimary/buttonPrimary";
 import useLogin from "../hook/useLogin";
 
-import logo from "../../assets/logoInfos.png";
+import logo from "../../public/assets/logoInfos.png";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiKey2Line } from "react-icons/ri";
 import SecondaryBackground from "@/components/SecondaryBackground/SecondaryBackground";
