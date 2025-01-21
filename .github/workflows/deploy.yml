@@ -18,6 +18,9 @@ jobs:
       run: |
         echo "VITE_BACK_END_BASE_URL=${{ secrets.VITE_BACK_END_BASE_URL }}" >> .env
 
+    - name: Debug .env file
+      run: cat .env
+
     - name: Deploy using Docker Compose
       run: |
         docker compose down
