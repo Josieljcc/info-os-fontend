@@ -14,6 +14,10 @@ COPY index.html ./
 COPY src ./src
 COPY public ./public
 
+# Configurar variáveis de ambiente para o build
+ARG VITE_BACK_END_BASE_URL
+ENV VITE_BACK_END_BASE_URL=$VITE_BACK_END_BASE_URL
+
 # Instalar dependências e construir o projeto
 RUN npm install --ignore-scripts
 RUN npm run build
