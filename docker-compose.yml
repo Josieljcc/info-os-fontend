@@ -5,11 +5,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - VITE_BACK_END_BASE_URL=${VITE_BACK_END_BASE_URL}
     ports:
       - "3000:80"
     environment:
       - NODE_ENV=production
-      - VITE_BACK_END_BASE_URL=${VITE_BACK_END_BASE_URL}
     restart: always
   cloudflared:
     image: cloudflare/cloudflared:latest
