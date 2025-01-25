@@ -56,6 +56,13 @@ const Login = () => {
                 </p>
               )}
             </FormProvider>
+            <ButtonPrimary
+              disabled={!isValid}
+              onClick={handleSubmit(handleLogin)}
+              className="mx-8 mt-4"
+            >
+              Entrar
+            </ButtonPrimary>
             <p className="text-zinc-200 text-center">
               Não tem cadastro?{" "}
               <Link
@@ -65,13 +72,6 @@ const Login = () => {
                 Registre aqui
               </Link>
             </p>
-            <ButtonPrimary
-              disabled={!isValid}
-              onClick={handleSubmit(handleLogin)}
-              className="mx-8 mt-4"
-            >
-              Entrar
-            </ButtonPrimary>
           </div>
         </div>
       </div>
