@@ -4,15 +4,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import Input from "../input/input";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import useRegister from "@/hook/useRegister";
-import { useContext } from "react";
-import UserContext from "@/context/userContext";
+
 
 const FormPart = () => {
   const { registerPart } = useRegister();
 
-  const {
-    user: { token },
-  } = useContext(UserContext);
+  
 
   const methods = useForm<PartType>({
     resolver: zodResolver(partSchema),
@@ -24,7 +21,7 @@ const FormPart = () => {
   } = methods;
 
   const handleCreatePart = (data: PartType) => {
-    registerPart(data, token);
+    registerPart(data);
   };
 
   return (
