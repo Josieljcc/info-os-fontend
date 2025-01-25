@@ -49,13 +49,12 @@ const FormService = () => {
           <p className="text-red-500 text-sm">{errors.time.message}</p>
         )}
         <div className="flex justify-center">
-
-        <ButtonPrimary
-          onClick={handleSubmit(handleCreateServices)}
-          className="font-semibold text-2xl py-4 px-40 mt-16 mb-11"
-        >
-          Criar
-        </ButtonPrimary>
+          <ButtonPrimary
+            onClick={handleSubmit(handleCreateServices)}
+            className="font-semibold text-2xl py-4 px-40 mt-16 mb-11"
+          >
+            Criar
+          </ButtonPrimary>
         </div>
       </FormProvider>
     </div>
