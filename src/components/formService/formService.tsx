@@ -1,18 +1,15 @@
-import partSchema, { PartType } from "@/schemas/parts";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../input/input";
+import servicesSchema, { ServicesType } from "@/schemas/services";
+import { zodResolver } from "@hookform/resolvers/zod";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import useRegister from "@/hook/useRegister";
 
+const FormService = () => {
+  const { registerService } = useRegister();
 
-const FormPart = () => {
-  const { registerPart } = useRegister();
-
-  
-
-  const methods = useForm<PartType>({
-    resolver: zodResolver(partSchema),
+  const methods = useForm<ServicesType>({
+    resolver: zodResolver(servicesSchema),
   });
 
   const {
@@ -20,21 +17,13 @@ const FormPart = () => {
     formState: { errors },
   } = methods;
 
-  const handleCreatePart = (data: PartType) => {
-    registerPart(data);
+  const handleCreateServices = (data: ServicesType) => {
+    registerService(data);
   };
 
   return (
     <div className="h-full flex flex-col gap-4 font-medium  w-3/4 md:w-1/2">
       <FormProvider {...methods}>
-        <Input
-          formName="name"
-          placeholder="Nome"
-          className="py-8 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
-        />
-        {errors.name && (
-          <p className="text-red-500 text-sm">{errors.name.message}</p>
-        )}
         <Input
           formName="description"
           placeholder="Descrição"
@@ -46,25 +35,23 @@ const FormPart = () => {
         <Input
           formName="price"
           placeholder="Preço"
-          type="number"
           className="py-8 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
         />
         {errors.price && (
           <p className="text-red-500 text-sm">{errors.price.message}</p>
         )}
         <Input
-          formName="quantity"
-          placeholder="Quantidade"
-          type="number"
+          formName="time"
+          placeholder="Tempo estimado"
           className="py-8 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
         />
-        {errors.quantity && (
-          <p className="text-red-500 text-sm">{errors.quantity.message}</p>
+        {errors.time && (
+          <p className="text-red-500 text-sm">{errors.time.message}</p>
         )}
         <div className="flex justify-center">
           <ButtonPrimary
-            onClick={handleSubmit(handleCreatePart)}
-            className="font-semibold text-2xl py-4 px-40 mt-16 mb-11 "
+            onClick={handleSubmit(handleCreateServices)}
+            className="font-semibold text-2xl py-4 px-40 mt-16 mb-11"
           >
             Criar
           </ButtonPrimary>
@@ -74,4 +61,4 @@ const FormPart = () => {
   );
 };
 
-export default FormPart;
+export default FormService;

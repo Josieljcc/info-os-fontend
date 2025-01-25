@@ -1,15 +1,12 @@
-import UserContext from "@/context/userContext";
 import useRegister from "@/hook/useRegister";
 import clientSchema, { registerClientType } from "@/schemas/registerClient";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
+
 import { useForm, FormProvider } from "react-hook-form";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import Input from "../input/input";
 
 const FormClient = () => {
-  const { user } = useContext(UserContext);
-
   const { registerClient } = useRegister();
 
   const methods = useForm<registerClientType>({
@@ -22,7 +19,7 @@ const FormClient = () => {
   } = methods;
 
   const handleCreateClient = (data: registerClientType) => {
-    registerClient(data, user.token);
+    registerClient(data);
   };
 
   return (
@@ -72,7 +69,7 @@ const FormClient = () => {
         <div className="flex justify-center ">
           <ButtonPrimary
             onClick={handleSubmit(handleCreateClient)}
-            className="font-semibold text-2xl py-4 px-40 mt-16 mb-11 "
+            className="font-semibold text-2xl py-4 px-40 mt-16 mb-11"
           >
             Criar
           </ButtonPrimary>
