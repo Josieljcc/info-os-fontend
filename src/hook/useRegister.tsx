@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import useNotify from "./useNotify";
 import { notifyPositionMap, notifyType } from "../types";
 import { registerClientType } from "../schemas/registerClient";
+import { PartType } from "@/schemas/parts";
 
 const useRegister = () => {
   const navigate = useNavigate();
@@ -59,7 +60,37 @@ const useRegister = () => {
     }
   };
 
-  return { registerTechnician, registerClient };
+  const registerPart = async (data: PartType, token: string) => {
+    const urlRegisterPart = `${BASE_URL}/part`;
+
+    const header = { headers: { Authorization: `Bearer ${token}` } };
+
+    const payload = {
+      ...data,
+      quantity: !data.quantity ? 0 : Number(data.quantity),
+      price: Number(data.price),
+    };
+
+    try {
+      await axios.post(urlRegisterPart, payload, header);
+
+      notify(
+        "Peça Registrada com Sucesso!",
+        notifyPositionMap.topRight,
+        notifyType.success
+      );
+    } catch (error) {
+      const err = error as AxiosError;
+
+      notify(
+        err.message as string,
+        notifyPositionMap.topRight,
+        notifyType.error
+      );
+    }
+  };
+
+  return { registerTechnician, registerClient, registerPart };
 };
 
 export default useRegister;
