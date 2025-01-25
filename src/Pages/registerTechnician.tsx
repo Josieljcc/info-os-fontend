@@ -33,7 +33,7 @@ const RegisterTechnician = () => {
   return (
     <div className="h-screen md:flex md:flex-row-reverse">
       <div className="h-[90%] bg-main-bg bg-cover bg-center flex flex-col justify-center pt-24 px-8 pb-5 md:relative md:h-full md:w-1/2 md:items-center md:p-0">
-        <div className="bg-[#3F3F46] rounded-lg shadow-lg md:w-1/2">
+        <div className="bg-[#3F3F46] rounded-lg shadow-lg md:w-1/2 pb-11">
           <div className="flex justify-center p-8">
             <img src={logo} alt="logo info OS" />
           </div>
@@ -78,6 +78,12 @@ const RegisterTechnician = () => {
                 <p className="text-red-500 text-sm">{errors.phone.message}</p>
               )}
             </FormProvider>
+            <ButtonPrimary
+              children="Criar"
+              disabled={!isValid}
+              onClick={handleSubmit(onSubmit)}
+              className="mx-8 mt-4"
+            />
             <p className="text-zinc-200 text-center">
               Já tem cadastro?{" "}
               <Link
@@ -87,12 +93,6 @@ const RegisterTechnician = () => {
                 Acesse aqui
               </Link>
             </p>
-            <ButtonPrimary
-              children="Criar"
-              disabled={!isValid}
-              onClick={handleSubmit(onSubmit)}
-              className="mx-8 mt-4 mb-10"
-            />
           </div>
         </div>
       </div>
