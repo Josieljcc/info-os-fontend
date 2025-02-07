@@ -9,6 +9,7 @@ import { PartType } from "@/schemas/parts";
 import { ServicesType } from "@/schemas/services";
 import { useContext } from "react";
 import UserContext from "@/context/userContext";
+import { EquipmentType } from "@/schemas/equipment";
 
 const useRegister = () => {
   const navigate = useNavigate();
@@ -104,7 +105,7 @@ const useRegister = () => {
     const urlRegister = `${BASE_URL}/service`;
 
     try {
-      await axios.post(urlRegister, payload, header);
+      await axios.post(urlRegister, payload);
 
       notify(
         "Serviço Registrado com Sucesso!",
@@ -122,7 +123,28 @@ const useRegister = () => {
     }
   };
 
-  return { registerTechnician, registerClient, registerPart, registerService };
+  const registerEquipment = async (data: EquipmentType) => {
+    const urlRegisterEquipment = `${BASE_URL}/equipment`;
+    try {
+      await axios.post(urlRegisterEquipment, data, header);
+    } catch (error) {
+      const err = error as AxiosError;
+
+      notify(
+        err.message as string,
+        notifyPositionMap.topRight,
+        notifyType.error
+      );
+    }
+  };
+
+  return {
+    registerTechnician,
+    registerClient,
+    registerPart,
+    registerService,
+    registerEquipment,
+  };
 };
 
 export default useRegister;
