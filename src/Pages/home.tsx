@@ -1,5 +1,6 @@
 import FormClient from "@/components/formClient/formClient";
 import FormDrawer from "@/components/formDrawer/formDrawer";
+import FormEquipment from "@/components/formEquipment/formEquipment";
 import FormPart from "@/components/formPart/formPart";
 import FormService from "@/components/formService/formService";
 
@@ -37,6 +38,9 @@ const Home = () => {
       </FormDrawer>
       <FormDrawer buttonTitle="Service" title="Cadastrar Serviço">
         <FormService />
+      </FormDrawer>
+      <FormDrawer buttonTitle="Equipment" title="Cadastrar Equipamento">
+        <FormEquipment/>
       </FormDrawer>
     </div>
   );
