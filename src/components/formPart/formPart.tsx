@@ -5,11 +5,8 @@ import Input from "../input/input";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import useRegister from "@/hook/useRegister";
 
-
 const FormPart = () => {
   const { registerPart } = useRegister();
-
-  
 
   const methods = useForm<PartType>({
     resolver: zodResolver(partSchema),

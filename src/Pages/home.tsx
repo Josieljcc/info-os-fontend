@@ -1,8 +1,7 @@
-import FormClient from "@/components/formClient/formClient";
-import FormDrawer from "@/components/formDrawer/formDrawer";
-import FormEquipment from "@/components/formEquipment/formEquipment";
-import FormPart from "@/components/formPart/formPart";
-import FormService from "@/components/formService/formService";
+import DrawerClient from "@/components/drawerClient/drawerClient";
+import DrawerEquipment from "@/components/drawerEquipment/drawerEquipment";
+import DrawerPart from "@/components/drawerPart/drawerPart";
+import DrawerService from "@/components/drawerService/drawerService";
 
 import UserContext from "@/context/userContext";
 import { role } from "@/types";
@@ -30,18 +29,10 @@ const Home = () => {
   return (
     <div className="h-screen flex flex-col w-full bg-[#141414] ">
       <h1>HOME</h1>
-      <FormDrawer buttonTitle="Cliente" title="Cadastrar Cliente">
-        <FormClient />
-      </FormDrawer>
-      <FormDrawer buttonTitle="Peça" title="Cadastrar Peça">
-        <FormPart />
-      </FormDrawer>
-      <FormDrawer buttonTitle="Service" title="Cadastrar Serviço">
-        <FormService />
-      </FormDrawer>
-      <FormDrawer buttonTitle="Equipment" title="Cadastrar Equipamento">
-        <FormEquipment/>
-      </FormDrawer>
+      <DrawerClient />
+      <DrawerPart />
+      <DrawerService />
+      <DrawerEquipment />
     </div>
   );
 };
