@@ -25,3 +25,11 @@ export type User = {
   email: string;
   role: role;
 };
+
+export type Client = {
+  address: string;
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+};
