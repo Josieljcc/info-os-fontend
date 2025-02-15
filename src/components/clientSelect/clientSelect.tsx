@@ -26,7 +26,7 @@ const ClientSelect = ({
         <SelectTrigger className="py-8 px-8 text-xl text-[#D4D4D8] bg-[#52525B] border-2 border-transparent hover:border-blue-500 focus:border-blue-500 focus:outline-none">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
-        <SelectContent className="bg-[#131314f4] text-white border-none ">
+        <SelectContent className="bg-[#131314f4] text-white border-none">
           <SelectGroup>
             {clients?.map((client) => (
               <SelectItem

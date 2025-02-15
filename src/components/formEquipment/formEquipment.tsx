@@ -87,7 +87,7 @@ const FormEquipment = () => {
         />
       )}
 
-      <div className="flex justify-center ">
+      <div className="flex justify-center">
         <ButtonPrimary
           onClick={handleSubmit(handleCreateEquipment)}
           className="font-semibold text-2xl py-4 px-40 mt-16 mb-11"

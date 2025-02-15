@@ -23,7 +23,7 @@ const FormDrawer = ({
       <DrawerTrigger className="text-white">{buttonTitle}</DrawerTrigger>
       <DrawerContent className="flex justify-center">
         <DrawerHeader className="flex justify-center flex-col items-center">
-          <DrawerTitle className="text-neutral-200 text-center text-4xl font-semibold pb-16 ">
+          <DrawerTitle className="text-neutral-200 text-center text-4xl font-semibold pb-16">
             {title}{" "}
           </DrawerTitle>
           {children}
