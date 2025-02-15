@@ -3,10 +3,11 @@ import Input from "../input/input";
 import servicesSchema, { ServicesType } from "@/schemas/services";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import useRegister from "@/hook/useRegister";
+
+import UseService from "@/hook/useService";
 
 const FormService = () => {
-  const { registerService } = useRegister();
+  const { registerService } = UseService();
 
   const methods = useForm<ServicesType>({
     resolver: zodResolver(servicesSchema),
