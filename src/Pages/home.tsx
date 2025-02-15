@@ -27,7 +27,7 @@ const Home = () => {
     setUser(localStorageUser);
   }, []);
   return (
-    <div className="h-screen flex flex-col w-full bg-[#141414] ">
+    <div className="h-dvh flex flex-col w-full bg-[#141414] ">
       <h1>HOME</h1>
       <DrawerClient />
       <DrawerPart />
