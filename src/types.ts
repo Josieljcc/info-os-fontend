@@ -25,3 +25,10 @@ export type User = {
   email: string;
   role: role;
 };
+
+export type Technician = {
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+}
