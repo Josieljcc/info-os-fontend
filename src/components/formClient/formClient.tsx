@@ -1,13 +1,13 @@
-import useRegister from "@/hook/useRegister";
 import clientSchema, { registerClientType } from "@/schemas/registerClient";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useForm, FormProvider } from "react-hook-form";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import Input from "../input/input";
+import useClient from "@/hook/useClient";
 
 const FormClient = () => {
-  const { registerClient } = useRegister();
+  const { registerClient } = useClient();
 
   const methods = useForm<registerClientType>({
     resolver: zodResolver(clientSchema),

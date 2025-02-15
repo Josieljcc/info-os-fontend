@@ -3,7 +3,6 @@ import technicianSchema, {
   registerTechnicianType,
 } from "../schemas/registerTechnician";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useRegister from "../hook/useRegister";
 import "react-toastify/dist/ReactToastify.css";
 import Input from "../components/input/input";
 import logo from "../../public/assets/logoInfos.png";
@@ -14,9 +13,10 @@ import ButtonPrimary from "../components/buttonPrimary/buttonPrimary";
 
 import { Link } from "react-router-dom";
 import SecondaryBackground from "../components/SecondaryBackground/SecondaryBackground";
+import useTechnician from "@/hook/useTechnician";
 
 const RegisterTechnician = () => {
-  const { registerTechnician } = useRegister();
+  const { registerTechnician } = useTechnician();
 
   const methods = useForm<registerTechnicianType>({
     resolver: zodResolver(technicianSchema),

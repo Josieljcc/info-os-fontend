@@ -3,13 +3,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../input/input";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import useRegister from "@/hook/useRegister";
-
+import usePart from "@/hook/usePart";
 
 const FormPart = () => {
-  const { registerPart } = useRegister();
-
-  
+  const { registerPart } = usePart();
 
   const methods = useForm<PartType>({
     resolver: zodResolver(partSchema),
