@@ -45,7 +45,7 @@ const useClient = () => {
   const getAllClients = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/client`, header);
-      const data: Client[] = response.data;
+      const data: Client[] = response.data.clients;
       return data;
     } catch (error) {
       const err = error as AxiosError;

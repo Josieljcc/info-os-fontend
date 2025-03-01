@@ -21,6 +21,7 @@ export enum role {
 }
 
 export type User = {
+  id: number;
   token: string;
   email: string;
   role: role;
@@ -32,4 +33,20 @@ export type Client = {
   id: number;
   name: string;
   phone: string;
+};
+
+export type Service = {
+  id: number;
+  name: string;
+  description: string;
+  time: number;
+  price: number;
+};
+
+export type Part = {
+  id: number;
+  name: string;
+  description: string;
+  quantity: number;
+  price: number;
 };

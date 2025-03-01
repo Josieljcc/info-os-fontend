@@ -1,11 +1,23 @@
 import { BASE_URL } from "@/constants";
 import { ServicesType } from "@/schemas/services";
-import { notifyPositionMap, notifyType } from "@/types";
+import { notifyPositionMap, notifyType, Service } from "@/types";
 import axios, { AxiosError } from "axios";
 import useNotify from "./useNotify";
+import { useContext } from "react";
+import UserContext from "@/context/userContext";
 
 const UseService = () => {
   const notify = useNotify();
+
+  const {
+    user: { token },
+  } = useContext(UserContext);
+
+  const header = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  const serviceEndpoint = `${BASE_URL}/service`;
 
   const registerService = async (data: ServicesType) => {
     const payload = {
@@ -13,10 +25,9 @@ const UseService = () => {
       price: Number(data.price),
       time: Number(data.time),
     };
-    const urlRegister = `${BASE_URL}/service`;
 
     try {
-      await axios.post(urlRegister, payload);
+      await axios.post(serviceEndpoint, payload, header);
 
       notify(
         "Serviço Registrado com Sucesso!",
@@ -34,7 +45,26 @@ const UseService = () => {
     }
   };
 
-  return { registerService };
+  const getAllServices = async () => {
+    if (!token) {
+      return;
+    }
+    try {
+      const response = await axios.get(serviceEndpoint, header);
+      const data: Service[] = response.data;
+      return data;
+    } catch (error) {
+      const err = error as AxiosError;
+
+      notify(
+        err.message as string,
+        notifyPositionMap.topRight,
+        notifyType.error
+      );
+    }
+  };
+
+  return { registerService, getAllServices };
 };
 
 export default UseService;
