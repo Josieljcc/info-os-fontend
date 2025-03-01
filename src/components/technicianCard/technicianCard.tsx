@@ -16,7 +16,7 @@ const TechnicianCard = ({ technician }: TechnicianCardProps) => {
       </div>
       <div className="p-2 md:flex md:gap-3">
         <div>
-          <h3 className="text-lg font-semibold md:w-28 lg:w-full truncate">
+          <h3 className="text-lg font-semibold w-48 md:w-28 lg:w-full truncate">
             {technician.name}
           </h3>
           <p className="text-sm md:w-32 lg:w-full truncate">
