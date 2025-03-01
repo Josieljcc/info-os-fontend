@@ -5,12 +5,12 @@ import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import useNotify from "./useNotify";
 import UserContext from "@/context/userContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const useClient = () => {
   const navigate = useNavigate();
-
   const notify = useNotify();
+  const [isLoading, setIsLoading] = useState(true);
 
   const {
     user: { token },
@@ -42,14 +42,16 @@ const useClient = () => {
     }
   };
 
-  const getAllClients = async () => {
+  const getAllClients = async (page?: number, pageSize?: number) => {
+    const urlClient = `${BASE_URL}/client?page=${page}&pageSize=${pageSize}`;
+
     try {
-      const response = await axios.get(`${BASE_URL}/client`, header);
-      const data: Client[] = response.data;
+      const response = await axios.get(urlClient, header);
+      const data: Client[] = response.data.clients;
+      setIsLoading(false);
       return data;
     } catch (error) {
       const err = error as AxiosError;
-
       notify(
         err.message as string,
         notifyPositionMap.topRight,
@@ -58,7 +60,7 @@ const useClient = () => {
     }
   };
 
-  return { registerClient, getAllClients };
+  return { registerClient, getAllClients, isLoading };
 };
 
 export default useClient;
