@@ -2,22 +2,22 @@ import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
 import Spinner from "@/components/spinner/spinner";
 import Card from "@/components/Card/Card";
 import useAuthentication from "@/hook/useAuthentication";
-import useTechnician from "@/hook/useTechnician";
-import { Technician } from "@/types";
+import useClient from "@/hook/useClient";
+import { Client } from "@/types";
 import { useEffect, useState } from "react";
 
-const ListTechnician = () => {
-  const [technicians, setTechnicians] = useState<Technician[] | undefined>([]);
-  const { getAllTechnician, isLoading } = useTechnician();
+const ListClient = () => {
+  const [clients, setClients] = useState<Client[]>([]);
+  const { getAllClients, isLoading } = useClient();
 
   useAuthentication();
 
   useEffect(() => {
-    const getTechnicians = async () => {
-      const technicians = await getAllTechnician();
-      setTechnicians(technicians);
+    const getClients = async () => {
+      const client = await getAllClients();
+      setClients(client as Client[]);
     };
-    getTechnicians();
+    getClients();
   }, []);
 
   if (isLoading) {
@@ -27,17 +27,17 @@ const ListTechnician = () => {
   return (
     <div className="h-screen bg-main-bg bg-cover overflow-hidden bg-center flex flex-col justify-center pt-24 px-8 pb-5 md:items-center">
       <h2 className="text-center pb-6 text-4xl font-bold text-white">
-        Lista de Técnicos
+        Lista de Clientes
       </h2>
-      {technicians?.length === 0 ? (
+      {clients?.length === 0 ? (
         <div>
           <p>Nenhum técnico encontrado</p>
-          <ButtonPrimary>Criar Técnico</ButtonPrimary>
+          <ButtonPrimary>Criar Cliente</ButtonPrimary>
         </div>
       ) : (
         <div className="flex flex-col gap-3 md:flex-row md:gap-5">
-          {technicians?.map((technician) => (
-            <Card key={technician.id} item={technician} />
+          {clients?.map((client) => (
+            <Card key={client.id} item={client} />
           ))}
         </div>
       )}
@@ -45,4 +45,4 @@ const ListTechnician = () => {
   );
 };
 
-export default ListTechnician;
+export default ListClient;
