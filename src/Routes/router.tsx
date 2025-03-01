@@ -4,6 +4,7 @@ import Login from "../Pages/login";
 
 import Home from "@/Pages/home";
 import ListTechnician from "@/Pages/listTechnician";
+import ListClient from "@/Pages/listClient";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/technician",
-    element: <ListTechnician/>,
+    element: <ListTechnician />,
+  },
+  {
+    path: "/client",
+    element: <ListClient />,
   },
 ]);
 
