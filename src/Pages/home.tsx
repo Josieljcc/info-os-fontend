@@ -3,7 +3,6 @@ import DrawerEquipment from "@/components/drawerEquipment/drawerEquipment";
 import DrawerPart from "@/components/drawerPart/drawerPart";
 import DrawerService from "@/components/drawerService/drawerService";
 import useAuthentication from "@/hook/useAuthentication";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   useAuthentication();
@@ -15,9 +14,6 @@ const Home = () => {
       <DrawerPart />
       <DrawerService />
       <DrawerEquipment />
-      <Link className="text-white" to="/technician">
-        Listar Técnicos
-      </Link>
     </div>
   );
 };
