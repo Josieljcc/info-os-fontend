@@ -33,3 +33,10 @@ export type Client = {
   name: string;
   phone: string;
 };
+
+export type Technician = {
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+};
