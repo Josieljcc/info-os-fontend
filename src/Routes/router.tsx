@@ -3,6 +3,7 @@ import RegisterTechnician from "../Pages/registerTechnician";
 import Login from "../Pages/login";
 
 import Home from "@/Pages/home";
+import Order from "@/Pages/order";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/register/technician",
     element: <RegisterTechnician />,
+  },
+  {
+    path: "/order",
+    element: <Order />,
   },
 ]);
 

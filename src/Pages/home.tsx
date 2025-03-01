@@ -6,7 +6,7 @@ import DrawerService from "@/components/drawerService/drawerService";
 import UserContext from "@/context/userContext";
 import { role } from "@/types";
 import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { user, setUser } = useContext(UserContext);
@@ -33,6 +33,9 @@ const Home = () => {
       <DrawerPart />
       <DrawerService />
       <DrawerEquipment />
+      <Link className="text-white" to={"/order"}>
+        Order
+      </Link>
     </div>
   );
 };
