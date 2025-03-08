@@ -1,5 +1,6 @@
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import TechnicianCard from "@/components/technicianCard/technicianCard";
+import Spinner from "@/components/spinner/spinner";
+import Card from "@/components/Card/Card";
 import useAuthentication from "@/hook/useAuthentication";
 import useTechnician from "@/hook/useTechnician";
 import { Technician } from "@/types";
@@ -20,11 +21,7 @@ const ListTechnician = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <div className="h-screen  bg-main-bg bg-cover overflow-hidden bg-center flex flex-col justify-center pt-24 px-8 pb-5 items-center">
-        <div className="loader animate-spin" />
-      </div>
-    );
+    return <Spinner />;
   }
 
   return (
@@ -38,9 +35,9 @@ const ListTechnician = () => {
           <ButtonPrimary>Criar Técnico</ButtonPrimary>
         </div>
       ) : (
-        <div className="flex flex-col gap-3 md:grid md:grid-cols-3 md:gap-5">
+        <div className="flex flex-col gap-3 md:flex-row md:gap-5">
           {technicians?.map((technician) => (
-            <TechnicianCard key={technician.id} technician={technician} />
+            <Card key={technician.id} item={technician} />
           ))}
         </div>
       )}

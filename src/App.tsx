@@ -1,8 +1,19 @@
+import { RouterProvider } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import UserProvider from "./context/userProvider";
+import router from "./Routes/router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 function App() {
+  const queryClient = new QueryClient();
+
   return (
-    <div className="h-dvh bg-slate-900">
-      <h1>Teste</h1>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <UserProvider>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </UserProvider>
+    </QueryClientProvider>
   );
 }
 
