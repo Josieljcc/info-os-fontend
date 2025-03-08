@@ -19,13 +19,19 @@ const useTechnician = () => {
   const header = { headers: { Authorization: `Bearer ${token}` } };
   console.log("token", token);
 
-  const getAllTechnician = async () => {
-    const urlTechnician = `${BASE_URL}/technician`;
+  const getAllTechnician = async (
+    page: number,
+    pageSize: number
+  ): Promise<{ technician: Technician[]; totalPages: number } | undefined> => {
+    const urlTechnician = `${BASE_URL}/technician?page=${page}&pageSize=${pageSize}`;
 
     try {
       const response = await axios.get(urlTechnician, header);
       setIsLoading(false);
-      return response.data as Technician[];
+      return {
+        technician: response.data.technicians,
+        totalPages: response.data.totalPages,
+      };
     } catch (error) {
       const err = error as AxiosError;
       notify(

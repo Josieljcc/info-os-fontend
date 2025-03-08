@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useNotify from "./useNotify";
 import UserContext from "@/context/userContext";
 import { useContext, useState } from "react";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 const useClient = () => {
   const navigate = useNavigate();
@@ -42,14 +43,17 @@ const useClient = () => {
     }
   };
 
-  const getAllClients = async (page?: number, pageSize?: number) => {
-    const urlClient = `${BASE_URL}/client?page=${page}&pageSize=${pageSize}`;
+  const getAllClients = async ({
+    pageParam,
+  }: {
+    pageParam: number;
+  }): Promise<{ clients: Client[]; totalPages: number } | undefined> => {
+    const urlClient = `${BASE_URL}/client?page=${pageParam}&pageSize=${10}`;
 
     try {
       const response = await axios.get(urlClient, header);
-      const data: Client[] = response.data.clients;
       setIsLoading(false);
-      return data;
+      return response.data;
     } catch (error) {
       const err = error as AxiosError;
       notify(
@@ -60,7 +64,45 @@ const useClient = () => {
     }
   };
 
-  return { registerClient, getAllClients, isLoading };
+  const {
+    data: pagenatedClients,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["getAllClients"],
+    queryFn: getAllClients,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+  });
+
+  const clients = pagenatedClients?.pages.map((grup) => {
+    console.log(grup);
+    const clientPage = grup?.clients.map((page) => page);
+    console.log(clientPage);
+
+    return [...clientPage];
+  });
+
+  const getClientById = async (id: number) => {
+    const urlClientById = `${BASE_URL}/client/${id}`;
+
+    const response = await axios.get(urlClientById, header);
+    return response.data;
+  };
+
+  const { data: client } = useQuery({
+    queryKey: ["getClient"],
+    queryFn: () => getClientById(1),
+  });
+
+  return {
+    registerClient,
+    getAllClients,
+    isLoading,
+    client,
+    clients,
+    fetchNextPage,
+  };
 };
 
 export default useClient;

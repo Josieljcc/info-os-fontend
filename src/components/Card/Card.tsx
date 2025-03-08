@@ -16,7 +16,7 @@ const Card = ({ item }: CardProps) => {
       </div>
       <div className="p-2 md:flex md:gap-3">
         <div>
-          <h3 className="text-lg font-semibold w-48 md:w-28 lg:w-full truncate">
+          <h3 className="text-lg font-semibold w-48 md:w-32 lg:w-40 truncate">
             {item.name}
           </h3>
           <p className="text-sm md:w-32 lg:w-40 truncate">{item.email}</p>
