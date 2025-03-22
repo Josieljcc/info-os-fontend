@@ -19,6 +19,7 @@ const Home = () => {
       <DrawerEquipment />
       <Link className="text-white" to={"/order"}>
         Order
+      </Link>
       <Link className="text-white" to="/technician">
         Listar Técnicos
       </Link>

@@ -51,7 +51,7 @@ const UseService = () => {
     }
     try {
       const response = await axios.get(serviceEndpoint, header);
-      const data: Service[] = response.data;
+      const data: Service[] = response.data.services; 
       return data;
     } catch (error) {
       const err = error as AxiosError;

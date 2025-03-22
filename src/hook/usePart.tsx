@@ -47,7 +47,7 @@ const usePart = () => {
     const requestURL = `${BASE_URL}/part`;
     try {
       const response = await axios.get(requestURL, header);
-      const data: Part[] = response.data;
+      const data: Part[] = response.data.parts;
       return data;
     } catch (error) {
       const err = error as AxiosError;

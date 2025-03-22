@@ -54,6 +54,8 @@ const FormOrder = () => {
     const getClients = async () => {
       const data = await getAllClients();
       setClients(data as Client[]);
+      console.log(clients);
+      
     };
     getClients();
   }, []);
@@ -111,17 +113,16 @@ const FormOrder = () => {
         placeholder="Serviços"
         setValue={setSelectedServiceId}
       />
-      <InputSelect
+        <InputSelect
         list={parts as SelectType[]}
         setValue={setSelectedPartId}
         placeholder="Peças"
-      />
-      <InputSelect
+      /> 
+     <InputSelect
         list={clients}
         setValue={setClientId}
         placeholder="Cliente"
-      />
-
+      />  
       <ButtonPrimary onClick={handleSubmit(handleCreateOrder)}>
         Criar
       </ButtonPrimary>

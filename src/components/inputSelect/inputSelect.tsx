@@ -10,7 +10,7 @@ import {
 type SelectProps = {
   setValue: React.Dispatch<React.SetStateAction<number | undefined>>;
   placeholder: string;
-  list: SelectType[];
+  list?: SelectType[];
   className?: string;
 };
 
