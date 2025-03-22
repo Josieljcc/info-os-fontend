@@ -50,3 +50,9 @@ export type Part = {
   quantity: number;
   price: number;
 };
+export type Technician = {
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+};

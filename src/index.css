@@ -68,3 +68,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.loader {
+  @apply w-12 h-12 inline-block box-border rounded-[50%] border-b-mainColor border-[5px] border-solid border-secundaryColor;
+}
