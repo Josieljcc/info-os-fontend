@@ -26,7 +26,7 @@ const Card = ({ item }: CardProps) => {
       <div className="flex flex-col items-center justify-center md:flex-row">
         <ButtonPrimary
           color="bg-sky-700"
-          className="text-3xl h-1/2 w-24 rounded-s-none rounded-r-none md:h-full md:w-full md:rounded-b"
+          className="text-2xl h-1/2 w-24 rounded-t rounded-s-none rounded-r-none md:h-full md:w-full md:rounded-b"
         >
           <GrFormEdit />
         </ButtonPrimary>
