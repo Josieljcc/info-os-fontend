@@ -17,10 +17,10 @@ const Card = ({ item }: CardProps) => {
       <div className="p-2 md:flex md:gap-3">
         <div>
           <h3 className="text-lg font-semibold w-48 md:w-32 lg:w-40 truncate">
-            {item.name}
+            {item?.name}
           </h3>
-          <p className="text-sm md:w-32 lg:w-40 truncate">{item.email}</p>
-          <p className="text-sm md:w-32 lg:w-40 truncate">{item.phone}</p>
+          <p className="text-sm md:w-32 lg:w-40 truncate">{item?.email}</p>
+          <p className="text-sm md:w-32 lg:w-40 truncate">{item?.phone}</p>
         </div>
       </div>
       <div className="flex flex-col items-center justify-center md:flex-row">

@@ -13,6 +13,8 @@ const ListClient = () => {
     return <Spinner />;
   }
 
+  console.log(clients);
+
   return (
     <div className="h-screen bg-main-bg bg-cover overflow-hidden bg-center flex flex-col justify-center pt-24 px-8 pb-5 md:items-center">
       <h2 className="text-center pb-6 text-4xl font-bold text-white">
@@ -27,9 +29,7 @@ const ListClient = () => {
         <>
           <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-scroll">
             {clients?.map((client) => (
-              <div>
-                <Card key={client?.id} item={client as Client} />
-              </div>
+              <Card key={client?.id} item={client as Client} />
             ))}
           </div>
           <div className="flex justify-center mt-6 gap-4">
