@@ -3,82 +3,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../input/input";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import UseService from "@/hook/useService";
-import { useContext, useEffect, useState } from "react";
-import { Client, Part, Service } from "@/types";
 import InputSelect, { SelectType } from "../inputSelect/inputSelect";
-import usePart from "@/hook/usePart";
-import useClient from "@/hook/useClient";
-import UserContext from "@/context/userContext";
-import useOrder, { OrderPayload } from "@/hook/useOrder";
+import useFormOrder from "@/hook/useFormOrder";
+
 
 const FormOrder = () => {
-  const [services, setServices] = useState<Service[]>([]);
-  const [parts, setParts] = useState<Part[]>([]);
-  const [clients, setClients] = useState<Client[]>([]);
-  const [selectedServiceId, setSelectedServiceId] = useState<number>();
-  const [selectedPartId, setSelectedPartId] = useState<number>();
-  const [clientId, setClientId] = useState<number>();
-
+  
   const methods = useForm<OrderType>({ resolver: zodResolver(orderSchema) });
 
-  const { getAllServices } = UseService();
+  const {clients, parts, 
+    services, setClientId, 
+    setSelectedPartId, setSelectedServiceId, 
+    handleCreateOrder } = useFormOrder()
 
-  const { getAllPart } = usePart();
-
-  const { getAllClients } = useClient();
-
-  const { registerOrder } = useOrder();
-
-  const {
-    user: { id: technicianId },
-  } = useContext(UserContext);
-
-  useEffect(() => {
-    const getServices = async () => {
-      const data = await getAllServices();
-      setServices(data as Service[]);
-    };
-    getServices();
-  }, []);
-
-  useEffect(() => {
-    const getParts = async () => {
-      const data = await getAllPart();
-      setParts(data as Part[]);
-    };
-    getParts();
-  }, []);
-
-  useEffect(() => {
-    const getClients = async () => {
-      const data = await getAllClients();
-      setClients(data as Client[]);
-      console.log(clients);
-      
-    };
-    getClients();
-  }, []);
-
-  const {
+const {
     formState: { errors },
     handleSubmit,
   } = methods;
-
-  const handleCreateOrder = (data: OrderType) => {
-    const selectedService = services?.find(
-      (service) => service.id === selectedServiceId
-    );
-    const selectedPart = parts?.find((part) => part.id === selectedPartId);
-    const payLoad: OrderPayload = {
-      ...data,
-      services: [selectedService as Service],
-      parts: [selectedPart as Part],
-      technicianId: String(technicianId),
-      clientId: String(clientId),
-    };
-    registerOrder(payLoad);
-  };
 
   return (
     <div>
