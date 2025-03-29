@@ -8,6 +8,12 @@ import UserContext from "@/context/userContext";
 import { useContext, useState } from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
+type PaginatedResponse = {
+  clients: Client[];
+  totalPages: number;
+  page: number;
+};
+
 const useClient = () => {
   const navigate = useNavigate();
   const notify = useNotify();
@@ -47,7 +53,7 @@ const useClient = () => {
     pageParam,
   }: {
     pageParam: number;
-  }): Promise<{ clients: Client[]; totalPages: number } | undefined> => {
+  }): Promise<PaginatedResponse | undefined> => {
     const urlClient = `${BASE_URL}/client?page=${pageParam}&pageSize=${10}`;
 
     try {
@@ -71,16 +77,15 @@ const useClient = () => {
   } = useInfiniteQuery({
     queryKey: ["getAllClients"],
     queryFn: getAllClients,
-    initialPageParam: 0,
-    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage?.totalPages === lastPage?.page) return;
+      return Number(lastPage?.page) + 1;
+    },
   });
 
-  const clients = pagenatedClients?.pages.map((grup) => {
-    console.log(grup);
-    const clientPage = grup?.clients.map((page) => page);
-    console.log(clientPage);
-
-    return [...clientPage];
+  const clients = pagenatedClients?.pages.flatMap((page) => {
+    return page?.clients;
   });
 
   const getClientById = async (id: number) => {
@@ -102,6 +107,7 @@ const useClient = () => {
     client,
     clients,
     fetchNextPage,
+    hasNextPage,
   };
 };
 
