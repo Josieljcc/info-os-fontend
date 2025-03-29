@@ -8,8 +8,6 @@ import UseService from "./useService";
 import { OrderType } from "@/schemas/order";
 
 const useFormOrder = () => {
-
-
   const [services, setServices] = useState<Service[]>([]);
   const [parts, setParts] = useState<Part[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
@@ -50,11 +48,9 @@ const useFormOrder = () => {
       const data = await getAllClients();
       setClients(data as Client[]);
       console.log(clients);
-      
     };
     getClients();
   }, []);
-
 
   const handleCreateOrder = (data: OrderType) => {
     const selectedService = services?.find(
@@ -71,7 +67,6 @@ const useFormOrder = () => {
     registerOrder(payLoad);
   };
 
-
   return {
     clients,
     parts,
@@ -80,7 +75,7 @@ const useFormOrder = () => {
     setClientId,
     setSelectedServiceId,
     setSelectedPartId,
-  }
-}
+  };
+};
 
-export default useFormOrder
+export default useFormOrder;
