@@ -8,7 +8,7 @@ import UserContext from "@/context/userContext";
 import { useContext, useState } from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-type PaginatedResponse = {
+type ClientPaginatedResponse = {
   clients: Client[];
   totalPages: number;
   page: number;
@@ -53,7 +53,7 @@ const useClient = () => {
     pageParam,
   }: {
     pageParam: number;
-  }): Promise<PaginatedResponse | undefined> => {
+  }): Promise<ClientPaginatedResponse | undefined> => {
     const urlClient = `${BASE_URL}/client?page=${pageParam}&pageSize=${10}`;
 
     try {
