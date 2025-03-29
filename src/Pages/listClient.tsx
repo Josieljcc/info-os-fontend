@@ -13,8 +13,6 @@ const ListClient = () => {
     return <Spinner />;
   }
 
-  console.log(clients);
-
   return (
     <div className="h-screen bg-main-bg bg-cover overflow-hidden bg-center flex flex-col justify-center pt-24 px-8 pb-5 md:items-center">
       <h2 className="text-center pb-6 text-4xl font-bold text-white">
