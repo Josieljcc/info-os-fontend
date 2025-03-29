@@ -22,6 +22,9 @@ const Home = () => {
       <Link className="text-white" to="/technician">
         Listar Técnicos
       </Link>
+      <Link className="text-white" to="/clients">
+        Listar Clientes
+      </Link>
     </div>
   );
 };
