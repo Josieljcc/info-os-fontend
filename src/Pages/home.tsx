@@ -6,7 +6,6 @@ import DrawerService from "@/components/drawerService/drawerService";
 import { Link } from "react-router-dom";
 import useAuthentication from "@/hook/useAuthentication";
 
-
 const Home = () => {
   useAuthentication();
 
@@ -22,6 +21,9 @@ const Home = () => {
       </Link>
       <Link className="text-white" to="/technician">
         Listar Técnicos
+      </Link>
+      <Link className="text-white" to="/clients">
+        Listar Clientes
       </Link>
     </div>
   );

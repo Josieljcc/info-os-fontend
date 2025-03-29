@@ -5,6 +5,7 @@ import Login from "../Pages/login";
 import Home from "@/Pages/home";
 import Order from "@/Pages/order";
 import ListTechnician from "@/Pages/listTechnician";
+import ListClient from "@/Pages/listClient";
 
 const router = createBrowserRouter([
   {
@@ -24,13 +25,21 @@ const router = createBrowserRouter([
     element: <RegisterTechnician />,
   },
   {
+    path: "/technician",
+    element: <ListTechnician />,
+  },
+  {
+    path: "/client",
+    element: <ListClient />,
+  },
+  {
     path: "/order",
     element: <Order />,
   },
   {
-    path: "/technician",    
-    element: <ListTechnician/>,
-  }
+    path: "/technician",
+    element: <ListTechnician />,
+  },
 ]);
 
 export default router;
