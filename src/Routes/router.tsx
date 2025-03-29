@@ -3,6 +3,7 @@ import RegisterTechnician from "../Pages/registerTechnician";
 import Login from "../Pages/login";
 
 import Home from "@/Pages/home";
+import Order from "@/Pages/order";
 import ListTechnician from "@/Pages/listTechnician";
 import ListClient from "@/Pages/listClient";
 
@@ -30,6 +31,14 @@ const router = createBrowserRouter([
   {
     path: "/client",
     element: <ListClient />,
+  },
+  {
+    path: "/order",
+    element: <Order />,
+  },
+  {
+    path: "/technician",
+    element: <ListTechnician />,
   },
 ]);
 

@@ -59,7 +59,8 @@ const useClient = () => {
     try {
       const response = await axios.get(urlClient, header);
       setIsLoading(false);
-      return response.data;
+      const data = response.data.clients;
+      return data;
     } catch (error) {
       const err = error as AxiosError;
       notify(

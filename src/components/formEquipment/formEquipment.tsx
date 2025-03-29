@@ -3,7 +3,7 @@ import Input from "../input/input";
 import equipmentSchema, { EquipmentType } from "@/schemas/equipment";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import InputSelect from "../clientSelect/clientSelect";
+import InputSelect, { SelectType } from "../inputSelect/inputSelect";
 import useClient from "@/hook/useClient";
 import { useEffect, useState } from "react";
 import { Client } from "@/types";
@@ -14,7 +14,7 @@ import useEquipment from "@/hook/useEquipment";
 const FormEquipment = () => {
   const [clients, setClients] = useState<Client[]>([]);
 
-  const [clientID, setClientID] = useState<number>(0);
+  const [clientID, setClientID] = useState<number>();
 
   const { registerEquipment } = useEquipment();
 
@@ -39,7 +39,7 @@ const FormEquipment = () => {
   } = methods;
 
   const handleCreateEquipment = (data: EquipmentType) => {
-    registerEquipment(data, clientID);
+    registerEquipment(data, clientID as number);
   };
   return (
     <div className="h-full flex flex-col gap-4 font-medium  w-3/4 md:w-1/2">
@@ -82,8 +82,8 @@ const FormEquipment = () => {
       ) : (
         <InputSelect
           placeholder="Selecione Cliente"
-          clients={clients}
-          setClientID={setClientID}
+          list={clients as SelectType[]}
+          setValue={setClientID}
         />
       )}
 

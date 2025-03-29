@@ -26,6 +26,14 @@ const FormService = () => {
     <div className="h-full flex flex-col gap-4 font-medium  w-3/4 md:w-1/2">
       <FormProvider {...methods}>
         <Input
+          formName="name"
+          placeholder="Nome"
+          className="py-8 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
+        />
+        {errors.name && (
+          <p className="text-red-500 text-sm">{errors.name.message}</p>
+        )}
+        <Input
           formName="description"
           placeholder="Descrição"
           className="py-8 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
