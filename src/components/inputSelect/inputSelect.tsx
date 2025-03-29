@@ -6,37 +6,37 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Client } from "@/types";
 
-type ClientSelectProps = {
-  setClientID: React.Dispatch<React.SetStateAction<number>>;
+type SelectProps = {
+  setValue: React.Dispatch<React.SetStateAction<number | undefined>>;
   placeholder: string;
-  clients: Client[];
+  list?: SelectType[];
   className?: string;
 };
 
-const ClientSelect = ({
-  placeholder,
-  clients,
-  setClientID,
-}: ClientSelectProps) => {
+export type SelectType = {
+  id: number;
+  name: string;
+};
+
+const InputSelect = ({ placeholder, setValue, list = [] }: SelectProps) => {
   return (
     <div>
-      <Select onValueChange={(value) => setClientID(Number(value))}>
+      <Select onValueChange={(value) => setValue(Number(value))}>
         <SelectTrigger className="py-8 px-8 text-xl text-[#D4D4D8] bg-[#52525B] border-2 border-transparent hover:border-blue-500 focus:border-blue-500 focus:outline-none">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent className="bg-[#131314f4] text-white border-none">
           <SelectGroup>
-            {clients?.map((client) => (
+            {list?.map((item) => 
               <SelectItem
                 className="hover:bg-[#29292bf4] py-2"
-                key={client.id}
-                value={String(client.id)}
+                key={item?.id}
+                value={String(item?.id)}
               >
-                {client.name}
+                {item?.name}
               </SelectItem>
-            ))}
+            )}
           </SelectGroup>
         </SelectContent>
       </Select>
@@ -44,4 +44,4 @@ const ClientSelect = ({
   );
 };
 
-export default ClientSelect;
+export default InputSelect;
