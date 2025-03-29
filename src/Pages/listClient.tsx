@@ -4,37 +4,14 @@ import Card from "@/components/Card/Card";
 import useAuthentication from "@/hook/useAuthentication";
 import useClient from "@/hook/useClient";
 import { Client } from "@/types";
-import { useEffect, useState } from "react";
 
 const ListClient = () => {
-  // const [clients, setClients] = useState<Client[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const { getAllClients, isLoading, client, clients, fetchNextPage } =
-    useClient();
-
-  console.log(clients);
-
+  const { isLoading, clients, fetchNextPage } = useClient();
   useAuthentication();
-
-  // useEffect(() => {
-  //   const getClients = async () => {
-  //     const pageSize = 5;
-  //     const response = await getAllClients(currentPage, pageSize);
-
-  //     if (response) {
-  //       setClients(response.clients);
-  //       setTotalPages(response.totalPages);
-  //     }
-  //   };
-  //   getClients();
-  // }, [currentPage]);
 
   if (isLoading) {
     return <Spinner />;
   }
-
-  console.log(clients);
 
   return (
     <div className="h-screen bg-main-bg bg-cover overflow-hidden bg-center flex flex-col justify-center pt-24 px-8 pb-5 md:items-center">
@@ -48,30 +25,16 @@ const ListClient = () => {
         </div>
       ) : (
         <>
-          <div className="flex flex-col gap-3 md:flex-row md:gap-5">
+          <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-scroll">
             {clients?.map((client) => (
               <div>
-                <Card key={client.id} item={client} />
+                <Card key={client?.id} item={client as Client} />
               </div>
             ))}
           </div>
           <div className="flex justify-center mt-6 gap-4">
             <button
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-              className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50"
-            >
-              Anterior
-            </button>
-            <span className="text-white flex justify-center items-center">
-              Página {currentPage} de {totalPages}
-            </span>
-            <button
-              onClick={() =>
-                // setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                fetchNextPage()
-              }
-              // disabled={currentPage === totalPages}
+              onClick={() => fetchNextPage()}
               className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50"
             >
               Próximo
