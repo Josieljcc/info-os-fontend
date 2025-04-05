@@ -1,7 +1,7 @@
 import UserContext from "@/context/userContext";
 import { Service, Part, Client } from "@/types";
 import { useState, useContext, useEffect } from "react";
-import useClient from "./useClient";
+import useClient from "./useClient/useClient";
 import useOrder, { OrderPayload } from "./useOrder";
 import usePart from "./usePart";
 import UseService from "./useService";
