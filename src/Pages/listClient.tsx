@@ -45,38 +45,42 @@ const ListClient = () => {
       </h2>
 
       <div className="flex flex-col md:flex-row gap-4 items-center mb-6">
-        <select
-          value={searchType}
-          onChange={(e) =>
-            setSearchType(e.target.value as "name" | "email" | "phone")
-          }
-          className="px-4 py-2 rounded-md"
-        >
-          <option value="name">Nome</option>
-          <option value="email">Email</option>
-          <option value="phone">Telefone</option>
-        </select>
-        <input
-          type={searchType === "phone" ? "number" : "text"}
-          placeholder={`Buscar por ${searchType}`}
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          className="px-4 py-2 rounded-md"
-        />
-        <button
-          onClick={handleSearch}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          Buscar
-        </button>
-        {filteredClients && (
-          <button
-            onClick={handleClearSearch}
-            className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+        <div className="flex gap-2">
+          <select
+            value={searchType}
+            onChange={(e) =>
+              setSearchType(e.target.value as "name" | "email" | "phone")
+            }
+            className="px-4 py-2 rounded-md"
           >
-            Limpar Busca
-          </button>
-        )}
+            <option value="name">Nome</option>
+            <option value="email">Email</option>
+            <option value="phone">Telefone</option>
+          </select>
+          <input
+            type={searchType === "phone" ? "number" : "text"}
+            placeholder={`Buscar por ${searchType}`}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            className="px-4 py-2 rounded-md"
+          />
+        </div>
+        <div className="flex gap-2">
+          <ButtonPrimary
+            onClick={handleSearch}
+            className="text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Buscar
+          </ButtonPrimary>
+          {filteredClients && (
+            <ButtonPrimary
+              onClick={handleClearSearch}
+              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+            >
+              Limpar Busca
+            </ButtonPrimary>
+          )}
+        </div>
       </div>
 
       {displayClients?.length === 0 ? (
@@ -88,7 +92,7 @@ const ListClient = () => {
         </div>
       ) : (
         <>
-          <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-scroll md:overflow-hidden max-h-[60vh]">
+          <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-auto max-h-[60vh]">
             {displayClients?.map((client) => (
               <Card key={client?.id} item={client as Client} />
             ))}
@@ -96,12 +100,12 @@ const ListClient = () => {
 
           {!filteredClients && (
             <div className="flex justify-center mt-6 gap-4">
-              <button
+              <ButtonPrimary
                 onClick={() => fetchNextPage()}
                 className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50"
               >
                 Próximo
-              </button>
+              </ButtonPrimary>
             </div>
           )}
         </>
