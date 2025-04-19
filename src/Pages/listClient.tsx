@@ -4,6 +4,7 @@ import Card from "@/components/Card/Card";
 import useAuthentication from "@/hook/useAuthentication";
 import useClient from "@/hook/useClient";
 import { Client } from "@/types";
+import { Link } from "react-router-dom";
 
 const ListClient = () => {
   const { isLoading, clients, fetchNextPage } = useClient();
@@ -27,7 +28,9 @@ const ListClient = () => {
         <>
           <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-scroll">
             {clients?.map((client) => (
-              <Card key={client?.id} item={client as Client} />
+              <Link to={`/client/${client?.id}`}>
+                <Card key={client?.id} item={client as Client} />
+              </Link>
             ))}
           </div>
           <div className="flex justify-center mt-6 gap-4">
