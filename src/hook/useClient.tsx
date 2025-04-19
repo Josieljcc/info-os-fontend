@@ -6,7 +6,12 @@ import { useNavigate } from "react-router-dom";
 import useNotify from "./useNotify";
 import UserContext from "@/context/userContext";
 import { useContext, useState } from "react";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { editingClientType } from "@/schemas/editing";
 
 type ClientPaginatedResponse = {
   clients: Client[];
@@ -17,6 +22,8 @@ type ClientPaginatedResponse = {
 const useClient = () => {
   const navigate = useNavigate();
   const notify = useNotify();
+  const queryClient = useQueryClient();
+
   const [isLoading, setIsLoading] = useState(true);
 
   const {
@@ -48,6 +55,36 @@ const useClient = () => {
       );
     }
   };
+
+  const registerEditedClient = (id: string) => {
+    const urlEditClient = `${BASE_URL}/client/${id}`;
+  
+    const mutation = useMutation({
+      mutationFn: (formData: editingClientType) => {
+        const payload = formData;
+        return axios.put(urlEditClient, payload, header);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["getClient"] });
+        notify(
+          "Cliente Editado com Sucesso!",
+          notifyPositionMap.topRight,
+          notifyType.success
+        );
+      },
+      onError: (error) => {
+        const err = error as AxiosError;
+  
+        notify(
+          err.message as string,
+          notifyPositionMap.topRight,
+          notifyType.error
+        );
+      },
+    });
+    return mutation
+  };
+
 
   const getAllClients = async ({
     pageParam,
@@ -88,26 +125,21 @@ const useClient = () => {
     return page?.clients;
   });
 
-  const getClientById = async (id: number) => {
+  const getClientById = async (id: string) => {
     const urlClientById = `${BASE_URL}/client/${id}`;
-
     const response = await axios.get(urlClientById, header);
     return response.data;
   };
-
-  const { data: client } = useQuery({
-    queryKey: ["getClient"],
-    queryFn: () => getClientById(1),
-  });
 
   return {
     registerClient,
     getAllClients,
     isLoading,
-    client,
     clients,
     fetchNextPage,
     hasNextPage,
+    getClientById,
+    registerEditedClient,
   };
 };
 
