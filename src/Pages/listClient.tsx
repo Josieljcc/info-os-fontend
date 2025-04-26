@@ -28,8 +28,8 @@ const ListClient = () => {
         <>
           <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-scroll">
             {clients?.map((client) => (
-              <Link to={`/client/${client?.id}`}>
-                <Card key={client?.id} item={client as Client} />
+              <Link key={client?.id} to={`/client/${client?.id}`}>
+                <Card item={client as Client} />
               </Link>
             ))}
           </div>
