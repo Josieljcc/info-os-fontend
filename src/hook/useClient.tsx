@@ -2,7 +2,7 @@ import { BASE_URL } from "@/constants";
 import { registerClientType } from "@/schemas/registerClient";
 import { Client, notifyPositionMap, notifyType } from "@/types";
 import axios, { AxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useNotify from "./useNotify";
 import UserContext from "@/context/userContext";
 import { useContext, useState } from "react";
@@ -23,6 +23,7 @@ const useClient = () => {
   const navigate = useNavigate();
   const notify = useNotify();
   const queryClient = useQueryClient();
+  const { id } = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -56,35 +57,31 @@ const useClient = () => {
     }
   };
 
-  const registerEditedClient = (id: string) => {
-    const urlEditClient = `${BASE_URL}/client/${id}`;
-  
-    const mutation = useMutation({
-      mutationFn: (formData: editingClientType) => {
-        const payload = formData;
-        return axios.put(urlEditClient, payload, header);
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["getClient"] });
-        notify(
-          "Cliente Editado com Sucesso!",
-          notifyPositionMap.topRight,
-          notifyType.success
-        );
-      },
-      onError: (error) => {
-        const err = error as AxiosError;
-  
-        notify(
-          err.message as string,
-          notifyPositionMap.topRight,
-          notifyType.error
-        );
-      },
-    });
-    return mutation
-  };
+  const urlEditClient = `${BASE_URL}/client/${id}`;
 
+  const editClientMutation = useMutation({
+    mutationFn: (formData: editingClientType) => {
+      const payload = formData;
+      return axios.put(urlEditClient, payload, header);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["getClient"] });
+      notify(
+        "Cliente Editado com Sucesso!",
+        notifyPositionMap.topRight,
+        notifyType.success
+      );
+    },
+    onError: (error) => {
+      const err = error as AxiosError;
+
+      notify(
+        err.message as string,
+        notifyPositionMap.topRight,
+        notifyType.error
+      );
+    },
+  });
 
   const getAllClients = async ({
     pageParam,
@@ -139,7 +136,7 @@ const useClient = () => {
     fetchNextPage,
     hasNextPage,
     getClientById,
-    registerEditedClient,
+    editClientMutation,
   };
 };
 

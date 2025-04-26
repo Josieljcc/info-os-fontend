@@ -12,10 +12,10 @@ import { RxAvatar } from "react-icons/rx";
 
 const DetailClient = () => {
   const { id } = useParams();
-  const { getClientById, registerEditedClient } = useClient();
+  const { getClientById, editClientMutation } = useClient();
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const mutation = registerEditedClient(id as string);
+  
 
   const methods = useForm<editingClientType>({
     resolver: zodResolver(editingClientSchema),
@@ -33,7 +33,7 @@ const DetailClient = () => {
   });
 
   const handleEditClient = (data: editingClientType) => {
-    mutation.mutate(data);
+    editClientMutation.mutate(data);
     setIsEditing(!isEditing);
   };
 
