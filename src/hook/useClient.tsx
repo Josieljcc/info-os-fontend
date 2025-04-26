@@ -122,7 +122,7 @@ const useClient = () => {
     return page?.clients;
   });
 
-  const getClientById = async (id: string) => {
+  const getClientById = async (id: string):Promise<Client> => {
     const urlClientById = `${BASE_URL}/client/${id}`;
     const response = await axios.get(urlClientById, header);
     return response.data;
