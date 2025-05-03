@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from "react";
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import Spinner from "@/components/spinner/spinner";
 import Card from "@/components/Card/Card";
+import Spinner from "@/components/spinner/spinner";
 import useAuthentication from "@/hook/useAuthentication";
-import { Client } from "@/types";
-import useClient, { useClientSearch } from "@/hook/useClient/useClient";
 import { SearchField } from "@/hook/useClient/types";
+import useClient, { useClientSearch } from "@/hook/useClient/useClient";
+import { Client } from "@/types";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ListClient = () => {
   useAuthentication();
@@ -121,7 +122,9 @@ const ListClient = () => {
             {displayClients
               ?.filter((client): client is Client => client !== undefined)
               .map((client) => (
-                <Card key={client.id} item={client} />
+                <Link key={client?.id} to={`/client/${client?.id}`}>
+                  <Card item={client as Client} />
+                </Link>
               ))}
           </div>
 

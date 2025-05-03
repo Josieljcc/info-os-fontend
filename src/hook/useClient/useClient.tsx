@@ -1,12 +1,18 @@
 import { BASE_URL } from "@/constants";
+import UserContext from "@/context/userContext";
+import { editingClientType } from "@/schemas/editing";
 import { registerClientType } from "@/schemas/registerClient";
 import { Client, notifyPositionMap, notifyType } from "@/types";
+import {
+  useQueryClient,
+  useMutation,
+  useInfiniteQuery,
+  useQuery,
+} from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import useNotify from "../useNotify";
-import UserContext from "@/context/userContext";
-import { useContext } from "react";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { SearchTerm } from "./types";
 
 type ClientPaginatedResponse = {
@@ -20,6 +26,8 @@ const PAGESIZE = 10;
 const useClient = () => {
   const navigate = useNavigate();
   const notify = useNotify();
+  const queryClient = useQueryClient();
+  const { id } = useParams();
 
   const {
     user: { token },
@@ -50,6 +58,32 @@ const useClient = () => {
       );
     }
   };
+
+  const urlEditClient = `${BASE_URL}/client/${id}`;
+
+  const editClientMutation = useMutation({
+    mutationFn: (formData: editingClientType) => {
+      const payload = formData;
+      return axios.put(urlEditClient, payload, header);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["getClient"] });
+      notify(
+        "Cliente Editado com Sucesso!",
+        notifyPositionMap.topRight,
+        notifyType.success
+      );
+    },
+    onError: (error) => {
+      const err = error as AxiosError;
+
+      notify(
+        err.message as string,
+        notifyPositionMap.topRight,
+        notifyType.error
+      );
+    },
+  });
 
   const getAllClients = async ({
     pageParam,
@@ -90,12 +124,20 @@ const useClient = () => {
     return page?.clients;
   });
 
+  const getClientById = async (id: string): Promise<Client> => {
+    const urlClientById = `${BASE_URL}/client/${id}`;
+    const response = await axios.get(urlClientById, header);
+    return response.data;
+  };
+
   return {
     registerClient,
     isLoading,
     clients,
     fetchNextPage,
     hasNextPage,
+    getClientById,
+    editClientMutation,
   };
 };
 
