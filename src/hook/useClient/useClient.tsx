@@ -7,13 +7,11 @@ import {
   useQueryClient,
   useMutation,
   useInfiniteQuery,
-  useQuery,
 } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useNotify from "../useNotify";
-import { SearchTerm } from "./types";
 
 type ClientPaginatedResponse = {
   clients: Client[];
@@ -139,40 +137,6 @@ const useClient = () => {
     getClientById,
     editClientMutation,
   };
-};
-
-export const useClientSearch = (searchTerm: SearchTerm, enabled: boolean) => {
-  const {
-    user: { token },
-  } = useContext(UserContext);
-
-  const notify = useNotify();
-  const header = { headers: { Authorization: `Bearer ${token}` } };
-
-  const getClientBySearch = async (): Promise<Client[]> => {
-    const params = new URLSearchParams();
-
-    if (searchTerm.name) params.append("name", searchTerm.name);
-    if (searchTerm.email) params.append("email", searchTerm.email);
-    if (searchTerm.phone) params.append("phone", searchTerm.phone.toString());
-
-    const urlClient = `${BASE_URL}/client?${params.toString()}`;
-
-    try {
-      const response = await axios.get(urlClient, header);
-      return response.data.clients;
-    } catch (error) {
-      const err = error as AxiosError;
-      notify(err.message, notifyPositionMap.topRight, notifyType.error);
-      return [];
-    }
-  };
-
-  return useQuery({
-    queryKey: ["getClientBySearch", searchTerm],
-    queryFn: getClientBySearch,
-    enabled,
-  });
 };
 
 export default useClient;
