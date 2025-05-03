@@ -98,15 +98,13 @@ const ListClient = () => {
           </div>
         </div>
       ) : (
-        <>
-          <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-auto max-h-[60vh]">
-            {displayClients?.map((client) => (
-              <Link key={client?.id} to={`/client/${client?.id}`}>
-                <Card item={client as Client} />
-              </Link>
-            ))}
-          </div>
-        </>
+        <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-auto max-h-[60vh]">
+          {displayClients?.map((client) => (
+            <Link key={client?.id} to={`/client/${client?.id}`}>
+              <Card item={client as Client} />
+            </Link>
+          ))}
+        </div>
       )}
     </div>
   );
