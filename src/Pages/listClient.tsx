@@ -1,42 +1,69 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
 import Spinner from "@/components/spinner/spinner";
 import Card from "@/components/Card/Card";
 import useAuthentication from "@/hook/useAuthentication";
 import { Client } from "@/types";
-import useClient from "@/hook/useClient/useClient";
+import useClient, { useClientSearch } from "@/hook/useClient/useClient";
 import { SearchField } from "@/hook/useClient/types";
 
 const ListClient = () => {
-  const { isLoading, clients, fetchNextPage, getClientBySearch } = useClient();
-
   useAuthentication();
 
   const [searchType, setSearchType] = useState<SearchField>("name");
   const [searchValue, setSearchValue] = useState("");
-  const [filteredClients, setFilteredClients] = useState<Client[] | null>(null);
-  const [isSearching, setIsSearching] = useState(false);
+  const [searchActive, setSearchActive] = useState(false);
 
-  const handleSearch = async () => {
+  const { clients, isLoading, fetchNextPage, hasNextPage } = useClient();
+
+  const searchParams = { [searchType]: searchValue.trim() };
+  const isSearchEnabled = searchActive && !!searchValue.trim();
+
+  const { data: searchResults, isLoading: isSearching } = useClientSearch(
+    searchParams,
+    isSearchEnabled
+  );
+
+  const displayClients = searchActive ? searchResults : clients;
+
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (searchActive || !hasNextPage) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          fetchNextPage();
+        }
+      },
+      {
+        threshold: 1.0,
+      }
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observer.unobserve(observerRef.current);
+      }
+    };
+  }, [searchActive, hasNextPage, fetchNextPage]);
+
+  const handleSearch = () => {
     if (!searchValue.trim()) return;
-    setIsSearching(true);
-
-    const searchParams: any = { [searchType]: searchValue };
-    const results = await getClientBySearch(searchParams);
-    setFilteredClients(results ?? []);
-    setIsSearching(false);
+    setSearchActive(true);
   };
 
   const handleClearSearch = () => {
     setSearchValue("");
-    setFilteredClients(null);
+    setSearchActive(false);
   };
 
-  if (isLoading || isSearching) {
-    return <Spinner />;
-  }
-
-  const displayClients = filteredClients ?? clients;
+  if (isLoading || isSearching) return <Spinner />;
 
   return (
     <div className="min-h-screen bg-main-bg bg-cover overflow-hidden bg-center flex flex-col justify-start pt-24 px-8 pb-5 md:items-center">
@@ -48,9 +75,7 @@ const ListClient = () => {
         <div className="flex gap-2">
           <select
             value={searchType}
-            onChange={(e) =>
-              setSearchType(e.target.value as "name" | "email" | "phone")
-            }
+            onChange={(e) => setSearchType(e.target.value as SearchField)}
             className="px-4 py-2 rounded-md"
           >
             <option value="name">Nome</option>
@@ -72,7 +97,7 @@ const ListClient = () => {
           >
             Buscar
           </ButtonPrimary>
-          {filteredClients && (
+          {searchActive && (
             <ButtonPrimary
               onClick={handleClearSearch}
               className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
@@ -93,20 +118,15 @@ const ListClient = () => {
       ) : (
         <>
           <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-auto max-h-[60vh]">
-            {displayClients?.map((client) => (
-              <Card key={client?.id} item={client as Client} />
-            ))}
+            {displayClients
+              ?.filter((client): client is Client => client !== undefined)
+              .map((client) => (
+                <Card key={client.id} item={client} />
+              ))}
           </div>
 
-          {!filteredClients && (
-            <div className="flex justify-center mt-6 gap-4">
-              <ButtonPrimary
-                onClick={() => fetchNextPage()}
-                className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50"
-              >
-                Próximo
-              </ButtonPrimary>
-            </div>
+          {!searchActive && hasNextPage && (
+            <div ref={observerRef} className="mt-4 h-8 w-full" />
           )}
         </>
       )}
