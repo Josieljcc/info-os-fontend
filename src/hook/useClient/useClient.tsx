@@ -10,7 +10,7 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useNotify from "../useNotify";
 import { SearchTerm } from "./types";
