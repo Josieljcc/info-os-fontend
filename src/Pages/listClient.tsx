@@ -5,7 +5,7 @@ import useAuthentication from "@/hook/useAuthentication";
 import { SearchField } from "@/hook/useClient/types";
 import useClient, { useClientSearch } from "@/hook/useClient/useClient";
 import { Client } from "@/types";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const ListClient = () => {
@@ -15,7 +15,7 @@ const ListClient = () => {
   const [searchValue, setSearchValue] = useState("");
   const [searchActive, setSearchActive] = useState(false);
 
-  const { clients, isLoading, fetchNextPage, hasNextPage } = useClient();
+  const { clients, isLoading } = useClient();
 
   const searchParams = { [searchType]: searchValue.trim() };
   const isSearchEnabled = searchActive && !!searchValue.trim();
@@ -26,33 +26,6 @@ const ListClient = () => {
   );
 
   const displayClients = searchActive ? searchResults : clients;
-
-  const observerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (searchActive || !hasNextPage) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          fetchNextPage();
-        }
-      },
-      {
-        threshold: 1.0,
-      }
-    );
-
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
-
-    return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
-      }
-    };
-  }, [searchActive, hasNextPage, fetchNextPage]);
 
   const handleSearch = () => {
     if (!searchValue.trim()) return;
@@ -127,10 +100,6 @@ const ListClient = () => {
                 </Link>
               ))}
           </div>
-
-          {!searchActive && hasNextPage && (
-            <div ref={observerRef} className="mt-4 h-8 w-full" />
-          )}
         </>
       )}
     </div>
