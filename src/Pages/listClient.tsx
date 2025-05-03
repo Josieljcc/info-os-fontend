@@ -28,7 +28,9 @@ const ListClient = () => {
   const displayClients = searchActive ? searchResults : clients;
 
   const handleSearch = () => {
-    if (!searchValue.trim()) return;
+    if (!searchValue.trim()) {
+      return;
+    }
     setSearchActive(true);
   };
 
@@ -37,7 +39,9 @@ const ListClient = () => {
     setSearchActive(false);
   };
 
-  if (isLoading || isSearching) return <Spinner />;
+  if (isLoading || isSearching) {
+    return <Spinner />;
+  }
 
   return (
     <div className="min-h-screen bg-main-bg bg-cover overflow-hidden bg-center flex flex-col justify-start pt-24 px-8 pb-5 md:items-center">
@@ -49,7 +53,9 @@ const ListClient = () => {
         <div className="flex gap-2">
           <select
             value={searchType}
-            onChange={(e) => setSearchType(e.target.value as SearchField)}
+            onChange={(event) =>
+              setSearchType(event.target.value as SearchField)
+            }
             className="px-4 py-2 rounded-md"
           >
             <option value="name">Nome</option>
@@ -60,7 +66,7 @@ const ListClient = () => {
             type={searchType === "phone" ? "number" : "text"}
             placeholder={`Buscar por ${searchType}`}
             value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={(event) => setSearchValue(event.target.value)}
             className="px-4 py-2 rounded-md"
           />
         </div>
@@ -82,23 +88,22 @@ const ListClient = () => {
         </div>
       </div>
 
-      {displayClients?.length === 0 ? (
+      {!displayClients?.length ? (
         <div className="text-white text-center">
           <p>Nenhum cliente encontrado</p>
           <div className="mt-4">
+            {/* TODO - Criar função de Criar Cliente */}
             <ButtonPrimary>Criar Cliente</ButtonPrimary>
           </div>
         </div>
       ) : (
         <>
           <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-auto max-h-[60vh]">
-            {displayClients
-              ?.filter((client): client is Client => client !== undefined)
-              .map((client) => (
-                <Link key={client?.id} to={`/client/${client?.id}`}>
-                  <Card item={client as Client} />
-                </Link>
-              ))}
+            {displayClients?.map((client) => (
+              <Link key={client?.id} to={`/client/${client?.id}`}>
+                <Card item={client as Client} />
+              </Link>
+            ))}
           </div>
         </>
       )}
