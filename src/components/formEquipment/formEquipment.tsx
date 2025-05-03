@@ -4,7 +4,7 @@ import equipmentSchema, { EquipmentType } from "@/schemas/equipment";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import InputSelect, { SelectType } from "../inputSelect/inputSelect";
-import useClient from "@/hook/useClient";
+import useClient from "@/hook/useClient/useClient";
 import { useEffect, useState } from "react";
 import { Client } from "@/types";
 

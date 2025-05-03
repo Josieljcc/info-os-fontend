@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import Input from "../input/input";
-import useClient from "@/hook/useClient";
+import useClient from "@/hook/useClient/useClient";
 
 const FormClient = () => {
   const { registerClient } = useClient();

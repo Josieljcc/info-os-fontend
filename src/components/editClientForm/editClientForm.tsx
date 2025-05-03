@@ -1,20 +1,19 @@
-import { FormProvider, useForm } from "react-hook-form";
-import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import Input from "../input/input";
+import useClient from "@/hook/useClient/useClient";
 import editingClientSchema, { editingClientType } from "@/schemas/editing";
+import { Client } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { Client } from "@/types";
-import useClient from "@/hook/useClient";
+import { useForm, FormProvider } from "react-hook-form";
+import ButtonPrimary from "../buttonPrimary/buttonPrimary";
+import Input from "../input/input";
 
 type EditClientFormProps = {
   client: Client;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-
 const EditClientForm = ({ client, setIsEditing }: EditClientFormProps) => {
-  const {editClientMutation} = useClient()
+  const { editClientMutation } = useClient();
   const methods = useForm<editingClientType>({
     resolver: zodResolver(editingClientSchema),
   });

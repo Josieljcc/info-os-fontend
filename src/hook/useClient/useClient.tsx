@@ -1,17 +1,17 @@
 import { BASE_URL } from "@/constants";
+import UserContext from "@/context/userContext";
+import { editingClientType } from "@/schemas/editing";
 import { registerClientType } from "@/schemas/registerClient";
 import { Client, notifyPositionMap, notifyType } from "@/types";
-import axios, { AxiosError } from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import useNotify from "./useNotify";
-import UserContext from "@/context/userContext";
-import { useContext, useState } from "react";
 import {
-  useInfiniteQuery,
-  useMutation,
   useQueryClient,
+  useMutation,
+  useInfiniteQuery,
 } from "@tanstack/react-query";
-import { editingClientType } from "@/schemas/editing";
+import axios, { AxiosError } from "axios";
+import { useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import useNotify from "../useNotify";
 
 type ClientPaginatedResponse = {
   clients: Client[];
@@ -19,13 +19,13 @@ type ClientPaginatedResponse = {
   page: number;
 };
 
+const PAGESIZE = 10;
+
 const useClient = () => {
   const navigate = useNavigate();
   const notify = useNotify();
   const queryClient = useQueryClient();
   const { id } = useParams();
-
-  const [isLoading, setIsLoading] = useState(true);
 
   const {
     user: { token },
@@ -88,11 +88,10 @@ const useClient = () => {
   }: {
     pageParam: number;
   }): Promise<ClientPaginatedResponse | undefined> => {
-    const urlClient = `${BASE_URL}/client?page=${pageParam}&pageSize=${10}`;
+    const urlClient = `${BASE_URL}/client?page=${pageParam}&pageSize=${PAGESIZE}`;
 
     try {
       const response = await axios.get(urlClient, header);
-      setIsLoading(false);
       return response.data;
     } catch (error) {
       const err = error as AxiosError;
@@ -105,9 +104,10 @@ const useClient = () => {
   };
 
   const {
-    data: pagenatedClients,
+    data: paginatedClients,
     fetchNextPage,
     hasNextPage,
+    isLoading,
   } = useInfiniteQuery({
     queryKey: ["getAllClients"],
     queryFn: getAllClients,
@@ -118,11 +118,11 @@ const useClient = () => {
     },
   });
 
-  const clients = pagenatedClients?.pages.flatMap((page) => {
+  const clients = paginatedClients?.pages.flatMap((page) => {
     return page?.clients;
   });
 
-  const getClientById = async (id: string):Promise<Client> => {
+  const getClientById = async (id: string): Promise<Client> => {
     const urlClientById = `${BASE_URL}/client/${id}`;
     const response = await axios.get(urlClientById, header);
     return response.data;
@@ -130,7 +130,6 @@ const useClient = () => {
 
   return {
     registerClient,
-    getAllClients,
     isLoading,
     clients,
     fetchNextPage,
