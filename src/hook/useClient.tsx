@@ -14,6 +14,10 @@ type ClientPaginatedResponse = {
   page: number;
 };
 
+type PageParam = {
+  pageParam: number;
+};
+
 const useClient = () => {
   const navigate = useNavigate();
   const notify = useNotify();
@@ -51,9 +55,7 @@ const useClient = () => {
 
   const getAllClients = async ({
     pageParam,
-  }: {
-    pageParam: number;
-  }): Promise<ClientPaginatedResponse | undefined> => {
+  }: PageParam): Promise<ClientPaginatedResponse | undefined> => {
     const urlClient = `${BASE_URL}/client?page=${pageParam}&pageSize=${10}`;
 
     try {
