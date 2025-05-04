@@ -12,9 +12,9 @@ type CardProps = {
 const Card = ({ item, classname }: CardProps) => {
   return (
     <div
-      className={`flex justify-between text-white rounded-lg shadow-md border border-gray-600 md:flex-col max-w-[42rem] pb-4 pt-4 px-4 bg-[#1c2029] ${classname}`}
+      className={`flex justify-between text-white rounded-lg shadow-md border border-gray-600 flex-col max-w-[42rem] pb-4 pt-4 px-4 bg-[#1c2029] ${classname}`}
     >
-      <div className="flex text-6xl">
+      <div className="flex text-6xl justify-center">
         <RxAvatar />
       </div>
       <div className="py-5">
