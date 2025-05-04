@@ -7,21 +7,16 @@ const useResizeObserver = () => {
   const [rect, setRect] = useState<ObserverRect>();
 
   useEffect(() => {
-      if (!ref.current) {
-        return;
-      }
-  
-      const observer = new ResizeObserver(() => {
-        ref.current;
-        const boundingRect = ref.current.getBoundingClientRect();
-  
-        setRect(boundingRect);
-      });
-      ref.current;
-      observer.observe(ref.current);
-  
-      return () => observer.disconnect();
-    }, [ref]);
+    if (!ref.current) {
+      return;
+    }
+    const observer = new ResizeObserver(() => {
+      const boundingRect = ref.current.getBoundingClientRect();
+      setRect(boundingRect);
+    });
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [ref]);
 
   return { ref, rect };
 };
