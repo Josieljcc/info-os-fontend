@@ -1,38 +1,39 @@
 import { Client, Technician } from "@/types";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import { GrFormEdit } from "react-icons/gr";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import { RxAvatar } from "react-icons/rx";
+import { FiEdit2 } from "react-icons/fi";
 
 type CardProps = {
   item: Technician | Client;
+  classname?: string;
 };
 
-const Card = ({ item }: CardProps) => {
+const Card = ({ item, classname }: CardProps) => {
   return (
-    <div className="flex justify-between bg-[#3F3F46] text-white rounded-lg shadow-md border border-gray-600 md:flex-col md:min-w-32">
-      <div className="hidden md:flex md:justify-center md:items-center md:text-6xl md:mt-2">
+    <div
+      className={`flex justify-between text-white rounded-lg shadow-md border border-gray-600 md:flex-col max-w-[42rem] pb-4 pt-4 px-4 bg-[#1c2029] ${classname}`}
+    >
+      <div className="flex text-6xl">
         <RxAvatar />
       </div>
-      <div className="p-2 md:flex md:gap-3">
+      <div className="py-5">
         <div>
-          <h3 className="text-lg font-semibold w-48 md:w-32 lg:w-40 truncate">
-            {item?.name}
-          </h3>
-          <p className="text-sm md:w-32 lg:w-40 truncate">{item?.email}</p>
-          <p className="text-sm md:w-32 lg:w-40 truncate">{item?.phone}</p>
+          <h3 className="text-lg font-semibold w-full ">{item?.name}</h3>
+          <p className="text-sm w-full">{item?.email}</p>
+          <p className="text-sm w-full">{item?.phone}</p>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center md:flex-row">
+      <div className="flex gap-20">
         <ButtonPrimary
           color="bg-sky-700"
-          className="text-2xl h-1/2 w-24 rounded-t rounded-s-none rounded-r-none md:h-full md:w-full md:rounded-b"
+          className="text-2xl h-full w-full rounded-full"
         >
-          <GrFormEdit />
+          <FiEdit2 />
         </ButtonPrimary>
         <ButtonPrimary
           color="bg-red-500"
-          className="text-2xl h-1/2 w-24 rounded-s-none rounded-t-none  md:h-full md:w-full"
+          className="text-2xl h-full w-full rounded-full"
         >
           <RiDeleteBin7Line />
         </ButtonPrimary>
