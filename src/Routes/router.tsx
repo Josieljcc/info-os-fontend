@@ -7,6 +7,7 @@ import Order from "@/Pages/order";
 import ListTechnician from "@/Pages/listTechnician";
 import ListClient from "@/Pages/listClient";
 import DetailClient from "@/Pages/detailClientPage";
+import ListOs from "@/Pages/listOs";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
     path: "/client/:id",
     element: <DetailClient />,
   },
+  {
+    path: "/os",
+    element: <ListOs/>
+  }
 ]);
 
 export default router;
