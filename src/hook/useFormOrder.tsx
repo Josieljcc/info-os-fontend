@@ -10,7 +10,6 @@ import { OrderType } from "@/schemas/order";
 const useFormOrder = () => {
   const [services, setServices] = useState<Service[]>([]);
   const [parts, setParts] = useState<Part[]>([]);
-  const [clients, setClients] = useState<Client[]>([]);
   const [selectedServiceId, setSelectedServiceId] = useState<number>();
   const [selectedPartId, setSelectedPartId] = useState<number>();
   const [clientId, setClientId] = useState<number>();
@@ -19,7 +18,7 @@ const useFormOrder = () => {
 
   const { getAllPart } = usePart();
 
-  const { getAllClients } = useClient();
+  const { clients } = useClient();
 
   const { registerOrder } = useOrder();
 
@@ -43,15 +42,7 @@ const useFormOrder = () => {
     getParts();
   }, []);
 
-  useEffect(() => {
-    const getClients = async () => {
-      const data = await getAllClients();
-      setClients(data as Client[]);
-      console.log(clients);
-    };
-    getClients();
-  }, []);
-
+  
   const handleCreateOrder = (data: OrderType) => {
     const selectedService = services?.find(
       (service) => service.id === selectedServiceId
