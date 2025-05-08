@@ -51,7 +51,7 @@ export function ClientSearchDropdown() {
                         </>
                         :
                         clients?.map((client) => (
-                            <li
+                            <button
                                 key={client.id}
                                 className="cursor-pointer hover:bg-accent hover:text-accent-foreground p-2 rounded"
                                 onClick={() => {
@@ -68,7 +68,7 @@ export function ClientSearchDropdown() {
                                 }}
                             >
                                 {client.name}
-                            </li>
+                            </button>
                         ))}
                 </ul>
 
