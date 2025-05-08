@@ -21,10 +21,10 @@ const ListClient = () => {
   const searchParams = { [searchType]: searchValue.trim() };
   const isSearchEnabled = searchActive && !!searchValue.trim();
 
-  const { data: searchResults, isLoading: isSearching } = useClientSearch(
-    searchParams,
-    isSearchEnabled
-  );
+  const { data: searchResults, isLoading: isSearching } = useClientSearch({
+    searchTerm: searchParams,
+    enabled: isSearchEnabled,
+  });
 
   const displayClients = searchActive ? searchResults : clients;
 
