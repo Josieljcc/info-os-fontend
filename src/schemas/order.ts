@@ -6,6 +6,7 @@ const orderSchema = z.object({
   date: z.string().min(1, "Data é obrigatória"),
   status: z.string(),
   comment: z.string(),
+  clientId: z.string(),
 });
 
 export default orderSchema;
