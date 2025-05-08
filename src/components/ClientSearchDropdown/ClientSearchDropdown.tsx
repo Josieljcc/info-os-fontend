@@ -58,6 +58,14 @@ export function ClientSearchDropdown() {
                                     handleSelectClient(client);
                                     setSearch(client.name);
                                 }}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(event) => {
+                                    if (event.key === "Enter" || event.key === " ") {
+                                        handleSelectClient(client);
+                                        setSearch(client.name);
+                                    }
+                                }}
                             >
                                 {client.name}
                             </li>
