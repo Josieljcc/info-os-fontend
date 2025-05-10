@@ -1,7 +1,7 @@
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect } from "react";
 import useAuthentication from "./useAuthentication";
-import useTechnician from "./useTechnician";
+
 import {
   FetchNextPageOptions,
   InfiniteData,
