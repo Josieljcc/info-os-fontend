@@ -11,14 +11,28 @@ import Spinner from "@/components/spinner/spinner";
 const ListTechnician = () => {
   useAuthentication();
   const { ref, rect } = useResizeObserver();
-  const { technicians, isLoading } = useTechnician();
+  const {
+    technicians,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useTechnician();
 
-  const rowVirtualizer = useRowVirtualizer(ref, 250, 6);
+  const rowVirtualizer = useRowVirtualizer({
+    estimateSize: 250,
+    fetchNextPage,
+    gap: 6,
+    hasNextPage,
+    isFetchingNextPage,
+    list: technicians,
+    ref,
+  });
 
   const getCardHeight = () => {
     return Number(rect?.width) >= 768 ? "300px" : "200px";
   };
-  
+
   if (isLoading) {
     return <Spinner />;
   }
