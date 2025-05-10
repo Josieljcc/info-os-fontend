@@ -31,7 +31,6 @@ const useRowVirtualizer = ({
   list,
   ref,
 }: useRowVirtualizerProps) => {
-  const {} = useTechnician();
 
   useAuthentication();
 
