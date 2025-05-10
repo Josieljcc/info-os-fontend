@@ -1,66 +1,27 @@
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import Spinner from "@/components/spinner/spinner";
 import Card from "@/components/Card/Card";
 import useAuthentication from "@/hook/useAuthentication";
 import useTechnician from "@/hook/useTechnician";
 import { Technician } from "@/types";
-import { useVirtualizer } from "@tanstack/react-virtual";
-import { useEffect } from "react";
 import useResizeObserver from "@/hook/useResizeObserver";
 import BackPageButton from "@/components/backPageButton/backPageButton";
-
-
+import useRowVirtualizer from "@/hook/useRowVirtualizer";
+import Spinner from "@/components/spinner/spinner";
 
 const ListTechnician = () => {
-  const {
-    technicians,
-    isLoading,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = useTechnician();
   useAuthentication();
-
   const { ref, rect } = useResizeObserver();
+  const { technicians, isLoading } = useTechnician();
 
-  const rowVirtualizer = useVirtualizer({
-    count: hasNextPage ? technicians.length + 1 : technicians.length,
-    getScrollElement: () => ref.current,
-    estimateSize: () => 250,
-    overscan: 10,
-    gap: 6,
-  });
+  const rowVirtualizer = useRowVirtualizer(ref, 250, 6);
 
   const getCardHeight = () => {
     return Number(rect?.width) >= 768 ? "300px" : "200px";
   };
-
-  useEffect(() => {
-    const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
-
-    if (!lastItem) {
-      return;
-    }
-
-    if (
-      lastItem.index >= technicians.length - 1 &&
-      hasNextPage &&
-      !isFetchingNextPage
-    ) {
-      fetchNextPage();
-    }
-  }, [
-    hasNextPage,
-    fetchNextPage,
-    technicians.length,
-    isFetchingNextPage,
-    rowVirtualizer.getVirtualItems(),
-  ]);
-
+  
   if (isLoading) {
     return <Spinner />;
   }
-
   return (
     <div className="h-screen bg-gray-950 flex flex-col p-16 md:p-0 justify-center pt-6 md:pt-10 pb-1 relative">
       <BackPageButton route="/home" />
