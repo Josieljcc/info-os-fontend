@@ -1,12 +1,17 @@
 import { BASE_URL } from "@/constants";
+import UserContext from "@/context/userContext";
+import { editingClientType } from "@/schemas/editing";
 import { registerClientType } from "@/schemas/registerClient";
 import { Client, notifyPositionMap, notifyType } from "@/types";
+import {
+  useQueryClient,
+  useMutation,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
-import useNotify from "./useNotify";
-import UserContext from "@/context/userContext";
-import { useContext, useState } from "react";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import useNotify from "../useNotify";
 
 type ClientPaginatedResponse = {
   clients: Client[];
@@ -21,7 +26,8 @@ type PageParam = {
 const useClient = () => {
   const navigate = useNavigate();
   const notify = useNotify();
-  const [isLoading, setIsLoading] = useState(true);
+  const queryClient = useQueryClient();
+  const { id } = useParams();
 
   const {
     user: { token },
@@ -53,6 +59,32 @@ const useClient = () => {
     }
   };
 
+  const urlEditClient = `${BASE_URL}/client/${id}`;
+
+  const editClientMutation = useMutation({
+    mutationFn: (formData: editingClientType) => {
+      const payload = formData;
+      return axios.put(urlEditClient, payload, header);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["getClient"] });
+      notify(
+        "Cliente Editado com Sucesso!",
+        notifyPositionMap.topRight,
+        notifyType.success
+      );
+    },
+    onError: (error) => {
+      const err = error as AxiosError;
+
+      notify(
+        err.message as string,
+        notifyPositionMap.topRight,
+        notifyType.error
+      );
+    },
+  });
+
   const getAllClients = async ({
     pageParam,
   }: PageParam): Promise<ClientPaginatedResponse | undefined> => {
@@ -60,7 +92,6 @@ const useClient = () => {
 
     try {
       const response = await axios.get(urlClient, header);
-      setIsLoading(false);
       return response.data;
     } catch (error) {
       const err = error as AxiosError;
@@ -73,9 +104,10 @@ const useClient = () => {
   };
 
   const {
-    data: pagenatedClients,
+    data: paginatedClients,
     fetchNextPage,
     hasNextPage,
+    isLoading,
   } = useInfiniteQuery({
     queryKey: ["getAllClients"],
     queryFn: getAllClients,
@@ -86,30 +118,24 @@ const useClient = () => {
     },
   });
 
-  const clients = pagenatedClients?.pages.flatMap((page) => {
+  const clients = paginatedClients?.pages.flatMap((page) => {
     return page?.clients;
   });
 
-  const getClientById = async (id: number) => {
+  const getClientById = async (id: string): Promise<Client> => {
     const urlClientById = `${BASE_URL}/client/${id}`;
-
     const response = await axios.get(urlClientById, header);
     return response.data;
   };
 
-  const { data: client } = useQuery({
-    queryKey: ["getClient"],
-    queryFn: () => getClientById(1),
-  });
-
   return {
     registerClient,
-    getAllClients,
     isLoading,
-    client,
     clients,
     fetchNextPage,
     hasNextPage,
+    getClientById,
+    editClientMutation,
   };
 };
 
