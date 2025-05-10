@@ -6,6 +6,17 @@ import useNotify from "./useNotify";
 import { useNavigate } from "react-router-dom";
 import UserContext from "@/context/userContext";
 import { useContext, useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+
+type TechnicianPaginatedResponse = {
+  technicians: Technician[];
+  totalPages: number;
+  page: number;
+};
+
+type PageParam = {
+  pageParam: number;
+};
 
 const useTechnician = () => {
   const navigate = useNavigate();
@@ -17,21 +28,16 @@ const useTechnician = () => {
   } = useContext(UserContext);
 
   const header = { headers: { Authorization: `Bearer ${token}` } };
-  console.log("token", token);
 
-  const getAllTechnician = async (
-    page: number,
-    pageSize: number
-  ): Promise<{ technician: Technician[]; totalPages: number } | undefined> => {
-    const urlTechnician = `${BASE_URL}/technician?page=${page}&pageSize=${pageSize}`;
+  const getAllTechnician = async ({
+    pageParam,
+  }: PageParam): Promise<TechnicianPaginatedResponse | undefined> => {
+    const urlTechnician = `${BASE_URL}/technician?page=${pageParam}`;
 
     try {
       const response = await axios.get(urlTechnician, header);
       setIsLoading(false);
-      return {
-        technician: response.data.technicians,
-        totalPages: response.data.totalPages,
-      };
+      return response.data;
     } catch (error) {
       const err = error as AxiosError;
       notify(
@@ -41,6 +47,28 @@ const useTechnician = () => {
       );
     }
   };
+
+  const {
+    data: paginatedTechnicians,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["getAllTechnicians"],
+    queryFn: getAllTechnician,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage?.totalPages === lastPage?.page) return;
+      return Number(lastPage?.page) + 1;
+    },
+  });
+  
+
+  const technicians = paginatedTechnicians
+    ? paginatedTechnicians?.pages.flatMap((page) => {
+        return page?.technicians;
+      })
+    : [];
 
   const registerTechnician = async (data: registerTechnicianType) => {
     const urlRegisterTechnician = `${BASE_URL}/register/technician`;
@@ -64,7 +92,15 @@ const useTechnician = () => {
     }
   };
 
-  return { registerTechnician, getAllTechnician, isLoading };
+  return {
+    registerTechnician,
+    getAllTechnician,
+    isLoading,
+    technicians,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  };
 };
 
 export default useTechnician;
