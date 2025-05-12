@@ -7,7 +7,12 @@ import { useContext } from "react";
 import useNotify from "../useNotify";
 import { SearchTerm } from "./types";
 
-export const useClientSearch = (searchTerm: SearchTerm, enabled: boolean) => {
+type useClientSearchProps = {
+  searchTerm: SearchTerm;
+  enabled?: boolean;
+}
+
+export const useClientSearch = ({ searchTerm, enabled = true }: useClientSearchProps) => {
   const {
     user: { token },
   } = useContext(UserContext);

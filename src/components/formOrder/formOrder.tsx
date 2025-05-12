@@ -5,18 +5,18 @@ import Input from "../input/input";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import InputSelect, { SelectType } from "../inputSelect/inputSelect";
 import useFormOrder from "@/hook/useFormOrder";
+import { ClientSearchDropdown } from "../ClientSearchDropdown/ClientSearchDropdown";
 
 
 const FormOrder = () => {
-  
+
   const methods = useForm<OrderType>({ resolver: zodResolver(orderSchema) });
 
-  const {clients, parts, 
-    services, setClientId, 
-    setSelectedPartId, setSelectedServiceId, 
+  const { parts, services,
+    setSelectedPartId, setSelectedServiceId,
     handleCreateOrder } = useFormOrder()
 
-const {
+  const {
     formState: { errors },
     handleSubmit,
   } = methods;
@@ -48,25 +48,21 @@ const {
         {errors.comment && (
           <p className="text-red-500 text-sm">{errors.comment.message}</p>
         )}
-      </FormProvider>
-      <InputSelect
-        list={services as SelectType[]}
-        placeholder="Serviços"
-        setValue={setSelectedServiceId}
-      />
         <InputSelect
-        list={parts as SelectType[]}
-        setValue={setSelectedPartId}
-        placeholder="Peças"
-      /> 
-     <InputSelect
-        list={clients}
-        setValue={setClientId}
-        placeholder="Cliente"
-      />  
-      <ButtonPrimary onClick={handleSubmit(handleCreateOrder)}>
-        Criar
-      </ButtonPrimary>
+          list={services as SelectType[]}
+          placeholder="Serviços"
+          setValue={setSelectedServiceId}
+        />
+        <InputSelect
+          list={parts as SelectType[]}
+          setValue={setSelectedPartId}
+          placeholder="Peças"
+        />
+        <ClientSearchDropdown />
+        <ButtonPrimary onClick={handleSubmit(handleCreateOrder)}>
+          Criar
+        </ButtonPrimary>
+      </FormProvider>
     </div>
   );
 };
