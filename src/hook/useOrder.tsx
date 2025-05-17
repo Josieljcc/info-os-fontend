@@ -1,6 +1,6 @@
 import { BASE_URL } from "@/constants";
 import UserContext from "@/context/userContext";
-import { notifyPositionMap, notifyType, Order, Os } from "@/types";
+import { notifyPositionMap, notifyType, Order, OrderResponse } from "@/types";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
 import useNotify from "./useNotify";
@@ -10,8 +10,8 @@ export type PageParam = {
   pageParam: number;
 };
 
-type OsPaginatedResponse = {
-  orders: Os[];
+type OrderPaginatedResponse = {
+  orders: OrderResponse[];
   totalPages: number;
   page: number;
 };
@@ -45,12 +45,12 @@ const useOrder = () => {
     }
   };
 
-  const getAllOs = async ({
+  const getAllOrder = async ({
     pageParam,
-  }: PageParam): Promise<OsPaginatedResponse | undefined> => {
-    const urlOs = `${BASE_URL}/order?page=${pageParam}`;
+  }: PageParam): Promise<OrderPaginatedResponse | undefined> => {
+    const urlOrderResponse = `${BASE_URL}/order?page=${pageParam}`;
     try {
-      const response = await axios.get(urlOs, header);
+      const response = await axios.get(urlOrderResponse, header);
       return response.data;
     } catch (error) {
       const err = error as AxiosError;
@@ -63,13 +63,14 @@ const useOrder = () => {
   };
 
   const {
-    data: paginatedOs,
+    data: paginatedOrder,
     fetchNextPage,
     hasNextPage,
     isLoading,
+    isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["getAllOs"],
-    queryFn: getAllOs,
+    queryKey: ["getAllOrder"],
+    queryFn: getAllOrder,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       if (lastPage?.totalPages === lastPage?.page) return;
@@ -77,13 +78,20 @@ const useOrder = () => {
     },
   });
 
-  const orders = paginatedOs
-    ? paginatedOs?.pages.flatMap((page) => {
+  const orders = paginatedOrder
+    ? paginatedOrder?.pages.flatMap((page) => {
         return page?.orders;
       })
     : [];
 
-  return { registerOrder, fetchNextPage, hasNextPage, isLoading, orders };
+  return {
+    registerOrder,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    orders,
+    isFetchingNextPage,
+  };
 };
 
 export default useOrder;

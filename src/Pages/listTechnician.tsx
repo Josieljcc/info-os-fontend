@@ -1,5 +1,5 @@
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import Card from "@/components/Card/Card";
+import Card from "@/components/Cards/CardUser";
 import useAuthentication from "@/hook/useAuthentication";
 import useTechnician from "@/hook/useTechnician";
 import { Technician } from "@/types";

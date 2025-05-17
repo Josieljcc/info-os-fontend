@@ -7,7 +7,7 @@ import Order from "@/Pages/order";
 import ListTechnician from "@/Pages/listTechnician";
 import ListClient from "@/Pages/listClient";
 import DetailClient from "@/Pages/detailClientPage";
-import ListOs from "@/Pages/listOs";
+import ListOs from "@/Pages/listOrder";
 
 const router = createBrowserRouter([
   {

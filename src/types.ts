@@ -67,7 +67,7 @@ export type Order = {
   parts: Part[];
 };
 
-export type Os = {
+export type OrderResponse = {
   id: number;
   date: string;
   status: string;
