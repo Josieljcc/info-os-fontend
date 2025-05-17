@@ -35,7 +35,7 @@ const Card = ({ item, classname }: CardProps) => {
           color="bg-red-500"
           className="text-2xl h-full w-full rounded-full"
         >
-          <RiDeleteBin7Line />
+          <RiDeleteBin7Line/>
         </ButtonPrimary>
       </div>
     </div>
