@@ -7,6 +7,7 @@ import useResizeObserver from "@/hook/useResizeObserver";
 import BackPageButton from "@/components/backPageButton/backPageButton";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import Spinner from "@/components/spinner/spinner";
+import { Link } from "react-router-dom";
 
 const ListTechnician = () => {
   useAuthentication();
@@ -72,11 +73,12 @@ const ListTechnician = () => {
                     transform: `translateY(${virtualRow.start}px)`,
                   }}
                 >
-                  <Card
+                  <Link
                     key={technician?.id}
-                    item={technician as Technician}
-                    classname="m-auto"
-                  />
+                    to={`/technician/${technician?.id}`}
+                  >
+                    <Card item={technician as Technician} classname="m-auto" />
+                  </Link>
                 </div>
               );
             })}
