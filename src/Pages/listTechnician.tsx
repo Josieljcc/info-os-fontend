@@ -1,6 +1,5 @@
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
 import Card from "@/components/Card/Card";
-import useAuthentication from "@/hook/useAuthentication";
 import useTechnician from "@/hook/useTechnician";
 import { Technician } from "@/types";
 import useResizeObserver from "@/hook/useResizeObserver";
@@ -9,7 +8,7 @@ import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import Spinner from "@/components/spinner/spinner";
 
 const ListTechnician = () => {
-  useAuthentication();
+
   const { ref, rect } = useResizeObserver();
   const {
     technicians,

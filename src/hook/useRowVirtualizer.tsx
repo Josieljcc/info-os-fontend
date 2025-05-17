@@ -32,7 +32,7 @@ const useRowVirtualizer = ({
   ref,
 }: useRowVirtualizerProps) => {
 
-  useAuthentication();
+
 
   const rowVirtualizer = useVirtualizer({
     count: hasNextPage ? list.length + 1 : list.length,
