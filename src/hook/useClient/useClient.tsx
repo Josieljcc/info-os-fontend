@@ -19,7 +19,9 @@ type ClientPaginatedResponse = {
   page: number;
 };
 
-const PAGESIZE = 10;
+type PageParam = {
+  pageParam: number;
+};
 
 const useClient = () => {
   const navigate = useNavigate();
@@ -85,10 +87,8 @@ const useClient = () => {
 
   const getAllClients = async ({
     pageParam,
-  }: {
-    pageParam: number;
-  }): Promise<ClientPaginatedResponse | undefined> => {
-    const urlClient = `${BASE_URL}/client?page=${pageParam}&pageSize=${PAGESIZE}`;
+  }: PageParam): Promise<ClientPaginatedResponse | undefined> => {
+    const urlClient = `${BASE_URL}/client?page=${pageParam}&pageSize=${10}`;
 
     try {
       const response = await axios.get(urlClient, header);

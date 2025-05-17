@@ -9,23 +9,26 @@ import {
   useInfiniteQuery,
 } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useNotify from "./useNotify";
 
 type TechnicianPaginatedResponse = {
-  technician: Technician[];
+  technicians: Technician[];
   totalPages: number;
   page: number;
 };
 
-const PAGESIZE = 10;
+type PageParam = {
+  pageParam: number;
+};
 
 const useTechnician = () => {
   const navigate = useNavigate();
   const notify = useNotify();
   const queryClient = useQueryClient();
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
 
   const {
     user: { token },
@@ -38,17 +41,14 @@ const useTechnician = () => {
 
     try {
       await axios.post(urlRegisterTechnician, data, header);
-
       notify(
         "Técnico Registrado com Sucesso!",
         notifyPositionMap.topRight,
         notifyType.success
       );
-
       navigate("/home");
     } catch (error) {
       const err = error as AxiosError;
-
       notify(
         err.message as string,
         notifyPositionMap.topRight,
@@ -61,8 +61,7 @@ const useTechnician = () => {
 
   const editTechnicianMutation = useMutation({
     mutationFn: (formData: editingTechnicianType) => {
-      const payload = formData;
-      return axios.put(urlEditTechnician, payload, header);
+      return axios.put(urlEditTechnician, formData, header);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["getTechnician"] });
@@ -74,7 +73,6 @@ const useTechnician = () => {
     },
     onError: (error) => {
       const err = error as AxiosError;
-
       notify(
         err.message as string,
         notifyPositionMap.topRight,
@@ -83,15 +81,13 @@ const useTechnician = () => {
     },
   });
 
-  const getAllTechnicians = async ({
+  const getAllTechnician = async ({
     pageParam,
-  }: {
-    pageParam: number;
-  }): Promise<TechnicianPaginatedResponse | undefined> => {
-    const urlTechnician = `${BASE_URL}/technician?page=${pageParam}&pageSize=${PAGESIZE}`;
-
+  }: PageParam): Promise<TechnicianPaginatedResponse | undefined> => {
+    const urlTechnician = `${BASE_URL}/technician?page=${pageParam}`;
     try {
       const response = await axios.get(urlTechnician, header);
+      setIsLoading(false);
       return response.data;
     } catch (error) {
       const err = error as AxiosError;
@@ -107,10 +103,10 @@ const useTechnician = () => {
     data: paginatedTechnicians,
     fetchNextPage,
     hasNextPage,
-    isLoading,
+    isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["getAllTechnicians"],
-    queryFn: getAllTechnicians,
+    queryFn: getAllTechnician,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       if (lastPage?.totalPages === lastPage?.page) return;
@@ -118,9 +114,8 @@ const useTechnician = () => {
     },
   });
 
-  const technicians = paginatedTechnicians?.pages.flatMap((page) => {
-    return page?.technician;
-  });
+  const technicians =
+    paginatedTechnicians?.pages.flatMap((page) => page?.technicians) || [];
 
   const getTechnicianById = async (id: string): Promise<Technician> => {
     const urlTechnicianById = `${BASE_URL}/technician/${id}`;
@@ -134,8 +129,10 @@ const useTechnician = () => {
     technicians,
     fetchNextPage,
     hasNextPage,
+    isFetchingNextPage,
     getTechnicianById,
     editTechnicianMutation,
+    getAllTechnician,
   };
 };
 
