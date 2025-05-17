@@ -68,7 +68,7 @@ const ListOrder = () => {
                     transform: `translateY(${virtualRow.start}px)`,
                   }}
                 >
-                  <CardOrder order={order as OrderResponse} ></CardOrder>
+                  <CardOrder order={order as OrderResponse}/>
                 </div>
               );
             })}
