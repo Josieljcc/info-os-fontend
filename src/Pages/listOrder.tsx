@@ -8,7 +8,6 @@ import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import { OrderResponse } from "@/types";
 
-
 const ListOrder = () => {
   const { ref, rect } = useResizeObserver();
   const { orders, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -40,8 +39,8 @@ const ListOrder = () => {
       </h2>
       {orders?.length === 0 ? (
         <div>
-          <p>Nenhum técnico encontrado</p>
-          <ButtonPrimary>Criar Técnico</ButtonPrimary>
+          <p>Nenhum ordem de serviço encontrado</p>
+          <ButtonPrimary>Criar ordem de serviço</ButtonPrimary>
         </div>
       ) : (
         <div ref={ref} className="overflow-auto">
@@ -68,7 +67,7 @@ const ListOrder = () => {
                     transform: `translateY(${virtualRow.start}px)`,
                   }}
                 >
-                  <CardOrder order={order as OrderResponse}/>
+                  <CardOrder order={order as OrderResponse} />
                 </div>
               );
             })}
