@@ -3,7 +3,6 @@ import UserContext from "@/context/userContext";
 import {
   notifyPositionMap,
   notifyType,
-  Order,
   OrderResponse,
   Part,
   Service,
