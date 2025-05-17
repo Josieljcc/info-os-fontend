@@ -17,8 +17,7 @@ const SideBarItem = ({ item }: SideBarProps) => {
             to={item.path}
             className={clsx('p-4 rounded-lg text-center flex items-center gap-1', {
                 'bg-zinc-500': selectedItem?.title === item.title,
-            })}
-            key={item.title}>
+            })}>
             {<item.icon />}
             {item.title}
         </Link>
