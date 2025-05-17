@@ -1,4 +1,3 @@
-// src/components/editTechnicianForm/EditTechnicianForm.tsx
 import useTechnician from "@/hook/useTechnician";
 import editingTechnicianSchema, {
   editingTechnicianType,
