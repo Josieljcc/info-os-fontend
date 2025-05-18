@@ -6,15 +6,13 @@ import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import InputSelect, { SelectType } from "../inputSelect/inputSelect";
 import useFormOrder from "@/hook/useFormOrder";
 import { ClientSearchDropdown } from "../ClientSearchDropdown/ClientSearchDropdown";
+import { MultiSelectServicesDropdown } from "../MultiSelectDropdown/multiSelectDropdown";
 
 
 const FormOrder = () => {
-
   const methods = useForm<OrderType>({ resolver: zodResolver(orderSchema) });
 
-  const { parts, services,
-    setSelectedPartId, setSelectedServiceId,
-    handleCreateOrder } = useFormOrder()
+  const { parts, setSelectedPartId, handleCreateOrder } = useFormOrder()
 
   const {
     formState: { errors },
@@ -48,11 +46,7 @@ const FormOrder = () => {
         {errors.comment && (
           <p className="text-red-500 text-sm">{errors.comment.message}</p>
         )}
-        <InputSelect
-          list={services as SelectType[]}
-          placeholder="Serviços"
-          setValue={setSelectedServiceId}
-        />
+        <MultiSelectServicesDropdown />
         <InputSelect
           list={parts as SelectType[]}
           setValue={setSelectedPartId}
