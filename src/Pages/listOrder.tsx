@@ -35,7 +35,7 @@ const ListOrder = () => {
     <div className="h-screen bg-gray-950 flex flex-col p-16 md:p-0 justify-center pt-6 md:pt-10 pb-1 relative">
       <BackPageButton route="/home" />
       <h2 className="text-center pb-6 md:pb-12 text-2xl font-bold md:text-4xl text-white">
-        Lista de Técnicos
+        Lista de ordem de serviço
       </h2>
       {orders?.length === 0 ? (
         <div>
