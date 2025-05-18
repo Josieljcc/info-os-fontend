@@ -26,6 +26,7 @@ const Home = () => {
         Listar Clientes
       </Link>
       <Link className="text-white" to={"/os"}>Listar Os</Link>
+      <Link className="text-white" to={"/part"}>Lista Part</Link>
     </div>
   );
 };
