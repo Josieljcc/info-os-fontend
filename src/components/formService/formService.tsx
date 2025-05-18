@@ -3,8 +3,8 @@ import Input from "../input/input";
 import servicesSchema, { ServicesType } from "@/schemas/services";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
+import UseService from "@/hook/Service/useService";
 
-import UseService from "@/hook/useService";
 
 const FormService = () => {
   const { registerService } = UseService();
@@ -44,6 +44,7 @@ const FormService = () => {
         <Input
           formName="price"
           placeholder="Preço"
+          type="number"
           className="py-8 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
         />
         {errors.price && (
@@ -52,6 +53,7 @@ const FormService = () => {
         <Input
           formName="time"
           placeholder="Tempo estimado"
+          type="number"
           className="py-8 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
         />
         {errors.time && (
