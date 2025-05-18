@@ -39,7 +39,7 @@ const ListOrder = () => {
       </h2>
       {orders?.length === 0 ? (
         <div>
-          <p>Nenhum ordem de serviço encontrado</p>
+          <p>Nenhuma ordem de serviço encontrado</p>
           <ButtonPrimary>Criar ordem de serviço</ButtonPrimary>
         </div>
       ) : (
