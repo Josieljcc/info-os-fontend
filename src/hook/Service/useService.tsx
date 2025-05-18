@@ -2,9 +2,9 @@ import { BASE_URL } from "@/constants";
 import { ServicesType } from "@/schemas/services";
 import { notifyPositionMap, notifyType, Service } from "@/types";
 import axios, { AxiosError } from "axios";
-import useNotify from "./useNotify";
 import { useContext } from "react";
 import UserContext from "@/context/userContext";
+import useNotify from "../useNotify";
 
 const UseService = () => {
   const notify = useNotify();
@@ -28,7 +28,6 @@ const UseService = () => {
 
     try {
       await axios.post(serviceEndpoint, payload, header);
-
       notify(
         "Serviço Registrado com Sucesso!",
         notifyPositionMap.topRight,
@@ -36,7 +35,6 @@ const UseService = () => {
       );
     } catch (error) {
       const err = error as AxiosError;
-
       notify(
         err.message as string,
         notifyPositionMap.topRight,
@@ -51,7 +49,7 @@ const UseService = () => {
     }
     try {
       const response = await axios.get(serviceEndpoint, header);
-      const data: Service[] = response.data.services; 
+      const data: Service[] = response.data.services;
       return data;
     } catch (error) {
       const err = error as AxiosError;
