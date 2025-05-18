@@ -1,12 +1,11 @@
 import BackPageButton from "@/components/backPageButton/backPageButton";
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import CardOrder from "@/components/Cards/CardOrder";
 import CardPart from "@/components/Cards/CardPart";
 import Spinner from "@/components/spinner/spinner";
 import usePart from "@/hook/usePart";
 import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
-import { OrderResponse, Part } from "@/types";
+import { Part } from "@/types";
 
 const ListPart = () => {
   const { ref, rect } = useResizeObserver();
