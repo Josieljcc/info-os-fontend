@@ -1,5 +1,5 @@
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import Card from "@/components/Card/Card";
+import Card from "@/components/Cards/CardUser";
 import Spinner from "@/components/spinner/spinner";
 import useAuthentication from "@/hook/useAuthentication";
 import { SearchField } from "@/hook/useClient/types";

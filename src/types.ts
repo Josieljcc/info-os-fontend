@@ -56,3 +56,22 @@ export type Technician = {
   name: string;
   phone: string;
 };
+
+export type Order = {
+  date: string;
+  status: string;
+  comment: string;
+  clientId: string;
+  technicianId: string;
+  services: Service[];
+  parts: Part[];
+};
+
+export type OrderResponse = {
+  id: number;
+  date: string;
+  status: string;
+  comment: string;
+  clientId: string;
+  technicianID: string;
+};
