@@ -1,111 +1,124 @@
-import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
 import Card from "@/components/Cards/CardUser";
+import DrawerClient from "@/components/drawerClient/drawerClient";
 import Spinner from "@/components/spinner/spinner";
-import useAuthentication from "@/hook/useAuthentication";
 import { SearchField } from "@/hook/useClient/types";
 import useClient from "@/hook/useClient/useClient";
 import { useClientSearch } from "@/hook/useClient/useSearchClient";
+import useDebounce from "@/hook/useDebounce/useDebounce";
+import useResizeObserver from "@/hook/useResizeObserver";
+import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import { Client } from "@/types";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import SearchInput from "@/components/searchInput/searchInput";
 
 const ListClient = () => {
-  useAuthentication();
-
   const [searchType, setSearchType] = useState<SearchField>("name");
   const [searchValue, setSearchValue] = useState("");
-  const [searchActive, setSearchActive] = useState(false);
+  const { clients, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useClient();
+  const [debouncedSearch] = useDebounce(searchValue, 400);
 
-  const { clients, isLoading } = useClient();
+  const searchParams = { [searchType]: debouncedSearch };
 
-  const searchParams = { [searchType]: searchValue.trim() };
-  const isSearchEnabled = searchActive && !!searchValue.trim();
-
-  const { data: searchResults, isLoading: isSearching } = useClientSearch({
+  const { data: SearchClients } = useClientSearch({
     searchTerm: searchParams,
-    enabled: isSearchEnabled,
+    enabled: !!debouncedSearch.trim(),
   });
 
-  const displayClients = searchActive ? searchResults : clients;
+  const displayedClients = debouncedSearch.trim()
+    ? SearchClients || []
+    : clients;
 
-  const handleSearch = () => {
-    if (!searchValue.trim()) {
-      return;
-    }
-    setSearchActive(true);
+  const { ref, rect } = useResizeObserver();
+
+  const rowVirtualizer = useRowVirtualizer({
+    estimateSize: 70,
+    fetchNextPage,
+    gap: 6,
+    hasNextPage,
+    isFetchingNextPage,
+    list: displayedClients,
+    ref,
+  });
+
+  const getCardHeight = () => {
+    return Number(rect?.width) >= 768 ? "64px" : "64px";
   };
 
-  const handleClearSearch = () => {
-    setSearchValue("");
-    setSearchActive(false);
-  };
-
-  if (isLoading || isSearching) {
+  if (isLoading) {
     return <Spinner />;
   }
 
   return (
-    <div className="min-h-screen bg-main-bg bg-cover overflow-hidden bg-center flex flex-col justify-start pt-24 px-8 pb-5 md:items-center">
-      <h2 className="text-center pb-6 text-4xl font-bold text-white">
-        Lista de Clientes
-      </h2>
-
-      <div className="flex flex-col md:flex-row gap-4 items-center mb-6">
-        <div className="flex gap-2">
-          <select
-            value={searchType}
-            onChange={(event) =>
-              setSearchType(event.target.value as SearchField)
-            }
-            className="px-4 py-2 rounded-md"
-          >
-            <option value="name">Nome</option>
-            <option value="email">Email</option>
-            <option value="phone">Telefone</option>
-          </select>
-          <input
-            type={searchType === "phone" ? "number" : "text"}
-            placeholder={`Buscar por ${searchType}`}
-            value={searchValue}
-            onChange={(event) => setSearchValue(event.target.value)}
-            className="px-4 py-2 rounded-md"
-          />
-        </div>
-        <div className="flex gap-2">
-          <ButtonPrimary
-            onClick={handleSearch}
-            className="text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Buscar
-          </ButtonPrimary>
-          {searchActive && (
-            <ButtonPrimary
-              onClick={handleClearSearch}
-              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+    <div className="h-screen bg-[#323232] flex flex-col px-6 pt-8 relative gap-10 rounded-lg">
+      <header className="flex flex-col gap-5">
+        <div className="flex justify-between">
+          <DrawerClient />
+          <div className="flex gap-5">
+            <select
+              value={searchType}
+              onChange={(event) =>
+                setSearchType(event.target.value as SearchField)
+              }
+              className="bg-[#323232] text-white focus:outline-none pl-2 pr-6 border-2 border-[#e9ecef7b] rounded-2xl hover:bg-[#505050] transition-all"
             >
-              Limpar Busca
-            </ButtonPrimary>
-          )}
-        </div>
-      </div>
-
-      {!displayClients?.length ? (
-        <div className="text-white text-center">
-          <p>Nenhum cliente encontrado</p>
-          <div className="mt-4">
-            {/* TODO - Criar função de Criar Cliente */}
-            <ButtonPrimary>Criar Cliente</ButtonPrimary>
+              <option value="name" className="bg-[#2a2a2a] text-sm ">
+                Nome
+              </option>
+              <option value="email" className="bg-[#2a2a2a] text-sm">
+                Email
+              </option>
+              <option value="phone" className="bg-[#2a2a2a] text-sm ">
+                Telefone
+              </option>
+            </select>
+            <SearchInput setValue={setSearchValue} />
           </div>
         </div>
-      ) : (
-        <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-auto max-h-[60vh]">
-          {displayClients?.map((client) => (
-            <Link key={client?.id} to={`/client/${client?.id}`}>
-              <Card item={client as Client} />
-            </Link>
-          ))}
+        <div className="flex w-full flex-1 items-center text-base text-[#B5B7C0] font-medium px-10 pr-24">
+          <p className="text-sm font-medium w-1/3">Nome</p>
+          <p className="text-sm font-medium w-1/3 pl-8">Email</p>
+          <p className="text-sm font-medium w-1/3">Telefone</p>
         </div>
-      )}
+        <div className="w-screen left-0 top-32 border-[1.4px] border-[#464646] absolute" />
+      </header>
+      <div
+        ref={ref}
+        className="overflow-auto scrollbar-thin scrollbar-thumb-[#9f9f9f] scrollbar-track-[#2c2c2c] pr-3"
+      >
+        <div
+          className=""
+          style={{
+            height: `${rowVirtualizer.getTotalSize()}px`,
+            width: "100%",
+            position: "relative",
+          }}
+        >
+          {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+            const client = displayedClients[virtualRow.index];
+
+            return (
+              <div
+                key={virtualRow.index}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: getCardHeight(),
+                  transform: `translateY(${virtualRow.start}px)`,
+                }}
+              >
+                <Card
+                  key={client?.id}
+                  item={client as Client}
+                  classname="m-auto"
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
