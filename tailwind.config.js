@@ -9,8 +9,8 @@ export default {
       },
       colors: {
         mainColor: "#0043D8",
-        secundaryColor: "#3F3F46",
-        background: "hsl(var(--background))",
+        secondaryColor: "#323232",
+        backgroundColor: "#2a2a2a",
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",

@@ -26,7 +26,7 @@ const DetailClient = () => {
 
   return (
     <div className="h-screen bg-main-bg bg-cover overflow-hidden bg-center flex justify-center pt-24 px-8 pb-5 items-center text-white shadow-md">
-      <div className=" h-[60%] md:w-1/2 max-w-[34.5rem] rounded-lg bg-[#3F3F46] flex flex-col p-10 pt-8 justify-between">
+      <div className=" h-[60%] md:w-1/2 max-w-[34.5rem] rounded-lg bg-secondaryColor flex flex-col p-10 pt-8 justify-between">
         <Link to="/client">
           <IoArrowBackCircleOutline className="h-8 w-8" />
         </Link>
