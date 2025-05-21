@@ -108,6 +108,7 @@ const useClient = () => {
     fetchNextPage,
     hasNextPage,
     isLoading,
+    isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["getAllClients"],
     queryFn: getAllClients,
@@ -118,9 +119,11 @@ const useClient = () => {
     },
   });
 
-  const clients = paginatedClients?.pages.flatMap((page) => {
-    return page?.clients;
-  });
+  const clients = paginatedClients
+    ? paginatedClients?.pages.flatMap((page) => {
+        return page?.clients;
+      })
+    : [];
 
   const getClientById = async (id: string): Promise<Client> => {
     const urlClientById = `${BASE_URL}/client/${id}`;
@@ -136,6 +139,7 @@ const useClient = () => {
     hasNextPage,
     getClientById,
     editClientMutation,
+    isFetchingNextPage,
   };
 };
 
