@@ -7,6 +7,7 @@ import useResizeObserver from "@/hook/useResizeObserver";
 import BackPageButton from "@/components/backPageButton/backPageButton";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import Spinner from "@/components/spinner/spinner";
+import { useEffect } from "react";
 
 const ListTechnician = () => {
   useAuthentication();
@@ -17,7 +18,12 @@ const ListTechnician = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
   } = useTechnician();
+  
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const rowVirtualizer = useRowVirtualizer({
     estimateSize: 250,
@@ -36,6 +42,7 @@ const ListTechnician = () => {
   if (isLoading) {
     return <Spinner />;
   }
+
   return (
     <div className="h-screen bg-gray-950 flex flex-col p-16 md:p-0 justify-center pt-6 md:pt-10 pb-1 relative">
       <BackPageButton route="/home" />
