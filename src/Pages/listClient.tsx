@@ -26,7 +26,7 @@ const ListClient = () => {
   });
 
   const displayedClients = debouncedSearch.trim()
-    ? SearchClients || []
+    ? SearchClients ?? []
     : clients;
 
   const { ref, rect } = useResizeObserver();
