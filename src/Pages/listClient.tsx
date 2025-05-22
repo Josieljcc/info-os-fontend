@@ -42,7 +42,7 @@ const ListClient = () => {
   });
 
   const getCardHeight = () => {
-    return Number(rect?.width) >= 768 ? "64px" : "64px";
+    return Number(rect?.width) >= 768 ? "68px" : "64px";
   };
 
   if (isLoading) {
