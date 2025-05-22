@@ -1,7 +1,6 @@
 import { Client, Technician } from "@/types";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import { FiEdit3 } from "react-icons/fi";
-import { FiTrash } from "react-icons/fi";
+import { FiTrash, FiEdit3 } from "react-icons/fi";
 
 type CardProps = {
   item: Technician | Client;
