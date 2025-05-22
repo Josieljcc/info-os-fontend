@@ -75,3 +75,7 @@ export type OrderResponse = {
   clientId: string;
   technicianID: string;
 };
+
+export type PageParam = {
+  pageParam: number;
+};

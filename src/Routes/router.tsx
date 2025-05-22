@@ -8,6 +8,7 @@ import ListTechnician from "@/Pages/listTechnician";
 import ListClient from "@/Pages/listClient";
 import DetailClient from "@/Pages/detailClientPage";
 import ListOs from "@/Pages/listOrder";
+import ListPart from "@/Pages/listPart";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/os",
     element: <ListOs/>
+  },
+  {
+    path: "/part",
+    element: <ListPart/>
   }
 ]);
 

@@ -4,6 +4,7 @@ import {
   notifyPositionMap,
   notifyType,
   OrderResponse,
+  PageParam,
   Part,
   Service,
 } from "@/types";
@@ -12,9 +13,7 @@ import { useContext } from "react";
 import useNotify from "./useNotify";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-export type PageParam = {
-  pageParam: number;
-};
+
 
 type OrderPaginatedResponse = {
   orders: OrderResponse[];

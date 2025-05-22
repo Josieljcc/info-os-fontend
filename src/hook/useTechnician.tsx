@@ -1,6 +1,6 @@
 import { BASE_URL } from "@/constants";
 import { registerTechnicianType } from "@/schemas/registerTechnician";
-import { notifyPositionMap, notifyType, Technician } from "@/types";
+import { notifyPositionMap, notifyType, PageParam, Technician } from "@/types";
 import axios, { AxiosError } from "axios";
 import useNotify from "./useNotify";
 import { useNavigate } from "react-router-dom";
@@ -12,10 +12,6 @@ type TechnicianPaginatedResponse = {
   technicians: Technician[];
   totalPages: number;
   page: number;
-};
-
-type PageParam = {
-  pageParam: number;
 };
 
 const useTechnician = () => {
