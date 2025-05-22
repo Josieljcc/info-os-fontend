@@ -49,6 +49,7 @@ const useTechnician = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
   } = useInfiniteQuery({
     queryKey: ["getAllTechnicians"],
     queryFn: getAllTechnician,
@@ -57,8 +58,8 @@ const useTechnician = () => {
       if (lastPage?.totalPages === lastPage?.page) return;
       return Number(lastPage?.page) + 1;
     },
+    enabled: false,
   });
-  
 
   const technicians = paginatedTechnicians
     ? paginatedTechnicians?.pages.flatMap((page) => {
@@ -96,6 +97,7 @@ const useTechnician = () => {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
+    refetch,
   };
 };
 
