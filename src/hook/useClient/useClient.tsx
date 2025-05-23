@@ -2,7 +2,7 @@ import { BASE_URL } from "@/constants";
 import UserContext from "@/context/userContext";
 import { editingClientType } from "@/schemas/editing";
 import { registerClientType } from "@/schemas/registerClient";
-import { Client, notifyPositionMap, notifyType } from "@/types";
+import { Client, notifyPositionMap, notifyType, PageParam } from "@/types";
 import {
   useQueryClient,
   useMutation,
@@ -17,10 +17,6 @@ type ClientPaginatedResponse = {
   clients: Client[];
   totalPages: number;
   page: number;
-};
-
-type PageParam = {
-  pageParam: number;
 };
 
 const useClient = () => {
