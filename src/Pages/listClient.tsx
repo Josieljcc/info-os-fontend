@@ -22,7 +22,7 @@ const ListClient = () => {
 
   const { data: SearchClients } = useClientSearch({
     searchTerm: searchParams,
-    enabled: !!debouncedSearch.trim(),
+    enabled: Boolean(debouncedSearch.trim()),
   });
 
   const displayedClients = debouncedSearch.trim()
