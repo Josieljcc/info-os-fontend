@@ -79,3 +79,9 @@ export type OrderResponse = {
 export type PageParam = {
   pageParam: number;
 };
+
+export enum TitleMapType {
+  "/app/client" = "/app/client",
+  "/app/technician" = "/app/technician",
+  "/app" = "/app",
+}
