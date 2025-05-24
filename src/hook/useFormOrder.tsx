@@ -38,7 +38,6 @@ const useFormOrder = () => {
     getParts();
   }, []);
 
-
   const handleCreateOrder = (data: OrderType) => {
     const selectedService = services?.find(
       (service) => service.id === selectedServiceId

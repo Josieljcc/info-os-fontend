@@ -1,22 +1,16 @@
-import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import useTechnician from "@/hook/useTechnician";
-import { Technician } from "@/types";
-import useResizeObserver from "@/hook/useResizeObserver";
 import BackPageButton from "@/components/backPageButton/backPageButton";
-import useRowVirtualizer from "@/hook/useRowVirtualizer";
+import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
+import CardPart from "@/components/Cards/CardPart";
 import Spinner from "@/components/spinner/spinner";
-import Card from "@/components/Cards/CardUser";
+import usePart from "@/hook/usePart";
+import useResizeObserver from "@/hook/useResizeObserver";
+import useRowVirtualizer from "@/hook/useRowVirtualizer";
+import { Part } from "@/types";
 
-const ListTechnician = () => {
-
+const ListPart = () => {
   const { ref, rect } = useResizeObserver();
-  const {
-    technicians,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useTechnician();
+  const { parts, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    usePart();
 
   const rowVirtualizer = useRowVirtualizer({
     estimateSize: 250,
@@ -24,27 +18,28 @@ const ListTechnician = () => {
     gap: 6,
     hasNextPage,
     isFetchingNextPage,
-    list: technicians,
+    list: parts,
     ref,
   });
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   const getCardHeight = () => {
     return Number(rect?.width) >= 768 ? "300px" : "200px";
   };
 
-  if (isLoading) {
-    return <Spinner />;
-  }
   return (
     <div className="h-screen bg-gray-950 flex flex-col p-16 md:p-0 justify-center pt-6 md:pt-10 pb-1 relative">
       <BackPageButton route="/home" />
       <h2 className="text-center pb-6 md:pb-12 text-2xl font-bold md:text-4xl text-white">
-        Lista de Técnicos
+        Lista Peças
       </h2>
-      {technicians?.length === 0 ? (
+      {parts?.length === 0 ? (
         <div>
-          <p>Nenhum técnico encontrado</p>
-          <ButtonPrimary>Criar Técnico</ButtonPrimary>
+          <p>Nenhuma peça encontrada</p>
+          <ButtonPrimary>Criar peça encontrada</ButtonPrimary>
         </div>
       ) : (
         <div ref={ref} className="overflow-auto">
@@ -57,7 +52,7 @@ const ListTechnician = () => {
             }}
           >
             {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-              const technician = technicians[virtualRow.index];
+              const part = parts[virtualRow.index];
 
               return (
                 <div
@@ -71,11 +66,7 @@ const ListTechnician = () => {
                     transform: `translateY(${virtualRow.start}px)`,
                   }}
                 >
-                  <Card
-                    key={technician?.id}
-                    item={technician as Technician}
-                    classname="m-auto"
-                  />
+                  <CardPart part={part as Part} />
                 </div>
               );
             })}
@@ -86,4 +77,4 @@ const ListTechnician = () => {
   );
 };
 
-export default ListTechnician;
+export default ListPart;

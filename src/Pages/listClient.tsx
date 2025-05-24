@@ -1,5 +1,5 @@
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import Card from "@/components/Card/Card";
+import Card from "@/components/Cards/CardUser";
 import Spinner from "@/components/spinner/spinner";
 import { SearchField } from "@/hook/useClient/types";
 import useClient from "@/hook/useClient/useClient";

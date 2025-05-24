@@ -1,22 +1,17 @@
-import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import useTechnician from "@/hook/useTechnician";
-import { Technician } from "@/types";
-import useResizeObserver from "@/hook/useResizeObserver";
 import BackPageButton from "@/components/backPageButton/backPageButton";
-import useRowVirtualizer from "@/hook/useRowVirtualizer";
+import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
+import CardOrder from "@/components/Cards/CardOrder";
+
 import Spinner from "@/components/spinner/spinner";
-import Card from "@/components/Cards/CardUser";
+import useOrder from "@/hook/useOrder";
+import useResizeObserver from "@/hook/useResizeObserver";
+import useRowVirtualizer from "@/hook/useRowVirtualizer";
+import { OrderResponse } from "@/types";
 
-const ListTechnician = () => {
-
+const ListOrder = () => {
   const { ref, rect } = useResizeObserver();
-  const {
-    technicians,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useTechnician();
+  const { orders, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useOrder();
 
   const rowVirtualizer = useRowVirtualizer({
     estimateSize: 250,
@@ -24,27 +19,28 @@ const ListTechnician = () => {
     gap: 6,
     hasNextPage,
     isFetchingNextPage,
-    list: technicians,
+    list: orders,
     ref,
   });
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   const getCardHeight = () => {
     return Number(rect?.width) >= 768 ? "300px" : "200px";
   };
 
-  if (isLoading) {
-    return <Spinner />;
-  }
   return (
     <div className="h-screen bg-gray-950 flex flex-col p-16 md:p-0 justify-center pt-6 md:pt-10 pb-1 relative">
       <BackPageButton route="/home" />
       <h2 className="text-center pb-6 md:pb-12 text-2xl font-bold md:text-4xl text-white">
-        Lista de Técnicos
+        Lista de ordem de serviço
       </h2>
-      {technicians?.length === 0 ? (
+      {orders?.length === 0 ? (
         <div>
-          <p>Nenhum técnico encontrado</p>
-          <ButtonPrimary>Criar Técnico</ButtonPrimary>
+          <p>Nenhuma ordem de serviço encontrado</p>
+          <ButtonPrimary>Criar ordem de serviço</ButtonPrimary>
         </div>
       ) : (
         <div ref={ref} className="overflow-auto">
@@ -57,7 +53,7 @@ const ListTechnician = () => {
             }}
           >
             {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-              const technician = technicians[virtualRow.index];
+              const order = orders[virtualRow.index];
 
               return (
                 <div
@@ -71,11 +67,7 @@ const ListTechnician = () => {
                     transform: `translateY(${virtualRow.start}px)`,
                   }}
                 >
-                  <Card
-                    key={technician?.id}
-                    item={technician as Technician}
-                    classname="m-auto"
-                  />
+                  <CardOrder order={order as OrderResponse} />
                 </div>
               );
             })}
@@ -86,4 +78,4 @@ const ListTechnician = () => {
   );
 };
 
-export default ListTechnician;
+export default ListOrder;
