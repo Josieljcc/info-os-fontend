@@ -55,9 +55,18 @@ const router = createBrowserRouter([
       {
         path: "part",
         element: <ListPart />
+      },
+      {
+        path: "os",
+        element: <ListOrder />
+      },
+      {
+        path: "part",
+        element: <ListPart />
       }
     ]
   },
+
 ]);
 
 export default router;

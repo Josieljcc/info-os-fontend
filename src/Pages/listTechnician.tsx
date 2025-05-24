@@ -7,6 +7,7 @@ import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import Spinner from "@/components/spinner/spinner";
 import Card from "@/components/Cards/CardUser";
 
+
 const ListTechnician = () => {
 
   const { ref, rect } = useResizeObserver();
