@@ -65,10 +65,10 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-backgroundColor text-foreground;
   }
 }
 
 .loader {
-  @apply w-12 h-12 inline-block box-border rounded-[50%] border-b-mainColor border-[5px] border-solid border-secundaryColor;
+  @apply w-12 h-12 inline-block box-border rounded-[50%] border-b-mainColor border-[.3125rem] border-solid border-secondaryColor;
 }

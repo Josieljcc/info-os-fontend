@@ -28,7 +28,7 @@ const FormClient = () => {
         <Input
           formName="name"
           placeholder="Nome"
-          className="py-8 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
+          className="py-6 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
         />
         {errors.name && (
           <p className="text-red-500 text-sm">{errors.name.message}</p>
@@ -36,7 +36,7 @@ const FormClient = () => {
         <Input
           formName="email"
           placeholder="Email"
-          className="py-8 text-[#D4D4D8] text-xl placeholder-[#D4D4D8]"
+          className="py-6 text-[#D4D4D8] text-xl placeholder-[#D4D4D8]"
         />
         {errors.email && (
           <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -45,7 +45,7 @@ const FormClient = () => {
           formName="password"
           placeholder="Senha"
           type="password"
-          className="py-8 text-[#D4D4D8] text-xl placeholder-[#D4D4D8]"
+          className="py-6 text-[#D4D4D8] text-xl placeholder-[#D4D4D8]"
         />
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message}</p>
@@ -53,7 +53,7 @@ const FormClient = () => {
         <Input
           formName="phone"
           placeholder="Telefone"
-          className="py-8 text-[#D4D4D8] text-xl placeholder-[#D4D4D8]"
+          className="py-6 text-[#D4D4D8] text-xl placeholder-[#D4D4D8]"
         />
         {errors.phone && (
           <p className="text-red-500 text-sm">{errors.phone.message}</p>
@@ -61,7 +61,7 @@ const FormClient = () => {
         <Input
           formName="address"
           placeholder="Endereço"
-          className="py-8 text-[#D4D4D8] text-xl placeholder-[#D4D4D8]"
+          className="py-6 text-[#D4D4D8] text-xl placeholder-[#D4D4D8]"
         />
         {errors.address && (
           <p className="text-red-500 text-sm">{errors.address.message}</p>
@@ -69,7 +69,7 @@ const FormClient = () => {
         <div className="flex justify-center ">
           <ButtonPrimary
             onClick={handleSubmit(handleCreateClient)}
-            className="font-semibold text-2xl py-4 px-40 mt-16 mb-11"
+            className="font-semibold text-2xl py-4 px-40 mt-10 mb-11"
           >
             Criar
           </ButtonPrimary>

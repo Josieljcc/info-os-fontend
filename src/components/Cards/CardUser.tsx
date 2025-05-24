@@ -1,8 +1,6 @@
 import { Client, Technician } from "@/types";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import { RiDeleteBin7Line } from "react-icons/ri";
-import { RxAvatar } from "react-icons/rx";
-import { FiEdit2 } from "react-icons/fi";
+import { FiTrash, FiEdit3 } from "react-icons/fi";
 
 type CardProps = {
   item: Technician | Client;
@@ -12,30 +10,27 @@ type CardProps = {
 const Card = ({ item, classname }: CardProps) => {
   return (
     <div
-      className={`flex justify-between text-white rounded-lg shadow-md border border-gray-600 flex-col max-w-[42rem] pb-4 pt-4 px-4 bg-[#1c2029] ${classname}`}
+      className={`flex justify-between h-16 text-white rounded-2xl border-2 items-center w-full border-[#e9ecef7b] md:py-5 py-3 md:px-7 px-4 bg-secondaryColor ${classname}`}
     >
-      <div className="flex text-6xl justify-center">
-        <RxAvatar />
+      <div className="flex flex-1 items-center ">
+        <p className="text-sm font-medium md:w-1/3 w-1/2">{item?.name}</p>
+        <p className="md:block hidden text-sm font-medium w-1/3">
+          {item?.email}
+        </p>
+        <p className="text-sm font-medium md:w-1/3 w-1/2">{item?.phone}</p>
       </div>
-      <div className="py-5">
-        <div>
-          <h3 className="text-lg font-semibold w-full ">{item?.name}</h3>
-          <p className="text-sm w-full">{item?.email}</p>
-          <p className="text-sm w-full">{item?.phone}</p>
-        </div>
-      </div>
-      <div className="flex gap-20">
+      <div className="flex gap-2 h-7 items-center">
         <ButtonPrimary
-          color="bg-sky-700"
-          className="text-2xl h-full w-full rounded-full"
+          color="bg-mainColor"
+          className="md:block hidden rounded-lg px-[.3125rem] py-1 pr-[.35rem]"
         >
-          <FiEdit2 />
+          <FiEdit3 className="w-4 h-4" />
         </ButtonPrimary>
         <ButtonPrimary
-          color="bg-red-500"
-          className="text-2xl h-full w-full rounded-full"
+          color="bg-mainColor"
+          className="rounded-lg px-[.3125rem] py-1"
         >
-          <RiDeleteBin7Line />
+          <FiTrash className="w-4 h-4" />
         </ButtonPrimary>
       </div>
     </div>

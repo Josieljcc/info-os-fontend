@@ -9,7 +9,7 @@ interface ButtonPrimaryProps
 
 function ButtonPrimary({
   children,
-  color = "bg-[#4044ED]",
+  color = "bg-mainColor",
   className,
   ...props
 }: Readonly<ButtonPrimaryProps>) {

@@ -30,7 +30,7 @@ const Login = () => {
   return (
     <div className="h-dvh md:flex md:flex-row-reverse">
       <div className="h-[90%] bg-main-bg bg-cover bg-center flex flex-col justify-center pt-24 px-8 pb-5 md:relative md:h-full md:w-1/2 md:items-center md:p-0">
-        <div className="bg-[#3F3F46] rounded-lg shadow-lg md:w-1/2 pb-11">
+        <div className="bg-secondaryColor rounded-lg shadow-lg md:w-1/2 pb-11">
           <div className="flex justify-center p-8">
             <img src={logo} alt="logo info OS" />
           </div>
