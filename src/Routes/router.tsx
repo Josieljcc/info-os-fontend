@@ -7,8 +7,9 @@ import Order from "@/Pages/order";
 import ListTechnician from "@/Pages/listTechnician";
 import ListClient from "@/Pages/listClient";
 import DetailClient from "@/Pages/detailClientPage";
-import ListOs from "@/Pages/listOrder";
 import ListPart from "@/Pages/listPart";
+import ListOrder from "@/Pages/listOrder";
+import AppLayout from "@/layout";
 
 const router = createBrowserRouter([
   {
@@ -16,45 +17,56 @@ const router = createBrowserRouter([
     element: <RegisterTechnician />,
   },
   {
-    path: "/home",
-    element: <Home />,
-  },
-  {
     path: "/login",
     element: <Login />,
   },
   {
-    path: "/register/technician",
-    element: <RegisterTechnician />,
+    path: "app",
+    element: <AppLayout />,
+    children: [
+      {
+        path: "",
+        element: <Home />
+      },
+      {
+        path: "technician",
+        element: <ListTechnician />,
+      },
+      {
+        path: "client",
+        element: <ListClient />,
+      },
+      {
+        path: "order",
+        element: <Order />,
+      },
+      {
+        path: "technician",
+        element: <ListTechnician />,
+      },
+      {
+        path: "client/:id",
+        element: <DetailClient />,
+      },
+      {
+        path: "os",
+        element: <ListOrder />
+      },
+      {
+        path: "part",
+        element: <ListPart />
+      },
+      {
+        path: "os",
+        element: <ListOrder />
+      },
+      {
+        path: "part",
+        element: <ListPart />
+      }
+    ]
   },
-  {
-    path: "/technician",
-    element: <ListTechnician />,
-  },
-  {
-    path: "/client",
-    element: <ListClient />,
-  },
-  {
-    path: "/order",
-    element: <Order />,
-  },
-  {
-    path: "/technician",
-    element: <ListTechnician />,
-  },
-  {
-    path: "/client/:id",
-    element: <DetailClient />,
-  },
-  {
-    path: "/os",
-    element: <ListOs/>
-  },
-  {
-    path: "/part",
-    element: <ListPart/>
-  }
+
 ]);
 
 export default router;
