@@ -17,7 +17,7 @@ type FormDrawerProps = {
 const FormDrawer = ({ children, buttonTitle, title = "" }: FormDrawerProps) => {
   return (
     <Drawer>
-      <DrawerTrigger className="text-mainColor px-4 pr-7 py-1 border-[.1563rem] text-sm items-center rounded-lg gap-2 font-medium flex   border-mainColor">
+      <DrawerTrigger className="transition-all duration-200 w-full md:w-auto bg-mainColor rounded-lg p-2 text-white font-bold flex items-center justify-center shadow-lg">
         <IoAddOutline className="h-6 w-6" /> {buttonTitle}
       </DrawerTrigger>
       <DrawerContent className="flex justify-center">

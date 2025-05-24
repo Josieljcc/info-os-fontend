@@ -50,9 +50,9 @@ const ListClient = () => {
   }
 
   return (
-    <div className="h-screen bg-[#323232] flex flex-col px-6 pt-8 relative gap-10 rounded-lg">
-      <header className="flex flex-col gap-5">
-        <div className="flex justify-between">
+    <div className="h-screen w-full bg-secondaryColor flex flex-col px-6 pt-8 relative gap-10 rounded-lg ">
+      <header className="flex flex-col gap-5 ">
+        <div className="flex md:flex-row flex-col-reverse justify-between flex-wrap gap-4 md:gap-0">
           <DrawerClient />
           <div className="flex gap-5">
             <select
@@ -60,7 +60,7 @@ const ListClient = () => {
               onChange={(event) =>
                 setSearchType(event.target.value as SearchField)
               }
-              className="bg-[#323232] text-white focus:outline-none pl-2 pr-6 border-2 border-[#e9ecef7b] rounded-2xl hover:bg-[#505050] transition-all"
+              className="bg-secondaryColor text-white focus:outline-none pl-2 md:pr-6 border-2 border-[#e9ecef7b] rounded-2xl hover:bg-[#505050] transition-all"
             >
               <option value="name" className="bg-[#2a2a2a] text-sm ">
                 Nome
@@ -75,12 +75,12 @@ const ListClient = () => {
             <SearchInput setValue={setSearchValue} />
           </div>
         </div>
-        <div className="flex w-full flex-1 items-center text-base text-[#B5B7C0] font-medium px-10 pr-24">
+        <div className="md:flex hidden w-full flex-1 items-center text-base  text-[#B5B7C0] font-medium px-10 pr-24">
           <p className="text-sm font-medium w-1/3">Nome</p>
           <p className="text-sm font-medium w-1/3 pl-8">Email</p>
           <p className="text-sm font-medium w-1/3">Telefone</p>
         </div>
-        <div className="w-screen left-0 top-32 border-[1.4px] border-[#464646] absolute" />
+        <div className="w-full left-0 md:block hidden top-32 border-[1.4px] border-[#464646] absolute" />
       </header>
       <div
         ref={ref}

@@ -8,13 +8,13 @@ type SearchInputProp = {
 const SearchInput = ({ setValue }: SearchInputProp) => {
   return (
     <div className="bg-[#3f3f3f] flex items-center gap-2 w-full p-2 text-[#656565] rounded-lg">
-      <FiSearch className="" />
+      <FiSearch />
       <input
-        className="bg-transparent h-full focus:outline-none text-white placeholder:text-[#656565]"
+        className="bg-transparent h-full focus:outline-none w-full text-white placeholder:text-[#656565]"
         onChange={(event) => setValue(event.target.value)}
         placeholder="Search"
       />
-      <BsSlashSquareFill className="text-[#323232]" />
+      <BsSlashSquareFill className="text-secondaryColor" />
     </div>
   );
 };
