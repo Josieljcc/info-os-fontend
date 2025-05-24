@@ -80,7 +80,7 @@ const ListClient = () => {
           <p className="text-sm font-medium w-1/3 pl-8">Email</p>
           <p className="text-sm font-medium w-1/3">Telefone</p>
         </div>
-        <div className="w-full left-0 md:block hidden top-32 border-[1.4px] border-[#464646] absolute" />
+        <div className="w-full left-0 md:block hidden top-32 border-[.0875rem] border-[#464646] absolute" />
       </header>
       <div
         ref={ref}
