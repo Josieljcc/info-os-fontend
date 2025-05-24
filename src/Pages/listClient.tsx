@@ -1,7 +1,6 @@
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
 import Card from "@/components/Cards/CardUser";
 import Spinner from "@/components/spinner/spinner";
-import useAuthentication from "@/hook/useAuthentication";
 import { SearchField } from "@/hook/useClient/types";
 import useClient from "@/hook/useClient/useClient";
 import { useClientSearch } from "@/hook/useClient/useSearchClient";
@@ -10,7 +9,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const ListClient = () => {
-  useAuthentication();
+
 
   const [searchType, setSearchType] = useState<SearchField>("name");
   const [searchValue, setSearchValue] = useState("");
@@ -100,7 +99,7 @@ const ListClient = () => {
       ) : (
         <div className="flex flex-col md:justify-center gap-3 md:flex-row md:flex-wrap md:gap-5 overflow-auto max-h-[60vh]">
           {displayClients?.map((client) => (
-            <Link key={client?.id} to={`/client/${client?.id}`}>
+            <Link key={client?.id} to={`/app/client/${client?.id}`}>
               <Card item={client as Client} />
             </Link>
           ))}

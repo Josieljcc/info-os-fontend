@@ -20,7 +20,7 @@ const useLogin = () => {
       const userLogin = response.data;
       setUser(userLogin);
       localStorage.setItem("user", JSON.stringify(userLogin));
-      navigate("/home");
+      navigate("/app");
     } catch (error) {
       const err = error as AxiosError;
       notify(
