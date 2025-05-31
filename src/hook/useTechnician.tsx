@@ -111,7 +111,7 @@ const useTechnician = () => {
   });
 
   const technicians =
-    paginatedTechnicians?.pages.flatMap((page) => page?.technicians) || [];
+    paginatedTechnicians?.pages.flatMap((page) => page?.technicians) ?? [];
 
   const getTechnicianById = async (id: string): Promise<Technician> => {
     const urlTechnicianById = `${BASE_URL}/technician/${id}`;
