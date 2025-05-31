@@ -1,0 +1,50 @@
+import { BASE_URL } from "@/constants";
+import UserContext from "@/context/userContext";
+import { notifyPositionMap, notifyType } from "@/types";
+import { useQuery } from "@tanstack/react-query";
+import axios, { AxiosError } from "axios";
+import { useContext } from "react";
+import useNotify from "./useNotify";
+
+type useSearchByNameProps = {
+  url?: string;
+  name?: string;
+  enabled?: boolean;
+};
+
+function useSearchByName<T = any>({
+  url,
+  name,
+  enabled = true,
+}: useSearchByNameProps) {
+  const {
+    user: { token },
+  } = useContext(UserContext);
+
+  const notify = useNotify();
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
+
+  const getClientBySearch = async (): Promise<T[]> => {
+    const params = new URLSearchParams();
+    if (name) params.append("name", name);
+
+    const baseUrl = `${BASE_URL}/${url}?${params}`;
+
+    try {
+      const response = await axios.get<T[]>(baseUrl, headers);
+      return response.data;
+    } catch (error) {
+      const err = error as AxiosError;
+      notify(err.message, notifyPositionMap.topRight, notifyType.error);
+      return [];
+    }
+  };
+
+  return useQuery<T[]>({
+    queryKey: ["getClientBySearch", name],
+    queryFn: getClientBySearch,
+    enabled,
+  });
+}
+
+export default useSearchByName;
