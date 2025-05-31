@@ -1,5 +1,3 @@
-import BackPageButton from "@/components/backPageButton/backPageButton";
-import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
 import CardPart from "@/components/Cards/CardPart";
 import DrawerPart from "@/components/drawerPart/drawerPart";
 import SearchInput from "@/components/searchInput/searchInput";
