@@ -2,17 +2,17 @@ import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
 import ClientDetail from "@/components/clientDetail/clientDetail";
 import EditClientForm from "@/components/editClientForm/editClientForm";
 import Spinner from "@/components/spinner/spinner";
-import useClient from "@/hook/useClient/useClient";
 import { Client } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { RxAvatar } from "react-icons/rx";
 import { useParams, Link } from "react-router-dom";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import useGetClient from "@/hook/useClient/useGetClient";
 
 const DetailClient = () => {
   const { id } = useParams();
-  const { getClientById } = useClient();
+  const { getClientById } = useGetClient();
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const { data: client, isFetching } = useQuery({
