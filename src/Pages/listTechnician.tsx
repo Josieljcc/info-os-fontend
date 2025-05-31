@@ -1,15 +1,14 @@
+import BackPageButton from "@/components/backPageButton/backPageButton";
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
+import Card from "@/components/Cards/CardUser";
+import Spinner from "@/components/spinner/spinner";
+import useResizeObserver from "@/hook/useResizeObserver";
+import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import useTechnician from "@/hook/useTechnician";
 import { Technician } from "@/types";
-import useResizeObserver from "@/hook/useResizeObserver";
-import BackPageButton from "@/components/backPageButton/backPageButton";
-import useRowVirtualizer from "@/hook/useRowVirtualizer";
-import Spinner from "@/components/spinner/spinner";
-import Card from "@/components/Cards/CardUser";
-
+import { Link } from "react-router-dom";
 
 const ListTechnician = () => {
-
   const { ref, rect } = useResizeObserver();
   const {
     technicians,
@@ -72,11 +71,12 @@ const ListTechnician = () => {
                     transform: `translateY(${virtualRow.start}px)`,
                   }}
                 >
-                  <Card
+                  <Link
                     key={technician?.id}
-                    item={technician as Technician}
-                    classname="m-auto"
-                  />
+                    to={`/technician/${technician?.id}`}
+                  >
+                    <Card item={technician as Technician} classname="m-auto" />
+                  </Link>
                 </div>
               );
             })}

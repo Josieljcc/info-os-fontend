@@ -1,15 +1,15 @@
-import { createBrowserRouter } from "react-router-dom";
-import RegisterTechnician from "../Pages/registerTechnician";
-import Login from "../Pages/login";
-
-import Home from "@/Pages/home";
-import Order from "@/Pages/order";
-import ListTechnician from "@/Pages/listTechnician";
-import ListClient from "@/Pages/listClient";
-import DetailClient from "@/Pages/detailClientPage";
-import ListPart from "@/Pages/listPart";
-import ListOrder from "@/Pages/listOrder";
 import AppLayout from "@/layout";
+import DetailClient from "@/Pages/detailClientPage";
+import DetailTechnician from "@/Pages/detailTechnicianPage";
+import Home from "@/Pages/home";
+import ListClient from "@/Pages/listClient";
+import ListOrder from "@/Pages/listOrder";
+import ListPart from "@/Pages/listPart";
+import ListTechnician from "@/Pages/listTechnician";
+import Login from "@/Pages/login";
+import Order from "@/Pages/order";
+import RegisterTechnician from "@/Pages/registerTechnician";
+import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home />
+        element: <Home />,
       },
       {
         path: "technician",
@@ -50,23 +50,26 @@ const router = createBrowserRouter([
       },
       {
         path: "os",
-        element: <ListOrder />
+        element: <ListOrder />,
       },
       {
         path: "part",
-        element: <ListPart />
+        element: <ListPart />,
       },
       {
         path: "os",
-        element: <ListOrder />
+        element: <ListOrder />,
       },
       {
         path: "part",
-        element: <ListPart />
-      }
-    ]
+        element: <ListPart />,
+      },
+      {
+        path: "technician/:id",
+        element: <DetailTechnician />,
+      },
+    ],
   },
-
 ]);
 
 export default router;
