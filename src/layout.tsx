@@ -7,6 +7,7 @@ const titleMap = {
   "/app/client": "Clientes",
   "/app/technician": "Técnicos",
   "/app": "Home",
+  "/app/part": "Peças",
 };
 
 const AppLayout = () => {
@@ -18,7 +19,7 @@ const AppLayout = () => {
     return;
   }
   return (
-    <div className="bg-zinc-800 text-zinc-100">
+    <div className="bg-zinc-800 fixed w-full h-screen text-zinc-100">
       <header>header</header>
       <div className="flex">
         <SideBar />

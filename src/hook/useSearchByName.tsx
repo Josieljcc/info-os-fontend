@@ -31,8 +31,9 @@ function useSearchByName<T = any>({
     const baseUrl = `${BASE_URL}/${url}?${params}`;
 
     try {
-      const response = await axios.get<T[]>(baseUrl, headers);
-      return response.data;
+      const response = await axios.get(baseUrl, headers);
+      const key = `${url}s`
+      return response.data[key];
     } catch (error) {
       const err = error as AxiosError;
       notify(err.message, notifyPositionMap.topRight, notifyType.error);
@@ -40,7 +41,7 @@ function useSearchByName<T = any>({
     }
   };
 
-  return useQuery<T[]>({
+  return useQuery({
     queryKey: [`get${url}BySearch`, name],
     queryFn: getBySearch,
     enabled,
