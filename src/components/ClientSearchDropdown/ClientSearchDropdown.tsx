@@ -42,7 +42,7 @@ export function ClientSearchDropdown() {
             </PopoverTrigger>
             <PopoverContent onClick={(event) => event.stopPropagation()} className="w-full bg-[#52525B] text-[#D4D4D8]">
 
-                <ul className="space-y-2">
+                <ul className="space-y-2 flex flex-col">
                     {!clients?.length
                         ?
                         <>

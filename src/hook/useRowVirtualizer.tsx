@@ -1,6 +1,5 @@
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect } from "react";
-import useAuthentication from "./useAuthentication";
 
 import {
   FetchNextPageOptions,
@@ -32,7 +31,7 @@ const useRowVirtualizer = ({
   ref,
 }: useRowVirtualizerProps) => {
 
-  useAuthentication();
+
 
   const rowVirtualizer = useVirtualizer({
     count: hasNextPage ? list.length + 1 : list.length,

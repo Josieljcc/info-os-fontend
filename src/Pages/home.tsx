@@ -4,10 +4,8 @@ import DrawerPart from "@/components/drawerPart/drawerPart";
 import DrawerService from "@/components/drawerService/drawerService";
 
 import { Link } from "react-router-dom";
-import useAuthentication from "@/hook/useAuthentication";
 
 const Home = () => {
-  useAuthentication();
 
   return (
     <div className="h-dvh flex flex-col w-full bg-[#141414] ">
@@ -25,6 +23,8 @@ const Home = () => {
       <Link className="text-white" to="/client">
         Listar Clientes
       </Link>
+      <Link className="text-white" to={"/os"}>Listar Os</Link>
+      <Link className="text-white" to={"/part"}>Lista Part</Link>
     </div>
   );
 };

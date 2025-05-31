@@ -2,14 +2,14 @@ import { BASE_URL } from "@/constants";
 import UserContext from "@/context/userContext";
 import { editingTechnicianType } from "@/schemas/editingTechnician";
 import { registerTechnicianType } from "@/schemas/registerTechnician";
-import { Technician, notifyPositionMap, notifyType } from "@/types";
+import { Technician, notifyPositionMap, notifyType, PageParam } from "@/types";
 import {
   useQueryClient,
   useMutation,
   useInfiniteQuery,
 } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { useContext, useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useNotify from "./useNotify";
 
@@ -17,10 +17,6 @@ type TechnicianPaginatedResponse = {
   technicians: Technician[];
   totalPages: number;
   page: number;
-};
-
-type PageParam = {
-  pageParam: number;
 };
 
 const useTechnician = () => {
