@@ -1,6 +1,7 @@
 import AppLayout from "@/layout";
 import DetailClient from "@/Pages/detailClientPage";
 import DetailTechnician from "@/Pages/detailTechnicianPage";
+import Home from "@/Pages/home";
 import ListClient from "@/Pages/listClient";
 import ListOrder from "@/Pages/listOrder";
 import ListPart from "@/Pages/listPart";
@@ -8,7 +9,6 @@ import ListTechnician from "@/Pages/listTechnician";
 import Login from "@/Pages/login";
 import Order from "@/Pages/order";
 import RegisterTechnician from "@/Pages/registerTechnician";
-import { Home } from "lucide-react";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
