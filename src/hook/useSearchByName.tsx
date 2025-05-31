@@ -24,7 +24,7 @@ function useSearchByName<T = any>({
   const notify = useNotify();
   const headers = { headers: { Authorization: `Bearer ${token}` } };
 
-  const getClientBySearch = async (): Promise<T[]> => {
+  const getBySearch = async (): Promise<T[]> => {
     const params = new URLSearchParams();
     if (name) params.append("name", name);
 
@@ -41,8 +41,8 @@ function useSearchByName<T = any>({
   };
 
   return useQuery<T[]>({
-    queryKey: ["getClientBySearch", name],
-    queryFn: getClientBySearch,
+    queryKey: [`get${url}BySearch`, name],
+    queryFn: getBySearch,
     enabled,
   });
 }
