@@ -2,7 +2,6 @@ import Card from "@/components/Cards/CardUser";
 import DrawerClient from "@/components/drawerClient/drawerClient";
 import Spinner from "@/components/spinner/spinner";
 import { SearchField } from "@/hook/useClient/types";
-import useClient from "@/hook/useClient/useClient";
 import { useClientSearch } from "@/hook/useClient/useSearchClient";
 import useDebounce from "@/hook/useDebounce/useDebounce";
 import useResizeObserver from "@/hook/useResizeObserver";
@@ -10,12 +9,13 @@ import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import { Client } from "@/types";
 import { useState } from "react";
 import SearchInput from "@/components/searchInput/searchInput";
+import useGetClient from "@/hook/useClient/useGetClient";
 
 const ListClient = () => {
   const [searchType, setSearchType] = useState<SearchField>("name");
   const [searchValue, setSearchValue] = useState("");
   const { clients, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useClient();
+    useGetClient();
   const [debouncedSearch] = useDebounce(searchValue, 400);
 
   const searchParams = { [searchType]: debouncedSearch };
@@ -96,7 +96,9 @@ const ListClient = () => {
         >
           {rowVirtualizer.getVirtualItems().map((virtualRow) => {
             const client = displayedClients[virtualRow.index];
-
+            if (!client) {
+              return
+            }
             return (
               <div
                 key={virtualRow.index}
