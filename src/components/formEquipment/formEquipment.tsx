@@ -4,15 +4,14 @@ import equipmentSchema, { EquipmentType } from "@/schemas/equipment";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import InputSelect, { SelectType } from "../inputSelect/inputSelect";
-import useClient from "@/hook/useClient/useClient";
-import { useEffect, useState } from "react";
-import { Client } from "@/types";
+import { useState } from "react";
+
 
 import DrawerClient from "../drawerClient/drawerClient";
 import useEquipment from "@/hook/useEquipment";
+import useGetClient from "@/hook/useClient/useGetClient";
 
 const FormEquipment = () => {
-  const [clients, setClients] = useState<Client[]>([]);
 
   const [clientID, setClientID] = useState<number>();
 
@@ -22,16 +21,7 @@ const FormEquipment = () => {
     resolver: zodResolver(equipmentSchema),
   });
 
-  const { getAllClients } = useClient();
-
-  useEffect(() => {
-    const getClients = async () => {
-      const data = await getAllClients();
-      setClients(data as Client[]);
-    };
-
-    getClients();
-  }, []);
+  const { clients } = useGetClient();
 
   const {
     handleSubmit,

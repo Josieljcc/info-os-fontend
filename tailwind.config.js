@@ -7,15 +7,10 @@ export default {
       backgroundImage: {
         "main-bg": "url('/public/assets/main.png')",
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
       colors: {
-        mainColor:"#4044ED",
-        secundaryColor:"#3F3F46",
-        background: "hsl(var(--background))",
+        mainColor: "#0043D8",
+        secondaryColor: "#323232",
+        backgroundColor: "#2a2a2a",
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -58,5 +53,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
 };

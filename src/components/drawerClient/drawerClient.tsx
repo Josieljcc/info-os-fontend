@@ -3,7 +3,7 @@ import FormDrawer from "../formDrawer/formDrawer";
 
 const DrawerClient = () => {
   return (
-    <FormDrawer buttonTitle="Cliente" title="Cadastrar Cliente">
+    <FormDrawer buttonTitle="Novo Cliente" title="Cadastrar Cliente">
       <FormClient />
     </FormDrawer>
   );
