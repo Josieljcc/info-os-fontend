@@ -16,7 +16,6 @@ const useClient = ({ clientId }: UseClientProps) => {
   const notify = useNotify();
   const queryClient = useQueryClient();
 
-
   const {
     user: { token },
   } = useContext(UserContext);
