@@ -1,46 +1,41 @@
 import { Part } from "@/types";
-import { FiEdit2 } from "react-icons/fi";
-import { RiDeleteBin7Line } from "react-icons/ri";
-import { RxAvatar } from "react-icons/rx";
+import { FiEdit3, FiTrash } from "react-icons/fi";
+
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 
-type CardPartProp ={
-  classname?: string
-  part: Part
-}
+type CardPartProp = {
+  classname?: string;
+  part: Part;
+};
 
-const CardPart = ({part, classname}:CardPartProp) => {
+const CardPart = ({ part, classname }: CardPartProp) => {
   return (
     <div
-      className={`flex justify-between text-white rounded-lg shadow-md border border-gray-600 flex-col max-w-[42rem] pb-4 pt-4 px-4 bg-[#1c2029] ${classname}`}
+      className={`flex justify-between h-16 text-white rounded-2xl border-2 items-center w-full border-[#e9ecef7b] md:py-5 py-3 md:px-7 px-4 bg-secondaryColor ${classname}`}
     >
-      <div className="flex text-6xl justify-center">
-        <RxAvatar />
+      <div className="flex flex-1 items-center ">
+        <p className="text-sm font-medium md:w-1/3 w-1/2">{part?.name}</p>
+        <p className=" text-sm font-medium w-1/3 pl-6 ">{`${part?.price} R$`}</p>
+        <p className="text-sm font-medium md:w-1/3 w-1/2 pl-[4.625rem] md:block hidden">
+          {part?.quantity}
+        </p>
       </div>
-      <div className="py-5">
-        <div>
-          <p className="text-lg font-semibold w-full ">{part?.name}</p>
-          <p className="text-sm w-full">{part?.description}</p>
-          <p className="text-sm w-full">{part?.quantity}</p>
-          <p className="text-sm w-full">{part?.price}</p>
-        </div>
-      </div>
-      <div className="flex gap-20">
+      <div className="flex gap-2 h-7 items-center">
         <ButtonPrimary
-          color="bg-sky-700"
-          className="text-2xl h-full w-full rounded-full"
+          color="bg-mainColor"
+          className="md:block hidden rounded-lg px-[.3125rem] py-1 pr-[.35rem]"
         >
-          <FiEdit2 />
+          <FiEdit3 className="w-4 h-4" />
         </ButtonPrimary>
         <ButtonPrimary
-          color="bg-red-500"
-          className="text-2xl h-full w-full rounded-full"
+          color="bg-mainColor"
+          className="rounded-lg px-[.3125rem] py-1"
         >
-          <RiDeleteBin7Line />
+          <FiTrash className="w-4 h-4" />
         </ButtonPrimary>
       </div>
     </div>
   );
-}
- 
+};
+
 export default CardPart;
