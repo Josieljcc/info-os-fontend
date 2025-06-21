@@ -2,7 +2,7 @@ import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
 import EditTechnicianForm from "@/components/editTechnicianForm/editTechnicianForm";
 import Spinner from "@/components/spinner/spinner";
 import TechnicianDetail from "@/components/technicianDetail/technicianDetail";
-import useTechnician from "@/hook/useTechnician";
+import useGetTechnician from "@/hook/useTechnician/useGetTechnician";
 import { Technician } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import { useParams, Link } from "react-router-dom";
 
 const DetailTechnician = () => {
   const { id } = useParams();
-  const { getTechnicianById } = useTechnician();
+  const { getTechnicianById } = useGetTechnician();
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const { data: technician, isFetching } = useQuery({
