@@ -1,5 +1,4 @@
 import AppLayout from "@/layout";
-import DetailClient from "@/Pages/detailClientPage";
 import DetailTechnician from "@/Pages/detailTechnicianPage";
 import Home from "@/Pages/home";
 import ListClient from "@/Pages/listClient";
@@ -43,10 +42,6 @@ const router = createBrowserRouter([
       {
         path: "technician",
         element: <ListTechnician />,
-      },
-      {
-        path: "client/:id",
-        element: <DetailClient />,
       },
       {
         path: "os",

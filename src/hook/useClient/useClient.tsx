@@ -6,13 +6,16 @@ import { notifyPositionMap, notifyType } from "@/types";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
 import useNotify from "../useNotify";
 
-const useClient = () => {
+type UseClientProps = {
+  clientId?: number;
+};
+
+const useClient = ({ clientId }: UseClientProps) => {
   const notify = useNotify();
   const queryClient = useQueryClient();
-  const { id } = useParams();
+
 
   const {
     user: { token },
@@ -40,7 +43,7 @@ const useClient = () => {
     }
   };
 
-  const urlEditClient = `${BASE_URL}/client/${id}`;
+  const urlEditClient = `${BASE_URL}/client/${clientId}`;
 
   const editClientMutation = useMutation({
     mutationFn: (formData: editingClientType) => {
@@ -49,6 +52,7 @@ const useClient = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["getClient"] });
+      queryClient.invalidateQueries({ queryKey: ["getAllClients"] });
       notify(
         "Cliente Editado com Sucesso!",
         notifyPositionMap.topRight,

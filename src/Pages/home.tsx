@@ -3,7 +3,6 @@ import DrawerEquipment from "@/components/drawerEquipment/drawerEquipment";
 import DrawerPart from "@/components/drawerPart/drawerPart";
 import DrawerService from "@/components/drawerService/drawerService";
 
-import { Link } from "react-router-dom";
 
 const Home = () => {
 
@@ -14,17 +13,6 @@ const Home = () => {
       <DrawerPart />
       <DrawerService />
       <DrawerEquipment />
-      <Link className="text-white" to={"/order"}>
-        Order
-      </Link>
-      <Link className="text-white" to="/technician">
-        Listar Técnicos
-      </Link>
-      <Link className="text-white" to="/client">
-        Listar Clientes
-      </Link>
-      <Link className="text-white" to={"/os"}>Listar Os</Link>
-      <Link className="text-white" to={"/part"}>Lista Part</Link>
     </div>
   );
 };
