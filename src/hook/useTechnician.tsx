@@ -33,7 +33,7 @@ const useTechnician = () => {
   const header = { headers: { Authorization: `Bearer ${token}` } };
 
   const registerTechnician = async (data: registerTechnicianType) => {
-    const urlRegisterTechnician = `${BASE_URL}/technician`;
+    const urlRegisterTechnician = `${BASE_URL}/register/technician`;
 
     try {
       await axios.post(urlRegisterTechnician, data, header);
@@ -42,7 +42,7 @@ const useTechnician = () => {
         notifyPositionMap.topRight,
         notifyType.success
       );
-      navigate("/home");
+      navigate("/login");
     } catch (error) {
       const err = error as AxiosError;
       notify(
