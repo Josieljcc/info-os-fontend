@@ -15,10 +15,8 @@ const CardPart = ({ part, classname }: CardPartProp) => {
     >
       <div className="flex flex-1 items-center ">
         <p className="text-sm font-medium md:w-1/3 w-1/2">{part?.name}</p>
-        <p className="md:block hidden text-sm font-medium w-1/3 pl-6">
-          {`${part?.price} R$`}
-        </p>
-        <p className="text-sm font-medium md:w-1/3 w-1/2 pl-[4.625rem]">
+        <p className=" text-sm font-medium w-1/3 pl-6 ">{`${part?.price} R$`}</p>
+        <p className="text-sm font-medium md:w-1/3 w-1/2 pl-[4.625rem] md:block hidden">
           {part?.quantity}
         </p>
       </div>
