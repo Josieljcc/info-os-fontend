@@ -3,7 +3,7 @@ import FormPart from "../formPart/formPart";
 
 const DrawerPart = () => {
   return (
-    <FormDrawer buttonTitle="Peça" title="Cadastrar Peça">
+    <FormDrawer buttonTitle="Nova Peça" title="Cadastrar Peça">
       <FormPart />
     </FormDrawer>
   );
