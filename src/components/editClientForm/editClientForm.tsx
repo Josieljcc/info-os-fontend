@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import FormField from "../formField/formField";
+import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
 
 type EditClientFormProps = {
   client: Client;
@@ -13,7 +14,7 @@ type EditClientFormProps = {
 };
 
 const EditClientForm = ({ client, setIsEditing }: EditClientFormProps) => {
-  const { editClientMutation } = useClient();
+  const { editClientMutation } = useClient({ clientId: client?.id });
   const methods = useForm<editingClientType>({
     resolver: zodResolver(editingClientSchema),
   });
@@ -42,9 +43,13 @@ const EditClientForm = ({ client, setIsEditing }: EditClientFormProps) => {
         <FormField formName="phone" label="Telefone:" />
         <FormField formName="address" label="Endereço:" />
       </div>
-      <ButtonPrimary onClick={handleSubmit(handleEditClient)}>
-        Salvar
-      </ButtonPrimary>
+      <div className="flex flex-col gap-4 p-4">
+        <ButtonPrimary onClick={handleSubmit(handleEditClient)}>
+          Salvar
+        </ButtonPrimary>
+        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+      </div>
+
     </FormProvider>
   );
 };
