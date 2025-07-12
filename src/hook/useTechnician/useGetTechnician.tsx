@@ -1,9 +1,9 @@
 import { BASE_URL } from "@/constants";
 import UserContext from "@/context/userContext";
 import useNotify from "../useNotify";
-import { Technician, PageParam, notifyPositionMap, notifyType } from "@/types";
+import { Technician, notifyPositionMap, notifyType } from "@/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useContext } from "react";
 
 type TechnicianPaginatedResponse = {
@@ -20,20 +20,13 @@ const useGetTechnician = () => {
 
   const header = { headers: { Authorization: `Bearer ${token}` } };
 
-  const getAllTechnician = async ({
-    pageParam,
-  }: PageParam): Promise<TechnicianPaginatedResponse | undefined> => {
-    const urlTechnician = `${BASE_URL}/technician?page=${pageParam}`;
+  const getAllTechnician = async ({ pageParam }: { pageParam: number }): Promise<TechnicianPaginatedResponse> => {
     try {
-      const response = await axios.get(urlTechnician, header);
+      const response = await axios.get(`${BASE_URL}/technician?page=${pageParam}`, header);
       return response.data;
-    } catch (error) {
-      const err = error as AxiosError;
-      notify(
-        err.message as string,
-        notifyPositionMap.topRight,
-        notifyType.error
-      );
+    } catch (err: any) {
+      notify(err.message, notifyPositionMap.topRight, notifyType.error);
+      return { technicians: [], totalPages: 0, page: 0 };
     }
   };
 
@@ -48,21 +41,15 @@ const useGetTechnician = () => {
     queryFn: getAllTechnician,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      if (lastPage?.totalPages === lastPage?.page) return;
-      if (lastPage?.totalPages === 0) return;
-      return Number(lastPage?.page) + 1;
+      if (!lastPage || lastPage.page >= lastPage.totalPages) return undefined;
+      return lastPage.page + 1;
     },
   });
 
-  const technicians = paginatedTechnicians
-    ? paginatedTechnicians?.pages.flatMap((page) => {
-        return page?.technicians;
-      })
-    : [];
+  const technicians = paginatedTechnicians?.pages.flatMap((p) => p.technicians) || [];
 
   const getTechnicianById = async (id: string): Promise<Technician> => {
-    const urlTechnicianById = `${BASE_URL}/technician/${id}`;
-    const response = await axios.get(urlTechnicianById, header);
+    const response = await axios.get(`${BASE_URL}/technician/${id}`, header);
     return response.data;
   };
 

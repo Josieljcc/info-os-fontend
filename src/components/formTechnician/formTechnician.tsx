@@ -1,6 +1,4 @@
-import technicianSchema, {
-  registerTechnicianType,
-} from "@/schemas/registerTechnician";
+import technicianSchema, { registerTechnicianType } from "@/schemas/registerTechnician";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
@@ -9,6 +7,7 @@ import InputList from "../imputList/imputList";
 
 const FormTechnician = () => {
   const { registerTechnician } = useTechnician();
+
   const methods = useForm<registerTechnicianType>({
     resolver: zodResolver(technicianSchema),
   });

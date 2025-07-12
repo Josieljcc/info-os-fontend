@@ -4,7 +4,7 @@ import { editingTechnicianType } from "@/schemas/editingTechnician";
 import { registerTechnicianType } from "@/schemas/registerTechnician";
 import { notifyPositionMap, notifyType } from "@/types";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import useNotify from "../useNotify";
@@ -21,53 +21,27 @@ const useTechnician = () => {
   const header = { headers: { Authorization: `Bearer ${token}` } };
 
   const registerTechnician = async (data: registerTechnicianType) => {
-    const urlRegisterTechnician = `${BASE_URL}/register/technician`;
     try {
-      await axios.post(urlRegisterTechnician, data, header);
+      await axios.post(`${BASE_URL}/register/technician`, data, header);
       queryClient.invalidateQueries({ queryKey: ["getAllTechnicians"] });
-      notify(
-        "Técnico Registrado com Sucesso!",
-        notifyPositionMap.topRight,
-        notifyType.success
-      );
-    } catch (error) {
-      const err = error as AxiosError;
-      notify(
-        err.message as string,
-        notifyPositionMap.topRight,
-        notifyType.error
-      );
+      notify("Técnico Registrado com Sucesso!", notifyPositionMap.topRight, notifyType.success);
+    } catch (err: any) {
+      notify(err.message, notifyPositionMap.topRight, notifyType.error);
     }
   };
 
-  const urlEditTechnician = `${BASE_URL}/technician/${id}`;
-
   const editTechnicianMutation = useMutation({
-    mutationFn: (formData: editingTechnicianType) => {
-      return axios.put(urlEditTechnician, formData, header);
-    },
+    mutationFn: (formData: editingTechnicianType) => axios.put(`${BASE_URL}/technician/${id}`, formData, header),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["getTechnician"] });
-      notify(
-        "Técnico Editado com Sucesso!",
-        notifyPositionMap.topRight,
-        notifyType.success
-      );
+      notify("Técnico Editado com Sucesso!", notifyPositionMap.topRight, notifyType.success);
     },
-    onError: (error) => {
-      const err = error as AxiosError;
-      notify(
-        err.message as string,
-        notifyPositionMap.topRight,
-        notifyType.error
-      );
+    onError: (err: any) => {
+      notify(err.message, notifyPositionMap.topRight, notifyType.error);
     },
   });
 
-  return {
-    registerTechnician,
-    editTechnicianMutation,
-  };
+  return { registerTechnician, editTechnicianMutation };
 };
 
 export default useTechnician;
