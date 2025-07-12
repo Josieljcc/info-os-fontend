@@ -1,4 +1,3 @@
-import useTechnician from "@/hook/useTechnician";
 import editingTechnicianSchema, {
   editingTechnicianType,
 } from "@/schemas/editingTechnician";
@@ -8,6 +7,7 @@ import { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import FormField from "../formField/formField";
+import useRegisterTechnician from "@/hook/useTechnician/useRegisterTechnician";
 
 type EditTechnicianFormProps = {
   technician: Technician;
@@ -18,7 +18,7 @@ const EditTechnicianForm = ({
   technician,
   setIsEditing,
 }: EditTechnicianFormProps) => {
-  const { editTechnicianMutation } = useTechnician();
+  const { editTechnicianMutation } = useRegisterTechnician();
   const methods = useForm<editingTechnicianType>({
     resolver: zodResolver(editingTechnicianSchema),
   });

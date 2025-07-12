@@ -1,16 +1,16 @@
-import clientSchema, { registerClientType } from "@/schemas/registerClient";
+import technicianSchema, { registerTechnicianType } from "@/schemas/registerTechnician";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import useClient from "@/hook/useClient/useClient";
+import useRegisterTechnician from "@/hook/useTechnician/useRegisterTechnician";
 import InputList from "../imputList/imputList";
 import { FORMS_USER_IMPUTS } from "@/constants";
 
-const FormClient = () => {
-  const { registerClient } = useClient({});
+const FormTechnician = () => {
+  const { registerTechnician } = useRegisterTechnician();
 
-  const methods = useForm<registerClientType>({
-    resolver: zodResolver(clientSchema),
+  const methods = useForm<registerTechnicianType>({
+    resolver: zodResolver(technicianSchema),
   });
 
   const {
@@ -18,8 +18,8 @@ const FormClient = () => {
     formState: { errors },
   } = methods;
 
-  const handleCreateClient = (data: registerClientType) => {
-    registerClient(data);
+  const handleCreateTechnician = (data: registerTechnicianType) => {
+    registerTechnician(data);
   };
 
     return (
@@ -32,7 +32,7 @@ const FormClient = () => {
         />
         <div className="flex justify-center">
           <ButtonPrimary
-            onClick={handleSubmit(handleCreateClient)}
+            onClick={handleSubmit(handleCreateTechnician)}
             className="font-semibold text-2xl py-4 px-40 mt-10 mb-11"
           >
             Criar
@@ -43,4 +43,4 @@ const FormClient = () => {
   );
 };
 
-export default FormClient;
+export default FormTechnician;
