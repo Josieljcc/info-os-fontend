@@ -4,6 +4,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import useClient from "@/hook/useClient/useClient";
 import InputList from "../imputList/imputList";
+import { FORMS_USER_IMPUTS } from "@/constants";
 
 const FormClient = () => {
   const { registerClient } = useClient({});
@@ -21,19 +22,11 @@ const FormClient = () => {
     registerClient(data);
   };
 
-  const inputs = [
-    { name: "name", placeholder: "Nome" },
-    { name: "email", placeholder: "Email" },
-    { name: "password", placeholder: "Senha", type: "password" },
-    { name: "phone", placeholder: "Telefone" },
-    { name: "address", placeholder: "Endereço" },
-  ];
-
-  return (
+    return (
     <div className="h-full flex flex-col gap-4 font-medium w-3/4 md:w-1/2">
       <FormProvider {...methods}>
         <InputList
-          inputs={inputs}
+          inputs={FORMS_USER_IMPUTS}
           errors={errors}
           inputClassName="py-6 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
         />
