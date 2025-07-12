@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import FormField from "../formField/formField";
-import useTechnician from "@/hook/useTechnician/useTechnician";
+import useTechnician from "@/hook/useTechnician/useRegisterTechnician";
 
 type EditTechnicianFormProps = {
   technician: Technician;

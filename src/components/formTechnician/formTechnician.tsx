@@ -2,7 +2,7 @@ import technicianSchema, { registerTechnicianType } from "@/schemas/registerTech
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import useTechnician from "@/hook/useTechnician/useTechnician";
+import useTechnician from "@/hook/useTechnician/useRegisterTechnician";
 import InputList from "../imputList/imputList";
 import { FORMS_USER_IMPUTS } from "@/constants";
 

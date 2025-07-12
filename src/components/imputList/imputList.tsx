@@ -1,12 +1,12 @@
 import Input from "../input/input";
 
-interface InputItem {
+type InputItem = {
   name: string;
   placeholder: string;
   type?: string;
 }
 
-interface InputListProps {
+type InputListProps = {
   inputs: InputItem[];
   errors: Record<string, any>;
   inputClassName?: string;

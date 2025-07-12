@@ -13,7 +13,7 @@ import ButtonPrimary from "../components/buttonPrimary/buttonPrimary";
 
 import { Link } from "react-router-dom";
 import SecondaryBackground from "../components/SecondaryBackground/SecondaryBackground";
-import useTechnician from "@/hook/useTechnician/useTechnician";
+import useTechnician from "@/hook/useTechnician/useRegisterTechnician";
 
 const RegisterTechnician = () => {
   const { registerTechnician } = useTechnician();

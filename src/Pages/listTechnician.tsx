@@ -58,7 +58,7 @@ const ListTechnician = () => {
     <div className="h-screen w-full bg-secondaryColor flex flex-col px-6 pt-8 relative gap-10 rounded-lg">
       <header className="flex flex-col gap-5">
         <div className="flex md:flex-row flex-col-reverse justify-between flex-wrap gap-4 md:gap-0">
-          <DrawerTechnician />{" "}
+          <DrawerTechnician />
           <div className="flex gap-5">
             <select
               value={searchType}
