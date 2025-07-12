@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import useNotify from "../useNotify";
 
-const useTechnician = () => {
+const useRegisterTechnician = () => {
   const notify = useNotify();
   const queryClient = useQueryClient();
   const { id } = useParams();
@@ -44,4 +44,4 @@ const useTechnician = () => {
   return { registerTechnician, editTechnicianMutation };
 };
 
-export default useTechnician;
+export default useRegisterTechnician;
