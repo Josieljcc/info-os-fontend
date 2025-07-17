@@ -5,6 +5,9 @@ import { AlertDialogCancel } from "@/components/ui/alert-dialog";
 import { Client, Technician } from "@/types";
 import { useState } from "react";
 import { RxAvatar } from "react-icons/rx";
+import useClient from "@/hook/useClient/useClient";
+import DeleteButton from "@/components/deleteButton/deleteButton";
+
 
 type DetailUserProps = {
   user: Client | Technician;
@@ -16,6 +19,11 @@ const DetailUser = ({ user }: DetailUserProps) => {
   const handleEdit = () => {
     setIsEditing(!isEditing);
   };
+
+const { deleteClient } = useClient({ clientId: user.id });  
+  const handleDelete = async () => {
+    await deleteClient(user.id);
+   };
 
   return (
     <div>
@@ -38,6 +46,7 @@ const DetailUser = ({ user }: DetailUserProps) => {
             <ButtonPrimary onClick={handleEdit}>
               Editar
             </ButtonPrimary>
+            <DeleteButton onConfirm={handleDelete} />
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
           </div>
         )}
