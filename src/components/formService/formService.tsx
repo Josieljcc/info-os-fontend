@@ -3,7 +3,7 @@ import Input from "../input/input";
 import servicesSchema, { ServicesType } from "@/schemas/services";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import UseService from "@/hook/Service/useService";
+import UseService from "@/hook/useService/useService";
 
 
 const FormService = () => {
