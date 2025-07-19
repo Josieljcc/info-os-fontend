@@ -5,11 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import InputSelect, { SelectType } from "../inputSelect/inputSelect";
 import { useState } from "react";
-
-
 import DrawerClient from "../drawerClient/drawerClient";
-import useEquipment from "@/hook/useEquipment";
 import useGetClient from "@/hook/useClient/useGetClient";
+import useEquipment from "@/hook/useEquipment/useEquipment";
 
 const FormEquipment = () => {
 

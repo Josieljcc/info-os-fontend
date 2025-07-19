@@ -25,4 +25,9 @@ export const menuItems: SideBarItemType[] = [
     icon: HiMiniComputerDesktop,
     title: "Peças",
   },
+  {
+    path: "/app/equipment",
+    icon: HiMiniComputerDesktop,
+    title: "Equipamento",
+  },
 ];

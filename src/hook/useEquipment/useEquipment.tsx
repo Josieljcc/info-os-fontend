@@ -4,11 +4,12 @@ import { EquipmentType } from "@/schemas/equipment";
 import { notifyPositionMap, notifyType } from "@/types";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
-import useNotify from "./useNotify";
+import useNotify from "../useNotify";
+import { useQueryClient } from "@tanstack/react-query";
 
 const useEquipment = () => {
   const notify = useNotify();
-
+  const queryClient = useQueryClient();
   const {
     user: { token },
   } = useContext(UserContext);
@@ -24,6 +25,7 @@ const useEquipment = () => {
     const urlRegisterEquipment = `${BASE_URL}/equipment`;
     try {
       await axios.post(urlRegisterEquipment, payload, header);
+      queryClient.invalidateQueries({ queryKey: ["getAllEquipments"] });
       notify(
         "Equipamento Registrado com Sucesso!",
         notifyPositionMap.topRight,
