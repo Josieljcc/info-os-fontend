@@ -1,5 +1,5 @@
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import ClientDetail from "@/components/clientDetail/clientDetail";
+import ClientDetail from "@/components/detailForm/clientForm";
 import EditClientForm from "@/components/editClientForm/editClientForm";
 import { AlertDialogCancel } from "@/components/ui/alert-dialog";
 import { Client, Technician } from "@/types";

@@ -1,7 +1,7 @@
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
 import EditTechnicianForm from "@/components/editTechnicianForm/editTechnicianForm";
 import Spinner from "@/components/spinner/spinner";
-import TechnicianDetail from "@/components/technicianDetail/technicianDetail";
+import TechnicianDetail from "@/components/detailForm/technicianForm";
 import useGetTechnician from "@/hook/useTechnician/useGetTechnician";
 import { Technician } from "@/types";
 import { useQuery } from "@tanstack/react-query";
