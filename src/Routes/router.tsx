@@ -2,6 +2,7 @@ import AppLayout from "@/layout";
 import DetailTechnician from "@/Pages/detailTechnicianPage";
 import Home from "@/Pages/home";
 import ListClient from "@/Pages/listClient";
+import ListEquipment from "@/Pages/listEquipment";
 import ListOrder from "@/Pages/listOrder";
 import ListPart from "@/Pages/listPart";
 import ListService from "@/Pages/listService";
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: "technician/:id",
         element: <DetailTechnician />,
+      },
+      {
+        path: "equipment",
+        element: <ListEquipment />,
       },
     ],
   },

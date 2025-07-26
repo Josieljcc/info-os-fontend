@@ -8,7 +8,8 @@ const titleMap = {
   "/app/technician": "Técnicos",
   "/app": "Home",
   "/app/part": "Peças",
-  "/app/service": "Serviços"
+  "/app/service": "Serviços",
+  "/app/equipment": "Equipamento",
 };
 
 const AppLayout = () => {

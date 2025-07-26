@@ -5,7 +5,7 @@ import { notifyPositionMap, notifyType, PageParam, Part } from "@/types";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
 import useNotify from "./useNotify";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
 type PartPaginatedResponse = {
   parts: Part[];
@@ -14,6 +14,7 @@ type PartPaginatedResponse = {
 };
 
 const usePart = () => {
+  const queryClient = useQueryClient();
   const {
     user: { token },
   } = useContext(UserContext);
@@ -33,7 +34,7 @@ const usePart = () => {
 
     try {
       await axios.post(urlRegisterPart, payload, header);
-
+      queryClient.invalidateQueries({ queryKey: ["getAllPart"] });
       notify(
         "Peça Registrada com Sucesso!",
         notifyPositionMap.topRight,
