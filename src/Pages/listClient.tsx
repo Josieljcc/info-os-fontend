@@ -6,7 +6,7 @@ import { useClientSearch } from "@/hook/useClient/useSearchClient";
 import useDebounce from "@/hook/useDebounce/useDebounce";
 import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
-import { Client } from "@/types";
+import { Client, role } from "@/types";
 import { useState } from "react";
 import SearchInput from "@/components/searchInput/searchInput";
 import useGetClient from "@/hook/useClient/useGetClient";
@@ -97,7 +97,7 @@ const ListClient = () => {
           {rowVirtualizer.getVirtualItems().map((virtualRow) => {
             const client = displayedClients[virtualRow.index];
             if (!client) {
-              return
+              return;
             }
             return (
               <div
@@ -114,7 +114,7 @@ const ListClient = () => {
                 <Card
                   key={client?.id}
                   item={client as Client}
-                  classname="m-auto"
+                  userType={role.client}
                 />
               </div>
             );
