@@ -1,8 +1,8 @@
 import UserContext from "@/context/userContext";
 import { Part } from "@/types";
 import { useState, useContext } from "react";
-import useOrder, { OrderPayload } from "./useOrder";
-import usePart from "./usePart";
+import useOrder, { OrderPayload } from "../useOrder";
+import usePart from "../usePart";
 import { OrderType } from "@/schemas/order";
 
 const useFormOrder = () => {

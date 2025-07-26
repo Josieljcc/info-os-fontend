@@ -1,10 +1,11 @@
 import { BASE_URL } from "@/constants";
 import { ServicesType } from "@/schemas/services";
-import { notifyPositionMap, notifyType, Service } from "@/types";
+import { notifyPositionMap, notifyType } from "@/types";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
 import UserContext from "@/context/userContext";
 import useNotify from "../useNotify";
+import { useQueryClient } from "@tanstack/react-query";
 
 const UseService = () => {
   const notify = useNotify();
@@ -17,6 +18,8 @@ const UseService = () => {
     headers: { Authorization: `Bearer ${token}` },
   };
 
+  const queryClient = useQueryClient();
+
   const serviceEndpoint = `${BASE_URL}/service`;
 
   const registerService = async (data: ServicesType) => {
@@ -28,6 +31,7 @@ const UseService = () => {
 
     try {
       await axios.post(serviceEndpoint, payload, header);
+      queryClient.invalidateQueries({ queryKey: ["getAllService"] });
       notify(
         "Serviço Registrado com Sucesso!",
         notifyPositionMap.topRight,
@@ -43,26 +47,7 @@ const UseService = () => {
     }
   };
 
-  const getAllServices = async () => {
-    if (!token) {
-      return;
-    }
-    try {
-      const response = await axios.get(serviceEndpoint, header);
-      const data: Service[] = response.data.services;
-      return data;
-    } catch (error) {
-      const err = error as AxiosError;
-
-      notify(
-        err.message as string,
-        notifyPositionMap.topRight,
-        notifyType.error
-      );
-    }
-  };
-
-  return { registerService, getAllServices };
+  return { registerService };
 };
 
 export default UseService;

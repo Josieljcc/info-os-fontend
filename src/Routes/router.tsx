@@ -5,6 +5,7 @@ import ListClient from "@/Pages/listClient";
 import ListEquipment from "@/Pages/listEquipment";
 import ListOrder from "@/Pages/listOrder";
 import ListPart from "@/Pages/listPart";
+import ListService from "@/Pages/listService";
 import ListTechnician from "@/Pages/listTechnician";
 import Login from "@/Pages/login";
 import Order from "@/Pages/order";
@@ -57,8 +58,8 @@ const router = createBrowserRouter([
         element: <ListOrder />,
       },
       {
-        path: "part",
-        element: <ListPart />,
+        path: "service",
+        element: <ListService />,
       },
       {
         path: "technician/:id",
