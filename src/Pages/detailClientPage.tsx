@@ -28,16 +28,11 @@ const DetailUser = ({ user }: DetailUserProps) => {
           </div>
         </div>
         {isEditing ? (
-          <EditClientForm
-            client={user as Client}
-            setIsEditing={setIsEditing}
-          />
+          <EditClientForm client={user as Client} setIsEditing={setIsEditing} />
         ) : (
           <div className="flex flex-col gap-4 p-4">
             <ClientDetail client={user as Client} />
-            <ButtonPrimary onClick={handleEdit}>
-              Editar
-            </ButtonPrimary>
+            <ButtonPrimary onClick={handleEdit}>Editar</ButtonPrimary>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
           </div>
         )}
