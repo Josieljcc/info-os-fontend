@@ -19,7 +19,7 @@ const Card = ({ item, userType, classname }: CardProps) => {
 
   const handleDelete = async () => {
     if (isClient) {
-      await deleteClient((item as Client).id);
+      await deleteClient();
     }
   };
 

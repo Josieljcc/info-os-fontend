@@ -69,9 +69,9 @@ const useClient = ({ clientId }: UseClientProps) => {
     },
   });
 
-  const deleteClient = async (id: number) => {
+  const deleteClient = async () => {
     try {
-      await axios.delete(`${BASE_URL}/client/${id}`, header);
+      await axios.delete(`${BASE_URL}/client/${clientId}`, header);
       queryClient.invalidateQueries({
         queryKey: ["getAllClients"],
       });
