@@ -70,19 +70,24 @@ const useClient = ({ clientId }: UseClientProps) => {
   });
 
   const deleteClient = async (id: number) => {
-  try {
-    await axios.delete(`${BASE_URL}/client/${id}`, header);
-    queryClient.invalidateQueries({ queryKey: ["getAllClients"] });
-    notify(
-      "Cliente excluído com sucesso!",
-      notifyPositionMap.topRight,
-      notifyType.success
-    );
-  } catch (error) {
-    const err = error as AxiosError;
-    notify(err.message, notifyPositionMap.topRight, notifyType.error);
-  }
-};
+    try {
+      await axios.delete(`${BASE_URL}/client/${id}`, header);
+      queryClient.invalidateQueries({
+        queryKey: ["getAllClients"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getClientBySearch"],
+      });
+      notify(
+        "Cliente excluído com sucesso!",
+        notifyPositionMap.topRight,
+        notifyType.success
+      );
+    } catch (error) {
+      const err = error as AxiosError;
+      notify(err.message, notifyPositionMap.topRight, notifyType.error);
+    }
+  };
 
   return {
     registerClient,
