@@ -8,6 +8,7 @@ import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import useSearchByName from "@/hook/useSearchByName";
 import { EquipmentType } from "@/schemas/equipment";
+import { Equipment } from "@/types";
 import { useState } from "react";
 
 const ListEquipment = () => {
@@ -93,7 +94,7 @@ const ListEquipment = () => {
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
               >
-                <CardEquipment equipment={equipment as EquipmentType} />
+                <CardEquipment equipment={equipment as Equipment} />
               </div>
             );
           })}

@@ -43,6 +43,14 @@ export type Service = {
   price: number;
 };
 
+export type Equipment = {
+  id: number;
+  name: string;
+  model: string;
+  serialNumber: string;
+  description: string;
+};
+
 export type Part = {
   id: number;
   name: string;

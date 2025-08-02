@@ -1,11 +1,11 @@
-import { FiEdit3, FiTrash } from "react-icons/fi";
-
+import { FiTrash } from "react-icons/fi";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import { EquipmentType } from "@/schemas/equipment";
+import { Equipment } from "@/types";
+import DetailModalEquipment from "../detailModal/equipmentModal";
 
 type CardEquipmentProp = {
   classname?: string;
-  equipment: EquipmentType;
+  equipment: Equipment;
 };
 
 const CardEquipment = ({ equipment, classname }: CardEquipmentProp) => {
@@ -21,12 +21,9 @@ const CardEquipment = ({ equipment, classname }: CardEquipmentProp) => {
         </p>
       </div>
       <div className="flex gap-2 h-7 items-center">
-        <ButtonPrimary
-          color="bg-mainColor"
-          className="md:block hidden rounded-lg px-[.3125rem] py-1 pr-[.35rem]"
-        >
-          <FiEdit3 className="w-4 h-4" />
-        </ButtonPrimary>
+        <div className="flex gap-2 h-7 items-center">
+          <DetailModalEquipment equipment={equipment} />
+        </div>
         <ButtonPrimary
           color="bg-mainColor"
           className="rounded-lg px-[.3125rem] py-1"
