@@ -1,14 +1,15 @@
 import UserContext from "@/context/userContext";
 import { Part } from "@/types";
 import { useState, useContext } from "react";
-import useOrder, { OrderPayload } from "./useOrder";
-import usePart from "./usePart/useGetPart";
+import useOrder, { OrderPayload } from "../useOrder";
+
 import { OrderType } from "@/schemas/order";
+import useGetPart from "../usePart/useGetPart";
 
 const useFormOrder = () => {
   const [selectedPartId, setSelectedPartId] = useState<number>();
 
-  const { parts } = usePart();
+  const { parts } = useGetPart();
 
   const { registerOrder } = useOrder();
 

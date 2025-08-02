@@ -3,7 +3,7 @@ import FormService from "../formService/formService";
 
 const DrawerService = () => {
   return (
-    <FormDrawer buttonTitle="Service" title="Cadastrar Serviço">
+    <FormDrawer buttonTitle="Novo Serviço" title="Cadastrar Serviço">
       <FormService />
     </FormDrawer>
   );

@@ -5,6 +5,7 @@ import axios, { AxiosError } from "axios";
 import { useContext } from "react";
 import UserContext from "@/context/userContext";
 import useNotify from "../useNotify";
+import { useQueryClient } from "@tanstack/react-query";
 
 const UseService = () => {
   const notify = useNotify();
@@ -17,6 +18,8 @@ const UseService = () => {
     headers: { Authorization: `Bearer ${token}` },
   };
 
+  const queryClient = useQueryClient();
+
   const serviceEndpoint = `${BASE_URL}/service`;
 
   const registerService = async (data: ServicesType) => {
@@ -28,6 +31,7 @@ const UseService = () => {
 
     try {
       await axios.post(serviceEndpoint, payload, header);
+      queryClient.invalidateQueries({ queryKey: ["getAllService"] });
       notify(
         "Serviço Registrado com Sucesso!",
         notifyPositionMap.topRight,
