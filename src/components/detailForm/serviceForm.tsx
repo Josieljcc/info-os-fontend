@@ -16,7 +16,7 @@ const ServiceDetailForm = ({ service }: ServiceDetailProp) => {
         <p className="text-sm ">{service?.price}</p>
       </div>
       <div className="flex justify-between py-4 border-b-[.1875rem] border-gray-500/45">
-        <h2>Quantidade:</h2>
+        <h2>Tempo:</h2>
         <p className="text-sm ">{service?.time}</p>
       </div>
       <div className="flex justify-between py-4 pb-9 border-b-[.1875rem] border-gray-500/45">
