@@ -1,6 +1,6 @@
 import { BASE_URL } from "@/constants";
 import { ServicesType } from "@/schemas/services";
-import { notifyPositionMap, notifyType, Service } from "@/types";
+import { notifyPositionMap, notifyType } from "@/types";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
 import UserContext from "@/context/userContext";
@@ -43,26 +43,7 @@ const UseService = () => {
     }
   };
 
-  const getAllServices = async () => {
-    if (!token) {
-      return;
-    }
-    try {
-      const response = await axios.get(serviceEndpoint, header);
-      const data: Service[] = response.data.services;
-      return data;
-    } catch (error) {
-      const err = error as AxiosError;
-
-      notify(
-        err.message as string,
-        notifyPositionMap.topRight,
-        notifyType.error
-      );
-    }
-  };
-
-  return { registerService, getAllServices };
+  return { registerService };
 };
 
 export default UseService;
