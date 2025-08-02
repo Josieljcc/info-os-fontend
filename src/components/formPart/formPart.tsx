@@ -3,7 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../input/input";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import usePart from "@/hook/usePart";
+import usePart from "@/hook/usePart/usePart";
+
 
 const FormPart = () => {
   const { registerPart } = usePart();

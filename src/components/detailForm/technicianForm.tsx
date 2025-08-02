@@ -4,7 +4,7 @@ type TechnicianDetailProp = {
   technician: Technician | undefined;
 };
 
-const TechnicianDetail = ({ technician }: TechnicianDetailProp) => {
+const TechnicianDetailForm = ({ technician }: TechnicianDetailProp) => {
   return (
     <div className="flex flex-col">
       <div className="flex justify-between pb-4 border-b-[.1875rem] border-gray-500/45">
@@ -23,4 +23,4 @@ const TechnicianDetail = ({ technician }: TechnicianDetailProp) => {
   );
 };
 
-export default TechnicianDetail;
+export default TechnicianDetailForm;

@@ -3,7 +3,7 @@ import DrawerPart from "@/components/drawerPart/drawerPart";
 import SearchInput from "@/components/searchInput/searchInput";
 import Spinner from "@/components/spinner/spinner";
 import useDebounce from "@/hook/useDebounce/useDebounce";
-import usePart from "@/hook/usePart";
+import usePart from "@/hook/usePart/useGetPart";
 import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import useSearchByName from "@/hook/useSearchByName";
