@@ -4,15 +4,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import Input from "../input/input";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import InputSelect, { SelectType } from "../inputSelect/inputSelect";
-import useFormOrder from "@/hook/useFormOrder";
+import useFormOrder from "@/hook/useFormOrder/useFormOrder";
 import { ClientSearchDropdown } from "../ClientSearchDropdown/ClientSearchDropdown";
 import { MultiSelectServicesDropdown } from "../MultiSelectDropdown/multiSelectDropdown";
-
 
 const FormOrder = () => {
   const methods = useForm<OrderType>({ resolver: zodResolver(orderSchema) });
 
-  const { parts, setSelectedPartId, handleCreateOrder } = useFormOrder()
+  const { parts, setSelectedPartId, handleCreateOrder } = useFormOrder();
 
   const {
     formState: { errors },

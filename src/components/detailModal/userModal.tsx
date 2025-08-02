@@ -1,15 +1,21 @@
 import { useState } from "react";
-import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 import { Client, Technician } from "@/types";
 import DetailUserPage from "@/components/detailComponent/detailUser";
 
 type detailModalProps = {
-    icon?: React.ReactNode
-    user?: Client | Technician
-}
+  icon?: React.ReactNode;
+  user?: Client | Technician;
+};
 
 const DetailModal = ({ icon, user }: detailModalProps) => {
-    const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
     return (
         <AlertDialog open={open} onOpenChange={setOpen}>
@@ -25,4 +31,4 @@ const DetailModal = ({ icon, user }: detailModalProps) => {
     )
 }
 
-export default DetailModal
+export default DetailModal;

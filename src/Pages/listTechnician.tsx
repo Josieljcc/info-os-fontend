@@ -8,7 +8,7 @@ import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import useGetTechnician from "@/hook/useTechnician/useGetTechnician";
 import { useTechnicianSearch } from "@/hook/useTechnician/useSearchTechnician";
-import { Technician } from "@/types";
+import { role, Technician } from "@/types";
 import { useState } from "react";
 
 const ListTechnician = () => {
@@ -117,7 +117,7 @@ const ListTechnician = () => {
                 <Card
                   key={technician?.id}
                   item={technician as Technician}
-                  classname="m-auto"
+                  userType={role.technician}
                 />
               </div>
             );

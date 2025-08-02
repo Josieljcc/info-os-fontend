@@ -1,10 +1,10 @@
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import ClientDetailForm from "@/components/detailForm/clientForm";
 import EditClientForm from "@/components/EditForm/editClientForm";
 import { AlertDialogCancel } from "@/components/ui/alert-dialog";
 import { Client, Technician } from "@/types";
 import { RxAvatar } from "react-icons/rx";
 import { useState } from "react";
+import ClientDetailForm from "../detailForm/clientForm";
 
 type DetailUserProps = {
   user: Client | Technician;
@@ -28,16 +28,11 @@ const DetailUserPage = ({ user }: DetailUserProps) => {
           </div>
         </div>
         {isEditing ? (
-          <EditClientForm
-            client={user as Client}
-            setIsEditing={setIsEditing}
-          />
+          <EditClientForm client={user as Client} setIsEditing={setIsEditing} />
         ) : (
           <div className="flex flex-col gap-4 p-4">
             <ClientDetailForm client={user as Client} />
-            <ButtonPrimary onClick={handleEdit}>
-              Editar
-            </ButtonPrimary>
+            <ButtonPrimary onClick={handleEdit}>Editar</ButtonPrimary>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
           </div>
         )}
