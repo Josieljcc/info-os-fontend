@@ -12,7 +12,7 @@ type PartPaginatedResponse = {
   page: number;
 };
 
-const usePart = () => {
+const useGetPart = () => {
   const {
     user: { token },
   } = useContext(UserContext);
@@ -77,4 +77,4 @@ const usePart = () => {
   };
 };
 
-export default usePart;
+export default useGetPart;

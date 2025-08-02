@@ -5,7 +5,6 @@ import Input from "../input/input";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import usePart from "@/hook/usePart/usePart";
 
-
 const FormPart = () => {
   const { registerPart } = usePart();
 

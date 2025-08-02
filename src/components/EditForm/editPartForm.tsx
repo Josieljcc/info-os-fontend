@@ -5,8 +5,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import FormField from "../formField/formField";
 import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
-import usePart from "@/hook/usePart/usePart";
 import partSchema, { PartType } from "@/schemas/parts";
+import useEditPart from "@/hook/usePart/useEditPart";
 
 type EditPartFormProps = {
   part: Part;
@@ -14,7 +14,7 @@ type EditPartFormProps = {
 };
 
 const EditPartForm = ({ part, setIsEditing }: EditPartFormProps) => {
-  const { editPartMutation } = usePart({ partId: part?.id });
+  const { editPartMutation } = useEditPart({ partId: part?.id });
   const methods = useForm<PartType>({
     resolver: zodResolver(partSchema),
   });
