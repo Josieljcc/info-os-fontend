@@ -2,11 +2,12 @@ import CardService from "@/components/Cards/CardService";
 import DrawerService from "@/components/drawerService/drawerService";
 import SearchInput from "@/components/searchInput/searchInput";
 import Spinner from "@/components/spinner/spinner";
+import useGetService from "@/hook/Service/useGetService";
 import useDebounce from "@/hook/useDebounce/useDebounce";
 import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import useSearchByName from "@/hook/useSearchByName";
-import useGetService from "@/hook/useService/useGetService";
+
 import { Service } from "@/types";
 import { useState } from "react";
 

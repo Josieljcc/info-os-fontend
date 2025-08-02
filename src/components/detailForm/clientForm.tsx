@@ -4,7 +4,7 @@ type ClientDetailProp = {
   client: Client | undefined
 }
 
-const ClientDetail = ({ client }: ClientDetailProp) => {
+const ClientDetailForm = ({ client }: ClientDetailProp) => {
   return (
     <div className="flex flex-col">
       <div className="flex justify-between pb-4 border-b-[.1875rem] border-gray-500/45">
@@ -25,6 +25,6 @@ const ClientDetail = ({ client }: ClientDetailProp) => {
       </div>
     </div>
   );
-}
+};
 
-export default ClientDetail;
+export default ClientDetailForm;

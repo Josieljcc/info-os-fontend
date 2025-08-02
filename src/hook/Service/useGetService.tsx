@@ -1,10 +1,10 @@
 import { BASE_URL } from "@/constants";
-import { notifyPositionMap, notifyType, PageParam, Service } from "@/types";
+import UserContext from "@/context/userContext";
+import { PageParam, Service, notifyPositionMap, notifyType } from "@/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import useNotify from "../useNotify";
-import UserContext from "@/context/userContext";
 import { useContext } from "react";
+import useNotify from "../useNotify";
 
 type ServicePaginatedResponse = {
   services: Service[];
@@ -61,11 +61,12 @@ const useGetService = () => {
     : [];
 
   return {
-    services,
+    getAllService,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
     isLoading,
+    isFetchingNextPage,
+    services,
   };
 };
 

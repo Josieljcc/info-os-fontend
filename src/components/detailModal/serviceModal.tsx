@@ -6,30 +6,30 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import { Client, Technician } from "@/types";
-import DetailUser from "@/Pages/detailClientPage";
+import { FiEdit3 } from "react-icons/fi";
+import { Service } from "@/types";
+import DetailService from "../detailComponent/detailService";
 
-type detailModalProps = {
-  icon?: React.ReactNode;
-  user?: Client | Technician;
+type DetailModalService = {
+  service: Service;
 };
 
-const DetailModal = ({ icon, user }: detailModalProps) => {
+const DetailModalService = ({ service }: DetailModalService) => {
   const [open, setOpen] = useState(false);
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger className="bg-mainColor p-2 rounded-lg">
-        {icon}
+        <FiEdit3 />
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-secondaryColor text-gray-100">
         <AlertDialogTitle className="text-white">Detalhes</AlertDialogTitle>
         <AlertDialogHeader>
-          <DetailUser user={user as Client} />
+          <DetailService service={service} />
         </AlertDialogHeader>
       </AlertDialogContent>
     </AlertDialog>
   );
 };
 
-export default DetailModal;
+export default DetailModalService;

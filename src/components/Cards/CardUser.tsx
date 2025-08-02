@@ -1,8 +1,8 @@
 import { Client, role, Technician } from "@/types";
 import { FiEdit3 } from "react-icons/fi";
-import DetailModal from "../detailModal/DetailModal";
 import useClient from "@/hook/useClient/useClient";
 import DeleteButton from "@/components/deleteButton/deleteButton";
+import DetailModal from "../detailModal/userModal";
 
 type CardProps = {
   item: Technician | Client;
