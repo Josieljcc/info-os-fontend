@@ -1,16 +1,16 @@
 import ButtonPrimary from "@/components/buttonPrimary/buttonPrimary";
-import ClientDetail from "@/components/detailForm/clientForm";
-import EditClientForm from "@/components/editClientForm/editClientForm";
+import ClientDetailForm from "@/components/detailForm/clientForm";
+import EditClientForm from "@/components/EditForm/editClientForm";
 import { AlertDialogCancel } from "@/components/ui/alert-dialog";
 import { Client, Technician } from "@/types";
-import { useState } from "react";
 import { RxAvatar } from "react-icons/rx";
+import { useState } from "react";
 
 type DetailUserProps = {
   user: Client | Technician;
 };
 
-const DetailUser = ({ user }: DetailUserProps) => {
+const DetailUserPage = ({ user }: DetailUserProps) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const handleEdit = () => {
@@ -34,7 +34,7 @@ const DetailUser = ({ user }: DetailUserProps) => {
           />
         ) : (
           <div className="flex flex-col gap-4 p-4">
-            <ClientDetail client={user as Client} />
+            <ClientDetailForm client={user as Client} />
             <ButtonPrimary onClick={handleEdit}>
               Editar
             </ButtonPrimary>
@@ -46,4 +46,4 @@ const DetailUser = ({ user }: DetailUserProps) => {
   );
 };
 
-export default DetailUser;
+export default DetailUserPage;

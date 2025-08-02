@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 import { Client, Technician } from "@/types";
-import DetailUser from "@/Pages/detailClientPage";
+import DetailUserPage from "@/components/detailComponent/detailUser";
 
 type detailModalProps = {
     icon?: React.ReactNode
@@ -17,7 +17,7 @@ const DetailModal = ({ icon, user }: detailModalProps) => {
             <AlertDialogContent className="bg-secondaryColor text-gray-100">
                 <AlertDialogTitle className="text-white">Detalhes</AlertDialogTitle>
                 <AlertDialogHeader>
-                    <DetailUser
+                    <DetailUserPage
                         user={user as Client} />
                 </AlertDialogHeader>
             </AlertDialogContent>
