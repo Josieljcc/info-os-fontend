@@ -11,6 +11,11 @@ type CardProps = {
   classname?: string;
 };
 
+const labelMap = {
+  [role.client]: "do usuário",
+  [role.technician]: "do técnico",
+};
+
 const Card = ({ item, userType, classname }: CardProps) => {
   const isClient = userType === role.client;
   const isTechnician = userType === role.technician;
@@ -29,12 +34,7 @@ const Card = ({ item, userType, classname }: CardProps) => {
     }
   };
 
-  let typeLabel = "";
-  if (userType === role.client) {
-    typeLabel = "do usuário";
-  } else if (userType === role.technician) {
-    typeLabel = "do técnico";
-  }
+  console.log(userType);
 
   return (
     <div
@@ -55,7 +55,7 @@ const Card = ({ item, userType, classname }: CardProps) => {
         {(isClient || isTechnician) && (
           <DeleteButton
             name={item.name}
-            typeLabel={typeLabel}
+            typeLabel={labelMap[userType]}
             onConfirm={handleDelete}
           />
         )}
