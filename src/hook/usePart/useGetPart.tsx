@@ -4,7 +4,7 @@ import { notifyPositionMap, notifyType, PageParam, Part } from "@/types";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
 import useNotify from "../useNotify";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
 type PartPaginatedResponse = {
   parts: Part[];
@@ -12,7 +12,8 @@ type PartPaginatedResponse = {
   page: number;
 };
 
-const useGetPart = () => {
+const usePart = ({ partId }: { partId?: number } = {}) => {
+  const queryClient = useQueryClient();
   const {
     user: { token },
   } = useContext(UserContext);
@@ -44,6 +45,22 @@ const useGetPart = () => {
     }
   };
 
+  const deletePart = async () => {
+    try {
+      await axios.delete(`${BASE_URL}/part/${partId}`, header);
+      queryClient.invalidateQueries({ queryKey: ["getAllPart"] });
+      queryClient.invalidateQueries({ queryKey: ["getpartBySearch"] });
+      notify(
+        "Peça excluída com sucesso!",
+        notifyPositionMap.topRight,
+        notifyType.success
+      );
+    } catch (error) {
+      const err = error as AxiosError;
+      notify(err.message, notifyPositionMap.topRight, notifyType.error);
+    }
+  };
+
   const {
     data: paginatedPart,
     fetchNextPage,
@@ -70,6 +87,7 @@ const useGetPart = () => {
     getPartById,
     getAllPart,
     fetchNextPage,
+    deletePart,
     hasNextPage,
     isLoading,
     isFetchingNextPage,
@@ -77,4 +95,4 @@ const useGetPart = () => {
   };
 };
 
-export default useGetPart;
+export default usePart;

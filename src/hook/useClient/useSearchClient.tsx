@@ -10,9 +10,12 @@ import { SearchTerm } from "./types";
 type useClientSearchProps = {
   searchTerm: SearchTerm;
   enabled?: boolean;
-}
+};
 
-export const useClientSearch = ({ searchTerm, enabled = true }: useClientSearchProps) => {
+export const useClientSearch = ({
+  searchTerm,
+  enabled = true,
+}: useClientSearchProps) => {
   const {
     user: { token },
   } = useContext(UserContext);
@@ -40,7 +43,7 @@ export const useClientSearch = ({ searchTerm, enabled = true }: useClientSearchP
   };
 
   return useQuery({
-    queryKey: ["getClientBySearch", searchTerm],
+    queryKey: ["getClientBySearch"],
     queryFn: getClientBySearch,
     enabled,
   });

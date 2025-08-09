@@ -30,7 +30,10 @@ export const useTechnicianSearch = ({
     if (searchTerm.phone) params.append("phone", searchTerm.phone.toString());
 
     try {
-      const response = await axios.get(`${BASE_URL}/technician?${params.toString()}`, header);
+      const response = await axios.get(
+        `${BASE_URL}/technician?${params.toString()}`,
+        header
+      );
       return response.data.technicians;
     } catch (err: any) {
       notify(err.message, notifyPositionMap.topRight, notifyType.error);
@@ -39,7 +42,7 @@ export const useTechnicianSearch = ({
   };
 
   return useQuery({
-    queryKey: ["getTechnicianBySearch", searchTerm],
+    queryKey: ["getTechnicianBySearch"],
     queryFn: getTechnicianBySearch,
     enabled,
   });
