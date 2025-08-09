@@ -32,7 +32,7 @@ function useSearchByName<T = any>({
 
     try {
       const response = await axios.get(baseUrl, headers);
-      const key = `${url}s`
+      const key = `${url}s`;
       return response.data[key];
     } catch (error) {
       const err = error as AxiosError;
@@ -42,7 +42,7 @@ function useSearchByName<T = any>({
   };
 
   return useQuery({
-    queryKey: [`get${url}BySearch`, name],
+    queryKey: [`get${url}BySearch`],
     queryFn: getBySearch,
     enabled,
   });
