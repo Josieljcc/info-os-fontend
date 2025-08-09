@@ -1,10 +1,9 @@
 import { BASE_URL } from "@/constants";
 import UserContext from "@/context/userContext";
-import { PartType } from "@/schemas/parts";
 import { notifyPositionMap, notifyType, PageParam, Part } from "@/types";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
-import useNotify from "./useNotify";
+import useNotify from "../useNotify";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 
 type PartPaginatedResponse = {
@@ -23,32 +22,10 @@ const usePart = ({ partId }: { partId?: number } = {}) => {
 
   const header = { headers: { Authorization: `Bearer ${token}` } };
 
-  const registerPart = async (data: PartType) => {
-    const urlRegisterPart = `${BASE_URL}/part`;
-
-    const payload = {
-      ...data,
-      quantity: !data.quantity ? 0 : Number(data.quantity),
-      price: Number(data.price),
-    };
-
-    try {
-      await axios.post(urlRegisterPart, payload, header);
-      queryClient.invalidateQueries({ queryKey: ["getAllPart"] });
-      notify(
-        "Peça Registrada com Sucesso!",
-        notifyPositionMap.topRight,
-        notifyType.success
-      );
-    } catch (error) {
-      const err = error as AxiosError;
-
-      notify(
-        err.message as string,
-        notifyPositionMap.topRight,
-        notifyType.error
-      );
-    }
+  const getPartById = async (id: string): Promise<Part> => {
+    const requestURL = `${BASE_URL}/part/${id}`;
+    const response = await axios.get(requestURL, header);
+    return response.data;
   };
 
   const getAllPart = async ({
@@ -107,7 +84,7 @@ const usePart = ({ partId }: { partId?: number } = {}) => {
     : [];
 
   return {
-    registerPart,
+    getPartById,
     getAllPart,
     fetchNextPage,
     deletePart,

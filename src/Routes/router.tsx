@@ -1,5 +1,4 @@
 import AppLayout from "@/layout";
-import DetailTechnician from "@/Pages/detailTechnicianPage";
 import Home from "@/Pages/home";
 import ListClient from "@/Pages/listClient";
 import ListEquipment from "@/Pages/listEquipment";
@@ -60,10 +59,6 @@ const router = createBrowserRouter([
       {
         path: "service",
         element: <ListService />,
-      },
-      {
-        path: "technician/:id",
-        element: <DetailTechnician />,
       },
       {
         path: "equipment",
