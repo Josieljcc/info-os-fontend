@@ -29,6 +29,13 @@ const Card = ({ item, userType, classname }: CardProps) => {
     }
   };
 
+  const typeLabel =
+    userType === role.client
+      ? "do usuário"
+      : userType === role.technician
+      ? "do técnico"
+      : "";
+
   return (
     <div
       className={`m-auto flex justify-between h-16 text-white rounded-2xl border-2 items-center w-full border-[#e9ecef7b] md:py-5 py-3 md:px-7 px-4 bg-secondaryColor ${classname}`}
@@ -46,7 +53,11 @@ const Card = ({ item, userType, classname }: CardProps) => {
           user={item as Client}
         />
         {(isClient || isTechnician) && (
-          <DeleteButton userName={item.name} onConfirm={handleDelete} />
+          <DeleteButton
+            name={item.name}
+            typeLabel={typeLabel}
+            onConfirm={handleDelete}
+          />
         )}
       </div>
     </div>
