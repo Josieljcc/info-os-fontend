@@ -1,6 +1,7 @@
 import { Client, role, Technician } from "@/types";
 import { FiEdit3 } from "react-icons/fi";
 import useClient from "@/hook/useClient/useClient";
+import useTechnician from "@/hook/useTechnician/useTechnician";
 import DeleteButton from "@/components/deleteButton/deleteButton";
 import DetailModal from "../detailModal/userModal";
 
@@ -10,18 +11,30 @@ type CardProps = {
   classname?: string;
 };
 
+const labelMap = {
+  [role.client]: "do usuário",
+  [role.technician]: "do técnico",
+};
+
 const Card = ({ item, userType, classname }: CardProps) => {
   const isClient = userType === role.client;
+  const isTechnician = userType === role.technician;
 
-  const { deleteClient } = useClient({
-    clientId: isClient ? (item as Client).id : undefined,
-  });
+  const clientId = isClient ? (item as Client).id : undefined;
+  const technicianId = isTechnician ? (item as Technician).id : undefined;
+
+  const { deleteClient } = useClient({ clientId });
+  const { deleteTechnician } = useTechnician({ technicianId });
 
   const handleDelete = async () => {
     if (isClient) {
       await deleteClient();
+    } else {
+      await deleteTechnician();
     }
   };
+
+  console.log(userType);
 
   return (
     <div
@@ -39,8 +52,12 @@ const Card = ({ item, userType, classname }: CardProps) => {
           icon={<FiEdit3 className="w-4 h-4" />}
           user={item as Client}
         />
-        {isClient && (
-          <DeleteButton userName={item.name} onConfirm={handleDelete} />
+        {(isClient || isTechnician) && (
+          <DeleteButton
+            name={item.name}
+            typeLabel={labelMap[userType]}
+            onConfirm={handleDelete}
+          />
         )}
       </div>
     </div>

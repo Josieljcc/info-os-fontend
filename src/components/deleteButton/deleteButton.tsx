@@ -13,10 +13,11 @@ import { useState } from "react";
 
 type DeleteButtonProps = {
   onConfirm: () => void;
-  userName: string;
+  name: string;
+  typeLabel: string;
 };
 
-const DeleteButton = ({ onConfirm, userName }: DeleteButtonProps) => {
+const DeleteButton = ({ onConfirm, name, typeLabel }: DeleteButtonProps) => {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = () => {
@@ -38,7 +39,7 @@ const DeleteButton = ({ onConfirm, userName }: DeleteButtonProps) => {
       <AlertDialogContent className="bg-zinc-800 text-white rounded-lg shadow-xl">
         <AlertDialogHeader>
           <AlertDialogTitle>
-            Confirmar a exclusão do usuário {userName}?
+            Confirmar a exclusão {typeLabel} {name}?
           </AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
