@@ -72,6 +72,7 @@ const usePart = ({ partId }: { partId?: number } = {}) => {
     try {
       await axios.delete(`${BASE_URL}/part/${partId}`, header);
       queryClient.invalidateQueries({ queryKey: ["getAllPart"] });
+      queryClient.invalidateQueries({ queryKey: ["getpartBySearch"] });
       notify(
         "Peça excluída com sucesso!",
         notifyPositionMap.topRight,
