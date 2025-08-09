@@ -29,12 +29,12 @@ const Card = ({ item, userType, classname }: CardProps) => {
     }
   };
 
-  const typeLabel =
-    userType === role.client
-      ? "do usuário"
-      : userType === role.technician
-      ? "do técnico"
-      : "";
+  let typeLabel = "";
+  if (userType === role.client) {
+    typeLabel = "do usuário";
+  } else if (userType === role.technician) {
+    typeLabel = "do técnico";
+  }
 
   return (
     <div
