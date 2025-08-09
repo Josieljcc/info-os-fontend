@@ -11,6 +11,11 @@ type CardProps = {
   classname?: string;
 };
 
+const labelMap = {
+  [role.client]: "do usuário",
+  [role.technician]: "do técnico",
+};
+
 const Card = ({ item, userType, classname }: CardProps) => {
   const isClient = userType === role.client;
   const isTechnician = userType === role.technician;
@@ -29,6 +34,8 @@ const Card = ({ item, userType, classname }: CardProps) => {
     }
   };
 
+  console.log(userType);
+
   return (
     <div
       className={`m-auto flex justify-between h-16 text-white rounded-2xl border-2 items-center w-full border-[#e9ecef7b] md:py-5 py-3 md:px-7 px-4 bg-secondaryColor ${classname}`}
@@ -46,7 +53,11 @@ const Card = ({ item, userType, classname }: CardProps) => {
           user={item as Client}
         />
         {(isClient || isTechnician) && (
-          <DeleteButton userName={item.name} onConfirm={handleDelete} />
+          <DeleteButton
+            name={item.name}
+            typeLabel={labelMap[userType]}
+            onConfirm={handleDelete}
+          />
         )}
       </div>
     </div>

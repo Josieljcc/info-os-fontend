@@ -13,7 +13,7 @@ type PartPaginatedResponse = {
   page: number;
 };
 
-const usePart = () => {
+const usePart = ({ partId }: { partId?: number } = {}) => {
   const queryClient = useQueryClient();
   const {
     user: { token },
@@ -68,6 +68,21 @@ const usePart = () => {
     }
   };
 
+  const deletePart = async () => {
+    try {
+      await axios.delete(`${BASE_URL}/part/${partId}`, header);
+      queryClient.invalidateQueries({ queryKey: ["getAllPart"] });
+      notify(
+        "Peça excluída com sucesso!",
+        notifyPositionMap.topRight,
+        notifyType.success
+      );
+    } catch (error) {
+      const err = error as AxiosError;
+      notify(err.message, notifyPositionMap.topRight, notifyType.error);
+    }
+  };
+
   const {
     data: paginatedPart,
     fetchNextPage,
@@ -94,6 +109,7 @@ const usePart = () => {
     registerPart,
     getAllPart,
     fetchNextPage,
+    deletePart,
     hasNextPage,
     isLoading,
     isFetchingNextPage,
