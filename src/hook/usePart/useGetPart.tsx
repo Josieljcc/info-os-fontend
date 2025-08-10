@@ -4,7 +4,7 @@ import { notifyPositionMap, notifyType, PageParam, Part } from "@/types";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
 import useNotify from "../useNotify";
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 type PartPaginatedResponse = {
   parts: Part[];
@@ -12,14 +12,12 @@ type PartPaginatedResponse = {
   page: number;
 };
 
-const usePart = ({ partId }: { partId?: number } = {}) => {
-  const queryClient = useQueryClient();
+const useGetPart = () => {
   const {
     user: { token },
   } = useContext(UserContext);
 
   const notify = useNotify();
-
   const header = { headers: { Authorization: `Bearer ${token}` } };
 
   const getPartById = async (id: string): Promise<Part> => {
@@ -35,26 +33,6 @@ const usePart = ({ partId }: { partId?: number } = {}) => {
     try {
       const response = await axios.get(requestURL, header);
       return response.data;
-    } catch (error) {
-      const err = error as AxiosError;
-      notify(
-        err.message as string,
-        notifyPositionMap.topRight,
-        notifyType.error
-      );
-    }
-  };
-
-  const deletePart = async () => {
-    try {
-      await axios.delete(`${BASE_URL}/part/${partId}`, header);
-      queryClient.invalidateQueries({ queryKey: ["getAllPart"] });
-      queryClient.invalidateQueries({ queryKey: ["getpartBySearch"] });
-      notify(
-        "Peça excluída com sucesso!",
-        notifyPositionMap.topRight,
-        notifyType.success
-      );
     } catch (error) {
       const err = error as AxiosError;
       notify(err.message, notifyPositionMap.topRight, notifyType.error);
@@ -78,16 +56,13 @@ const usePart = ({ partId }: { partId?: number } = {}) => {
   });
 
   const parts = paginatedPart
-    ? paginatedPart?.pages.flatMap((page) => {
-        return page?.parts;
-      })
+    ? paginatedPart.pages.flatMap((page) => page?.parts ?? [])
     : [];
 
   return {
     getPartById,
     getAllPart,
     fetchNextPage,
-    deletePart,
     hasNextPage,
     isLoading,
     isFetchingNextPage,
@@ -95,4 +70,4 @@ const usePart = ({ partId }: { partId?: number } = {}) => {
   };
 };
 
-export default usePart;
+export default useGetPart;
