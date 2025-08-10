@@ -1,7 +1,7 @@
 import { Part } from "@/types";
 import DeleteButton from "../deleteButton/deleteButton";
 import DetailModalPart from "../detailModal/partModal";
-import useDeletePart from "@/hook/usePart/useDeletePart"; // novo hook para deletar
+import useDeletePart from "@/hook/usePart/useDeletePart";
 
 type CardPartProp = {
   classname?: string;
@@ -12,7 +12,7 @@ const CardPart = ({ part, classname }: CardPartProp) => {
   const { deletePart } = useDeletePart();
 
   const handleDelete = async () => {
-    await deletePart(part.id); // agora passamos o id no momento da chamada
+    await deletePart(part.id);
   };
 
   return (
