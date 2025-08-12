@@ -1,9 +1,7 @@
-
 import { Part } from "@/types";
 import DeleteButton from "../deleteButton/deleteButton";
 import DetailModalPart from "../detailModal/partModal";
-import usePart from "@/hook/usePart/useGetPart";
-
+import useDeletePart from "@/hook/usePart/useDeletePart";
 
 type CardPartProp = {
   classname?: string;
@@ -11,10 +9,10 @@ type CardPartProp = {
 };
 
 const CardPart = ({ part, classname }: CardPartProp) => {
-  const { deletePart } = usePart({ partId: part.id });
+  const { deletePart } = useDeletePart();
 
   const handleDelete = async () => {
-    await deletePart();
+    await deletePart(part.id);
   };
 
   return (
@@ -23,16 +21,13 @@ const CardPart = ({ part, classname }: CardPartProp) => {
     >
       <div className="flex flex-1 items-center">
         <p className="text-sm font-medium md:w-1/3 w-1/2">{part?.name}</p>
-        <p className=" text-sm font-medium w-1/3 pl-6 ">{`R$ ${part?.price}`}</p>
+        <p className="text-sm font-medium w-1/3 pl-6">{`R$ ${part?.price}`}</p>
         <p className="text-sm font-medium md:w-1/3 w-1/2 pl-[4.625rem] md:block hidden">
           {part?.quantity}
         </p>
       </div>
       <div className="flex gap-2 h-7 items-center">
-        
-        <div className="flex gap-2 h-7 items-center">
-          <DetailModalPart part={part} />
-        </div>
+        <DetailModalPart part={part} />
         <DeleteButton
           name={part.name}
           typeLabel="da peça"
