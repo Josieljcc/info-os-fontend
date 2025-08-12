@@ -75,6 +75,10 @@ const ListPart = () => {
           {rowVirtualizer.getVirtualItems().map((virtualRow) => {
             const part = displayedParts[virtualRow.index];
 
+            if (!part) {
+              return null;
+            }
+
             return (
               <div
                 key={virtualRow.index}
