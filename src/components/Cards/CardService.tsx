@@ -1,7 +1,7 @@
 import { Service } from "@/types";
 import DeleteButton from "../deleteButton/deleteButton";
 import DetailModalService from "../detailModal/serviceModal";
-import useDeleteService from "@/hook/useService/useDeletePart";
+import useDeleteService from "@/hook/useService/useDeleteService";
 
 type CardServiceProp = {
   classname?: string;
