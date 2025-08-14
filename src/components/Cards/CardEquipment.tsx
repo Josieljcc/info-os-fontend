@@ -1,7 +1,7 @@
-import { FiTrash } from "react-icons/fi";
-import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import { Equipment } from "@/types";
 import DetailModalEquipment from "../detailModal/equipmentModal";
+import DeleteButton from "../deleteButton/deleteButton";
+import useDeleteEquipment from "@/hook/useEquipment/useDeleteEquipment";
 
 type CardEquipmentProp = {
   classname?: string;
@@ -9,6 +9,12 @@ type CardEquipmentProp = {
 };
 
 const CardEquipment = ({ equipment, classname }: CardEquipmentProp) => {
+  const { deleteEquipment } = useDeleteEquipment();
+
+  const handleDelete = async () => {
+    await deleteEquipment(equipment.id);
+  };
+
   return (
     <div
       className={`flex justify-between h-16 text-white rounded-2xl border-2 items-center w-full border-[#e9ecef7b] md:py-5 py-3 md:px-7 px-4 bg-secondaryColor ${classname}`}
@@ -23,13 +29,12 @@ const CardEquipment = ({ equipment, classname }: CardEquipmentProp) => {
       <div className="flex gap-2 h-7 items-center">
         <div className="flex gap-2 h-7 items-center">
           <DetailModalEquipment equipment={equipment} />
+          <DeleteButton
+            name={equipment.name}
+            typeLabel="do equipamento"
+            onConfirm={handleDelete}
+          />
         </div>
-        <ButtonPrimary
-          color="bg-mainColor"
-          className="rounded-lg px-[.3125rem] py-1"
-        >
-          <FiTrash className="w-4 h-4" />
-        </ButtonPrimary>
       </div>
     </div>
   );
