@@ -1,8 +1,7 @@
-import { FiTrash } from "react-icons/fi";
-
-import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import { Service } from "@/types";
+import DeleteButton from "../deleteButton/deleteButton";
 import DetailModalService from "../detailModal/serviceModal";
+import useDeleteService from "@/hook/useService/useDeletePart";
 
 type CardServiceProp = {
   classname?: string;
@@ -10,6 +9,11 @@ type CardServiceProp = {
 };
 
 const CardService = ({ service, classname }: CardServiceProp) => {
+  const { deleteService } = useDeleteService();
+
+  const handleDelete = async () => {
+    await deleteService(service.id);
+  };
   return (
     <div
       className={`flex justify-between h-16 text-white rounded-2xl border-2 items-center w-full border-[#e9ecef7b] md:py-5 py-3 md:px-7 px-4 bg-secondaryColor ${classname}`}
@@ -24,13 +28,12 @@ const CardService = ({ service, classname }: CardServiceProp) => {
       <div className="flex gap-2 h-7 items-center">
         <div className="flex gap-2 h-7 items-center">
           <DetailModalService service={service} />
+          <DeleteButton
+            name={service.name}
+            typeLabel="do serviço"
+            onConfirm={handleDelete}
+          />
         </div>
-        <ButtonPrimary
-          color="bg-mainColor"
-          className="rounded-lg px-[.3125rem] py-1"
-        >
-          <FiTrash className="w-4 h-4" />
-        </ButtonPrimary>
       </div>
     </div>
   );
