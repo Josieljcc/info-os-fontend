@@ -6,7 +6,7 @@ import ButtonPrimary from "../buttonPrimary/buttonPrimary";
 import FormField from "../formField/formField";
 import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
 import servicesSchema, { ServicesType } from "@/schemas/services";
-import useEditService from "@/hook/Service/useEditService";
+import useEditService from "@/hook/useService/useEditService";
 
 type EditServiceFormProps = {
   service: Service;
