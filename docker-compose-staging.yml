@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - VITE_BACK_END_BASE_URL=${VITE_BACK_END_BASE_URL}
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=staging
+    restart: always
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token eyJhIjoiOTZiNGY0ODU5NGU5NDgyYmFhZjBjZGY0ODJiZGY4MzMiLCJ0IjoiMzIyMjU2YmEtNmY0Zi00Mjc1LTljZGQtOWVlYmE4MzFiN2ZkIiwicyI6IlpEUTBZakJrT0dZdE9EQmtOUzAwWVRrMkxUaGxOV010TVdZNFl6ZzRaRFZqTURreiJ9
+    

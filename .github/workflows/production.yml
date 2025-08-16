@@ -1,0 +1,59 @@
+name: Deploy to Production
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  deploy-production:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests and linting
+        run: |
+          npm run lint
+          npm run build
+
+      - name: Create .env file for production
+        run: |
+          echo "VITE_BACK_END_BASE_URL=${{ secrets.VITE_BACK_END_BASE_URL }}" > .env.production
+
+      - name: Stop existing production containers
+        run: |
+          docker compose -f docker-compose.yml down || true
+
+      - name: Clean up old images
+        run: |
+          docker image prune -f
+
+      - name: Deploy to Production
+        run: |
+          docker compose -f docker-compose.yml --env-file .env.production up -d --build
+
+      - name: Health check
+        run: |
+          sleep 30
+          curl -f http://localhost:3000 || exit 1
+
+      - name: Notify deployment status
+        if: always()
+        run: |
+          if [ ${{ job.status }} == 'success' ]; then
+            echo "✅ Production deployment successful"
+          else
+            echo "❌ Production deployment failed"
+          fi
