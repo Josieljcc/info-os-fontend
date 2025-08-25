@@ -2,7 +2,7 @@ import CardService from "@/components/Cards/CardService";
 import DrawerService from "@/components/drawerService/drawerService";
 import SearchInput from "@/components/searchInput/searchInput";
 import Spinner from "@/components/spinner/spinner";
-import useGetService from "@/hook/Service/useGetService";
+import useGetService from "@/hook/useService/useGetService";
 import useDebounce from "@/hook/useDebounce/useDebounce";
 import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
@@ -82,6 +82,10 @@ const ListService = () => {
         >
           {rowVirtualizer.getVirtualItems().map((virtualRow) => {
             const service = displayedServices[virtualRow.index];
+
+            if (!service) {
+              return null;
+            }
 
             return (
               <div
