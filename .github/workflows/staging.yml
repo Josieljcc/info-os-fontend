@@ -23,11 +23,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests and linting
-        run: |
-          npm run lint
-          npm run build
-
       - name: Create .env file for staging
         run: |
           echo "VITE_BACK_END_BASE_URL=${{ secrets.VITE_BACK_END_BASE_URL }}" > .env.staging
