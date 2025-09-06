@@ -2,6 +2,7 @@ version: '3.8'
 name: api-info-os-staging
 services:
   app:
+    container_name: app-staging
     build:
       context: .
       dockerfile: Dockerfile-staging
@@ -13,8 +14,8 @@ services:
       - NODE_ENV=staging
     restart: always
   cloudflared:
+    container_name: cloudflared-staging
     image: cloudflare/cloudflared:latest
-    container_name: cloudflared
     restart: unless-stopped
     command: tunnel --no-autoupdate run --token eyJhIjoiOTZiNGY0ODU5NGU5NDgyYmFhZjBjZGY0ODJiZGY4MzMiLCJ0IjoiMzIyMjU2YmEtNmY0Zi00Mjc1LTljZGQtOWVlYmE4MzFiN2ZkIiwicyI6IlpEUTBZakJrT0dZdE9EQmtOUzAwWVRrMkxUaGxOV010TVdZNFl6ZzRaRFZqTURreiJ9
     
