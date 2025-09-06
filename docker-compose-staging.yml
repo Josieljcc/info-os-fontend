@@ -4,11 +4,12 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-staging
+      container_name: app-staging
       args:
         - VITE_BACK_END_BASE_URL=${VITE_BACK_END_BASE_URL}
     ports:
-      - "3000:80"
+      - "3000:3000"
     environment:
       - NODE_ENV=staging
     restart: always
