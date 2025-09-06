@@ -2,10 +2,10 @@ version: '3.8'
 
 services:
   app:
+    container_name: app-staging
     build:
       context: .
       dockerfile: Dockerfile-staging
-      container_name: app-staging
       args:
         - VITE_BACK_END_BASE_URL=${VITE_BACK_END_BASE_URL}
     ports:
