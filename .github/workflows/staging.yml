@@ -1,12 +1,14 @@
-name: Deploy to Staging (Master Branch)
+name: Deploy to Staging
 
 on:
   push:
-    branches: ["master"]
+    branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   deploy-staging:
     runs-on: self-hosted
+    # environment: staging
 
     steps:
       - name: Checkout code
@@ -25,7 +27,28 @@ jobs:
         run: |
           echo "VITE_BACK_END_BASE_URL=${{ secrets.VITE_BACK_END_BASE_URL }}" > .env.staging
 
-      - name: Deploy to Staging using Docker Compose
+      - name: Stop existing staging containers
         run: |
           docker compose -f docker-compose-staging.yml down || true
+
+      - name: Clean up old images
+        run: |
+          docker image prune -f
+
+      - name: Deploy to Staging
+        run: |
           docker compose -f docker-compose-staging.yml --env-file .env.staging up -d --build
+
+      - name: Health check
+        run: |
+          sleep 30
+          curl -f http://localhost:3000 || exit 1
+
+      - name: Notify deployment status
+        if: always()
+        run: |
+          if [ ${{ job.status }} == 'success' ]; then
+            echo "✅ Staging deployment successful"
+          else
+            echo "❌ Staging deployment failed"
+          fi
