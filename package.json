@@ -13,7 +13,13 @@
     "preview": "vite preview",
     "release": "semantic-release",
     "release:dry-run": "semantic-release --dry-run",
-    "commit": "cz"
+    "commit": "cz",
+    "docker:prod": "docker-compose up -d",
+    "docker:staging": "docker-compose -f docker-compose-staging.yml up -d",
+    "docker:prod:build": "docker-compose build",
+    "docker:staging:build": "docker-compose -f docker-compose-staging.yml build",
+    "docker:prod:down": "docker-compose down",
+    "docker:staging:down": "docker-compose -f docker-compose-staging.yml down"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
