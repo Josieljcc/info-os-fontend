@@ -1,5 +1,6 @@
 import { z } from "zod";
 import servicesSchema from "./services";
+import partSchema from "./parts";
 
 export type OrderType = z.infer<typeof orderSchema>;
 
@@ -9,6 +10,7 @@ const orderSchema = z.object({
   comment: z.string(),
   clientId: z.string(),
   services: z.array(servicesSchema),
+  parts: z.array(partSchema),
 });
 
 export default orderSchema;
