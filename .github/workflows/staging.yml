@@ -24,8 +24,10 @@ jobs:
         run: npm ci
 
       - name: Create .env file for staging
+        env:
+          VITE_BACK_END_BASE_URL: ${{ secrets.VITE_BACK_END_BASE_URL }}
         run: |
-          echo "VITE_BACK_END_BASE_URL=${{ secrets.VITE_BACK_END_BASE_URL }}" > .env.staging
+          echo "VITE_BACK_END_BASE_URL=${VITE_BACK_END_BASE_URL}" > .env.staging
 
       - name: Stop existing staging containers
         run: |
