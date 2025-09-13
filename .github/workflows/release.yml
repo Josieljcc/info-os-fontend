@@ -44,9 +44,10 @@ jobs:
 
       - name: Create Version Tag
         if: needs.release.outputs.new_release_published == 'true'
+        env:
+          VERSION: ${{ needs.release.outputs.new_release_version }}
         run: |
-          VERSION=${{ needs.release.outputs.new_release_version }}
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git tag "v$VERSION"
-          git push origin "v$VERSION"
+          git tag "v${VERSION}"
+          git push origin "v${VERSION}"
