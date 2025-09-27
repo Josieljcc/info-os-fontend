@@ -28,7 +28,7 @@ export function MultiSelectServicesDropdown() {
     }
     const uniqueSelectedServices = new Set([...selectedServices, service]);
     setSelectedServices([...uniqueSelectedServices]);
-    setValue("services", selectedServices);
+    setValue("services", [...uniqueSelectedServices]);
     setOpen(false);
   };
 

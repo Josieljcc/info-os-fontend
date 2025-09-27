@@ -29,7 +29,7 @@ const MultiSelectPart = () => {
     }
     const uniqueSelectedParts = new Set([...selectedParts, part]);
     setSelectedParts([...uniqueSelectedParts]);
-    setValue("Parts", selectedParts);
+    setValue("parts", [...uniqueSelectedParts]);
     setOpen(false);
   };
 
@@ -39,7 +39,7 @@ const MultiSelectPart = () => {
       ...selectedParts.slice(0, index),
       ...selectedParts.slice(index + 1),
     ]);
-    setValue("Parts", selectedParts);
+    setValue("parts", selectedParts);
   };
 
   return (
