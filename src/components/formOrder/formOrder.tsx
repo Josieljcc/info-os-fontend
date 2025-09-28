@@ -3,15 +3,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../input/input";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import InputSelect, { SelectType } from "../inputSelect/inputSelect";
+
 import useFormOrder from "@/hook/useFormOrder/useFormOrder";
 import { ClientSearchDropdown } from "../ClientSearchDropdown/ClientSearchDropdown";
 import { MultiSelectServicesDropdown } from "../MultiSelectDropdown/multiSelectDropdown";
+import MultiSelectPart from "../MultiSelectDropdown/multiSelectPart";
+import DatePicker from "../datePicker/datePicker";
 
 const FormOrder = () => {
   const methods = useForm<OrderType>({ resolver: zodResolver(orderSchema) });
 
-  const { parts, setSelectedPartId, handleCreateOrder } = useFormOrder();
+  const { handleCreateOrder } = useFormOrder();
 
   const {
     formState: { errors },
@@ -22,22 +24,6 @@ const FormOrder = () => {
     <div>
       <FormProvider {...methods}>
         <Input
-          formName="date"
-          placeholder="Nome"
-          className="py-8 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
-        />
-        {errors.date && (
-          <p className="text-red-500 text-sm">{errors.date.message}</p>
-        )}
-        <Input
-          formName="status"
-          placeholder="Status"
-          className="py-8 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
-        />
-        {errors.status && (
-          <p className="text-red-500 text-sm">{errors.status.message}</p>
-        )}
-        <Input
           formName="comment"
           placeholder="Comentário"
           className="py-8 text-xl placeholder-[#D4D4D8] text-[#D4D4D8]"
@@ -45,12 +31,9 @@ const FormOrder = () => {
         {errors.comment && (
           <p className="text-red-500 text-sm">{errors.comment.message}</p>
         )}
+        <DatePicker />
         <MultiSelectServicesDropdown />
-        <InputSelect
-          list={parts as SelectType[]}
-          setValue={setSelectedPartId}
-          placeholder="Peças"
-        />
+        <MultiSelectPart />
         <ClientSearchDropdown />
         <ButtonPrimary onClick={handleSubmit(handleCreateOrder)}>
           Criar
