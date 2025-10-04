@@ -3,16 +3,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../input/input";
 import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-
 import useFormOrder from "@/hook/useFormOrder/useFormOrder";
 import { ClientSearchDropdown } from "../ClientSearchDropdown/ClientSearchDropdown";
 import { MultiSelectServicesDropdown } from "../MultiSelectDropdown/multiSelectDropdown";
 import MultiSelectPart from "../MultiSelectDropdown/multiSelectPart";
 import DatePicker from "../datePicker/datePicker";
+import SelectStatusOder from "../selectStatusOrder/selectStatusOder";
 
 const FormOrder = () => {
   const methods = useForm<OrderType>({ resolver: zodResolver(orderSchema) });
-
   const { handleCreateOrder } = useFormOrder();
 
   const {
@@ -32,6 +31,7 @@ const FormOrder = () => {
           <p className="text-red-500 text-sm">{errors.comment.message}</p>
         )}
         <DatePicker />
+        <SelectStatusOder placeholder="Status" />
         <MultiSelectServicesDropdown />
         <MultiSelectPart />
         <ClientSearchDropdown />
