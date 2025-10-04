@@ -5,17 +5,30 @@ import {
   notifyType,
   OrderResponse,
   PageParam,
+  Part,
+  Service,
 } from "@/types";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
 import useNotify from "./useNotify";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { OrderType } from "@/schemas/order";
+
+
 
 type OrderPaginatedResponse = {
   orders: OrderResponse[];
   totalPages: number;
   page: number;
+};
+
+export type OrderPayload = {
+  date: string;
+  status: string;
+  comment: string;
+  clientId: string;
+  technicianId: string;
+  services: Service[];
+  parts: Part[];
 };
 
 const useOrder = () => {
@@ -27,7 +40,7 @@ const useOrder = () => {
 
   const notify = useNotify();
 
-  const registerOrder = async (payload: OrderType) => {
+  const registerOrder = async (payload: OrderPayload) => {
     const urlRegisterOrder = `${BASE_URL}/order`;
     try {
       await axios.post(urlRegisterOrder, payload, header);

@@ -1,28 +1,37 @@
 import UserContext from "@/context/userContext";
-
-import { useContext } from "react";
-import useOrder from "../useOrder";
+import { Part } from "@/types";
+import { useState, useContext } from "react";
+import useOrder, { OrderPayload } from "../useOrder";
 
 import { OrderType } from "@/schemas/order";
-import { format } from "date-fns";
+import useGetPart from "../usePart/useGetPart";
 
 const useFormOrder = () => {
+  const [selectedPartId, setSelectedPartId] = useState<number>();
+
+  const { parts } = useGetPart();
+
   const { registerOrder } = useOrder();
 
-  const { user } = useContext(UserContext);
+  const {
+    user: { id: technicianId },
+  } = useContext(UserContext);
 
   const handleCreateOrder = (data: OrderType) => {
-    const payLoad: OrderType = {
+    const selectedPart = parts?.find((part) => part?.id === selectedPartId);
+    const payLoad: OrderPayload = {
       ...data,
-      technicianId: user.id,
-      forecastDate: format(data.forecastDate, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
-      openingDate: format(Date.now(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
+      services: [],
+      parts: [selectedPart as Part],
+      technicianId: String(technicianId),
     };
     registerOrder(payLoad);
   };
 
   return {
+    parts,
     handleCreateOrder,
+    setSelectedPartId,
   };
 };
 

@@ -30,15 +30,11 @@ export const menuItems: SideBarItemType[] = [
     path: "/app/service",
     icon: PiToolboxLight,
     title: "Serviços",
+
   },
   {
     path: "/app/equipment",
     icon: HiMiniComputerDesktop,
     title: "Equipamento",
-  },
-  {
-    path: "/app/order",
-    icon: HiMiniComputerDesktop,
-    title: "OS",
   },
 ];
