@@ -90,10 +90,10 @@ export function MultiSelectServicesDropdown() {
         className="w-full bg-[#52525B] text-[#D4D4D8]"
       >
         <div className="space-y-2 flex flex-col">
-          {!services?.length ? (
+          {!services ? (
             <>
               <p className="text-zinc-200 text-center">
-                Nenhum servico encontrado
+                Nenhum serviço encontrado
               </p>
               <DrawerService />
             </>

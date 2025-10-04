@@ -28,7 +28,7 @@ const DatePicker = () => {
             id="date"
             className="w-48 justify-between font-normal"
           >
-            {date ? date : "Selecionar Data"}
+            {date || "Selecionar Data"}
             <ChevronDownIcon />
           </Button>
         </PopoverTrigger>

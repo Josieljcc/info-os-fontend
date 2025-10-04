@@ -10,7 +10,6 @@ import DrawerPart from "../drawerPart/drawerPart";
 import { Part } from "@/types";
 import { usePartSearch } from "@/hook/useFormOrder/useSearchPart";
 
-
 const MultiSelectPart = () => {
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 400);
@@ -18,7 +17,7 @@ const MultiSelectPart = () => {
   const [selectedParts, setSelectedParts] = useState<Part[]>([]);
   const { setValue } = useFormContext();
 
-  const { data: Parts } = usePartSearch({
+  const { data: parts } = usePartSearch({
     searchTerm: debouncedSearch,
     enabled: true,
   });
@@ -91,7 +90,7 @@ const MultiSelectPart = () => {
         className="w-full bg-[#52525B] text-[#D4D4D8]"
       >
         <div className="space-y-2 flex flex-col">
-          {!Parts?.length ? (
+          {!parts ? (
             <>
               <p className="text-zinc-200 text-center">
                 Nenhuma peça encontrada
@@ -99,7 +98,7 @@ const MultiSelectPart = () => {
               <DrawerPart />
             </>
           ) : (
-            Parts?.map((part) => (
+            parts?.map((part) => (
               <button
                 key={part.id}
                 className=" cursor-pointer hover:bg-accent hover:text-accent-foreground p-2 rounded"

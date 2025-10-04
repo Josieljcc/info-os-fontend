@@ -49,7 +49,7 @@ export function ClientSearchDropdown() {
         className="w-full bg-[#52525B] text-[#D4D4D8]"
       >
         <ul className="space-y-2 flex flex-col">
-          {!clients?.length ? (
+          {!clients ? (
             <>
               <p className="text-zinc-200 text-center">
                 Nenhum cliente encontrado
