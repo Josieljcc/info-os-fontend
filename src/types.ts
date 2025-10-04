@@ -14,30 +14,29 @@ export enum notifyPositionMap {
   bottomCenter = "bottom-center",
 }
 
-export const orderStatus = [
-  "open",
-  "in_progress",
-  "waiting",
-  "cancelled",
-  "suspended",
-] as const;
-
 export enum role {
   admin = "admin",
   technician = "technician",
   client = "client",
 }
 
+export type User = {
+  id: number;
+  token: string;
+  email: string;
+  role: role;
+};
+
 export type Client = {
-  id: number | undefined;
   address: string;
   email: string;
+  id: number;
   name: string;
   phone: string;
 };
 
 export type Service = {
-  id: number | undefined;
+  id: number;
   name: string;
   description: string;
   time: number;
@@ -45,36 +44,28 @@ export type Service = {
 };
 
 export type Equipment = {
-  id: number | undefined;
+  id: number;
   name: string;
   model: string;
   serialNumber: string;
   description: string;
 };
-export type User = {
-  id: number | undefined;
-  token: string;
-  email: string;
-  role: role;
-};
 
 export type Part = {
-  id: number | undefined;
+  id: number;
   name: string;
   description: string;
   quantity: number;
   price: number;
 };
-
 export type Technician = {
-  email: string | undefined;
+  email: string;
   id: number;
   name: string;
   phone: string;
 };
 
 export type Order = {
-  id: number | undefined;
   date: string;
   status: string;
   comment: string;

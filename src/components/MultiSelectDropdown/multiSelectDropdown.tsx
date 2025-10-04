@@ -28,7 +28,7 @@ export function MultiSelectServicesDropdown() {
     }
     const uniqueSelectedServices = new Set([...selectedServices, service]);
     setSelectedServices([...uniqueSelectedServices]);
-    setValue("services", [...uniqueSelectedServices]);
+    setValue("services", selectedServices);
     setOpen(false);
   };
 
@@ -90,10 +90,10 @@ export function MultiSelectServicesDropdown() {
         className="w-full bg-[#52525B] text-[#D4D4D8]"
       >
         <div className="space-y-2 flex flex-col">
-          {!services ? (
+          {!services?.length ? (
             <>
               <p className="text-zinc-200 text-center">
-                Nenhum serviço encontrado
+                Nenhum servico encontrado
               </p>
               <DrawerService />
             </>

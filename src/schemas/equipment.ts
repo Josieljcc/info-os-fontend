@@ -3,7 +3,6 @@ import { z } from "zod";
 export type EquipmentType = z.infer<typeof equipmentSchema>
 
 const equipmentSchema = z.object({
-  id: z.number().optional(),
   name: z.string().min(1, "Nome do equipamento é obrigatório"),
   description: z.string(),
   serialNumber: z.string(),
