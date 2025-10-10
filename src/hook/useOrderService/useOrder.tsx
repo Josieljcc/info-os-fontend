@@ -10,10 +10,8 @@ import {
 } from "@/types";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
-import useNotify from "./useNotify";
+import useNotify from "../useNotify";
 import { useInfiniteQuery } from "@tanstack/react-query";
-
-
 
 type OrderPaginatedResponse = {
   orders: OrderResponse[];
