@@ -1,7 +1,7 @@
 import UserContext from "@/context/userContext";
 import { Part } from "@/types";
 import { useState, useContext } from "react";
-import useOrder, { OrderPayload } from "../useOrder";
+import useOrder, { OrderPayload } from "../useOrderService/useOrder";
 
 import { OrderType } from "@/schemas/order";
 import useGetPart from "../usePart/useGetPart";
