@@ -77,11 +77,18 @@ export type Order = {
 
 export type OrderResponse = {
   id: number;
-  date: string;
+  // Datas da OS
+  openingDate: string;
+  forecastDate: string;
+  closingDate?: string | null;
+  // Informações principais
   status: string;
   comment: string;
-  clientId: string;
-  technicianID: string;
+  // Relações
+  client: Client;
+  technician: Technician;
+  services: Service[];
+  parts: Part[];
 };
 
 export type PageParam = {
