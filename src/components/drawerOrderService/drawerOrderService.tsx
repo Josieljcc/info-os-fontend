@@ -7,8 +7,7 @@ const DrawerOrderService = () => {
       buttonTitle="Ordem de Serviço"
       title="Cadastrar Ordem de Serviço"
     >
-      {" "}
-      <FormOrder />{" "}
+      <FormOrder />
     </FormDrawer>
   );
 };
