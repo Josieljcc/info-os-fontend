@@ -1,49 +1,39 @@
-import ButtonPrimary from "../buttonPrimary/buttonPrimary";
-import { RiDeleteBin7Line } from "react-icons/ri";
-import { RxAvatar } from "react-icons/rx";
-import { FiEdit2 } from "react-icons/fi";
 import { OrderResponse } from "@/types";
+import { formatDateBR } from "@/lib/utils";
+import DetailModalOrderService from "../detailModal/orderServiceModal";
+import DeleteButton from "../deleteButton/deleteButton";
+import useDeleteOrderService from "@/hook/useOrderService/useDeleteOrderService";
 
+type CardOrderServiceProps = { classname?: string; order: OrderResponse };
 
-
-type CardOrderProp ={
-  classname?: string
-  order: OrderResponse
-}
-
-const CardOrder = ({classname, order}:CardOrderProp) => {
+const CardOrderService = ({ order, classname }: CardOrderServiceProps) => {
+  const { deleteOrderService } = useDeleteOrderService();
+  const handleDelete = async () => {
+    await deleteOrderService(order.id);
+  };
   return (
     <div
-      className={`flex justify-between text-white rounded-lg shadow-md border border-gray-600 flex-col max-w-[42rem] pb-4 pt-4 px-4 bg-[#1c2029] ${classname}`}
+      className={`flex justify-between h-16 text-white rounded-2xl border-2 items-center w-full border-[#e9ecef7b] md:py-5 py-3 md:px-7 px-4 bg-secondaryColor ${classname}`}
     >
-      <div className="flex text-6xl justify-center">
-        <RxAvatar />
+      <div className="flex flex-1 items-center">
+        <p className="text-sm font-medium md:w-1/3 w-1/2">#{order?.id}</p>
+        <p className="text-sm font-medium w-1/3 pl-6">{order?.client?.name}</p>
+        <p className="text-sm font-medium w-1/3 pl-6">
+          {formatDateBR(order?.openingDate)}
+        </p>
+        <p className="text-sm font-medium w-1/3 pl-6">
+          {formatDateBR(order?.forecastDate)}
+        </p>
       </div>
-      <div className="py-5">
-        <div>
-          <p className="text-lg font-semibold w-full ">{order?.date}</p>
-          <p className="text-sm w-full">{order?.comment}</p>
-          <p className="text-sm w-full">{order?.clientId}</p>
-          <p className="text-sm w-full">{order?.technicianID}</p>
-          <p className="text-sm w-full">{order?.status}</p>
-        </div>
-      </div>
-      <div className="flex gap-20">
-        <ButtonPrimary
-          color="bg-sky-700"
-          className="text-2xl h-full w-full rounded-full"
-        >
-          <FiEdit2 />
-        </ButtonPrimary>
-        <ButtonPrimary
-          color="bg-red-500"
-          className="text-2xl h-full w-full rounded-full"
-        >
-          <RiDeleteBin7Line />
-        </ButtonPrimary>
+      <div className="flex gap-2 h-7 items-center">
+        <DetailModalOrderService order={order} />
+        <DeleteButton
+          name={String(order.id)}
+          typeLabel="da ordem de serviço"
+          onConfirm={handleDelete}
+        />
       </div>
     </div>
   );
 };
-
-export default CardOrder;
+export default CardOrderService;
