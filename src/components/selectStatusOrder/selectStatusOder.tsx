@@ -21,11 +21,16 @@ const SelectStatusOder = ({ placeholder }: SelectProps) => {
     setValue("status", stat);
   };
   const items = [
-    { value: "open", label: "aberto", color: "bg-green-500" },
-    { value: "waiting", label: "em espera", color: "bg-orange-500" },
-    { value: "cancelled", label: "cancelado", color: "bg-red-500" },
-    { value: "suspended", label: "suspendo", color: "bg-yellow-500" },
-    { value: "in_progress", label: "em progresso", color: "bg-purple-500" },
+    { id: "1", value: "open", label: "aberto", color: "bg-green-500" },
+    { id: "2", value: "waiting", label: "em espera", color: "bg-orange-500" },
+    { id: "3", value: "cancelled", label: "cancelado", color: "bg-red-500" },
+    { id: "4", value: "suspended", label: "suspendo", color: "bg-yellow-500" },
+    {
+      id: "5",
+      value: "in_progress",
+      label: "em progresso",
+      color: "bg-purple-500",
+    },
   ];
 
   return (
@@ -40,6 +45,7 @@ const SelectStatusOder = ({ placeholder }: SelectProps) => {
               <SelectItem
                 className="hover:bg-[#29292bf4] py-2"
                 value={item.value}
+                key={item.id}
               >
                 <div className="flex items-center gap-2">
                   <div className={cn("w-3 h-3 rounded-full", item.color)} />
