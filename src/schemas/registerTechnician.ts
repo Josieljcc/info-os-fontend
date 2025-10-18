@@ -7,6 +7,7 @@ const phoneRegex = RegExp(
 );
 
 const technicianSchema = z.object({
+  id: z.number().optional(),
   email: z.string().email("Email inválido"),
   password: z.string().min(6, "A senha deve conter no mínimo 6 caracteres."),
   name: z.string().min(1, "O nome é obrigatório!"),

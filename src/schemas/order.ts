@@ -1,21 +1,21 @@
 import { z } from "zod";
 import servicesSchema from "./services";
 import partSchema from "./parts";
+import clientSchema from "./registerClient";
+import { orderStatus } from "@/types";
 
 export type OrderType = z.infer<typeof orderSchema>;
 
 const orderSchema = z.object({
-  // Campos usados para criação simples pelo formulário
-  date: z.string().min(1, "Data é obrigatória"),
-  status: z.string(),
+  forecastDate: z.string().date(),
   comment: z.string(),
-  clientId: z.string(),
-  services: z.array(servicesSchema).optional().default([]),
-  parts: z.array(partSchema).optional().default([]),
-  // Campos usados no fluxo de edição e detalhamento
-  openingDate: z.string().optional(),
-  forecastDate: z.string().optional(),
-  closingDate: z.string().nullable().optional(),
+  clientId: z.number(),
+  status: z.enum(orderStatus).optional(),
+  client: clientSchema,
+  services: z.array(servicesSchema).optional(),
+  parts: z.array(partSchema).optional(),
+  technicianId: z.number().optional(),
+  openingDate: z.string().date().optional(),
 });
 
 export default orderSchema;

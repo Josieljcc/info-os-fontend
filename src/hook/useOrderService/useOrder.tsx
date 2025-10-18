@@ -5,8 +5,6 @@ import {
   notifyType,
   OrderResponse,
   PageParam,
-  Part,
-  Service,
 } from "@/types";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
@@ -19,16 +17,6 @@ type OrderPaginatedResponse = {
   page: number;
 };
 
-export type OrderPayload = {
-  date: string;
-  status: string;
-  comment: string;
-  clientId: string;
-  technicianId: string;
-  services: Service[];
-  parts: Part[];
-};
-
 const useOrder = () => {
   const {
     user: { token },
@@ -38,7 +26,7 @@ const useOrder = () => {
 
   const notify = useNotify();
 
-  const registerOrder = async (payload: OrderPayload) => {
+  const registerOrder = async (payload: OrderType) => {
     const urlRegisterOrder = `${BASE_URL}/order`;
     try {
       await axios.post(urlRegisterOrder, payload, header);
