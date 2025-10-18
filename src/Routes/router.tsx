@@ -40,10 +40,7 @@ const router = createBrowserRouter([
         path: "order",
         element: <Order />,
       },
-      {
-        path: "technician",
-        element: <ListTechnician />,
-      },
+      // rota technician já definida acima
       {
         path: "os",
         element: <ListOrder />,
@@ -51,10 +48,6 @@ const router = createBrowserRouter([
       {
         path: "part",
         element: <ListPart />,
-      },
-      {
-        path: "os",
-        element: <ListOrder />,
       },
       {
         path: "service",
