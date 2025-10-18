@@ -16,7 +16,7 @@ const Input = ({
   ...props
 }: InputProps) => {
   const { register } = useFormContext();
-
+  console.log({ ...props });
   return (
     <div className="relative text-[#A4A4A4]">
       <div className={`absolute top-1/2 -translate-y-1/2 ${position}`}>
@@ -24,6 +24,7 @@ const Input = ({
       </div>
       <input
         {...register(formName, { valueAsNumber: type === "number" })}
+        type={type}
         {...props}
         className={`h-10 w-full pl-8 shadow-md rounded-lg border-2 border-transparent placeholder-zinc-500 bg-[#3f3f3f] p-2 hover:border-blue-500 focus:border-blue-500 focus:outline-none ${className}`}
       />
