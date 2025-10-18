@@ -9,7 +9,7 @@ services:
       args:
         - VITE_BACK_END_BASE_URL=${VITE_BACK_END_BASE_URL}
     ports:
-      - "3001:80"
+      - "3001:8080"
     environment:
       - NODE_ENV=staging
     restart: always
