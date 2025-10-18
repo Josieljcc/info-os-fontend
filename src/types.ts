@@ -22,6 +22,13 @@ export const orderStatus = [
   "suspended",
 ] as const;
 
+export type StatusType =
+  | "open"
+  | "in_progress"
+  | "waiting"
+  | "cancelled"
+  | "suspended";
+
 export enum role {
   admin = "admin",
   technician = "technician",
