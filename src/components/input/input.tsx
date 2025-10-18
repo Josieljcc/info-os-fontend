@@ -16,7 +16,7 @@ const Input = ({
   ...props
 }: InputProps) => {
   const { register } = useFormContext();
-  console.log({ ...props });
+
   return (
     <div className="relative text-[#A4A4A4]">
       <div className={`absolute top-1/2 -translate-y-1/2 ${position}`}>
