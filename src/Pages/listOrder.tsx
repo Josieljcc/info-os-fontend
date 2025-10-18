@@ -6,22 +6,32 @@ import useDebounce from "@/hook/useDebounce/useDebounce";
 import useOrder from "@/hook/useOrderService/useOrder";
 import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
+import { useOrderSearch } from "@/hook/useOrderService/useSearchOrder";
+import { OrderSearchField } from "@/hook/useOrderService/types";
 import { OrderResponse } from "@/types";
 import { useState } from "react";
 
 const ListOrderService = () => {
   const { orders, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useOrder();
+  const [searchType, setSearchType] = useState<OrderSearchField>("clientName");
   const [searchValue, setSearchValue] = useState("");
   const { ref, rect } = useResizeObserver();
   const [debouncedSearch] = useDebounce(searchValue, 400);
+
+  const searchParams = { [searchType]: debouncedSearch };
+
+  const { data: searchedOrders } = useOrderSearch({
+    searchTerm: searchParams,
+    enabled: Boolean(debouncedSearch.trim()),
+  });
+
   const safeOrders: OrderResponse[] = (orders || []).filter(
     (o): o is OrderResponse => Boolean(o)
   );
+
   const displayedOrders = debouncedSearch.trim()
-    ? safeOrders.filter((o) =>
-        (o.comment ?? "").toLowerCase().includes(debouncedSearch.toLowerCase())
-      )
+    ? searchedOrders ?? []
     : safeOrders;
   const rowVirtualizer = useRowVirtualizer({
     estimateSize: 70,
@@ -42,14 +52,35 @@ const ListOrderService = () => {
         <div className="flex md:flex-row flex-col-reverse justify-between flex-wrap gap-4 md:gap-0">
           <DrawerOrderService />
           <div className="flex gap-5">
+            <select
+              value={searchType}
+              onChange={(event) =>
+                setSearchType(event.target.value as OrderSearchField)
+              }
+              className="bg-secondaryColor text-white focus:outline-none pl-2 md:pr-6 border-2 border-[#e9ecef7b] rounded-2xl hover:bg-[#505050] transition-all"
+            >
+              <option value="clientName" className="bg-[#2a2a2a] text-sm">
+                Cliente
+              </option>
+              <option value="openingDate" className="bg-[#2a2a2a] text-sm">
+                Data Abertura
+              </option>
+              <option value="forecastDate" className="bg-[#2a2a2a] text-sm">
+                Data Entrega
+              </option>
+              <option value="status" className="bg-[#2a2a2a] text-sm">
+                Situação
+              </option>
+            </select>
             <SearchInput setValue={setSearchValue} />
           </div>
         </div>
         <div className="md:flex hidden w-[95%] flex-1 items-center text-base  text-[#B5B7C0] font-medium px-7">
-          <p className="text-sm font-medium w-1/4">ID</p>
-          <p className="text-sm font-medium w-1/4">Cliente</p>
-          <p className="text-sm font-medium w-1/4">Abertura</p>
-          <p className="text-sm font-medium w-1/4">Entrega</p>
+          <p className="text-sm font-medium w-1/5">ID</p>
+          <p className="text-sm font-medium w-1/5">Cliente</p>
+          <p className="text-sm font-medium w-1/5">Abertura</p>
+          <p className="text-sm font-medium w-1/5">Entrega</p>
+          <p className="text-sm font-medium w-1/5">Situação</p>
         </div>
         <div className="w-full left-0 md:block hidden top-32 p-[.0313rem] bg-[#464646] absolute" />
       </header>
