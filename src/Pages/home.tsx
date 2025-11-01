@@ -22,7 +22,6 @@ const Home = () => {
 
   return (
     <div className="h-dvh flex flex-col w-full bg-[#141414] ">
-      <h1>HOME</h1>
       <DrawerClient />
       <DrawerPart />
       <DrawerService />
