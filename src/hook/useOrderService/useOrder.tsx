@@ -6,6 +6,7 @@ import {
   OrderResponse,
   PageParam,
 } from "@/types";
+import { OrderType } from "@/schemas/order";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
 import useNotify from "../useNotify";
