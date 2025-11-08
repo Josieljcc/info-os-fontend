@@ -39,14 +39,15 @@ export const useOrderSearch = ({
       params.append("forecastDate", searchTerm.forecastDate);
     if (searchTerm.status) params.append("status", searchTerm.status);
 
+    const url = `${BASE_URL}/order?${params.toString()}`;
+
     try {
-      const response = await axios.get(
-        `${BASE_URL}/order?${params.toString()}`,
-        header
-      );
+      const response = await axios.get(url, header);
       return response.data.orders || [];
-    } catch (err: any) {
-      notify(err.message, notifyPositionMap.topRight, notifyType.error);
+    } catch (err: unknown) {
+      const errorMessage =
+        err instanceof Error ? err.message : "Erro desconhecido";
+      notify(errorMessage, notifyPositionMap.topRight, notifyType.error);
       return [];
     }
   };
