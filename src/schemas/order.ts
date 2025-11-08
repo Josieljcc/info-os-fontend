@@ -8,6 +8,7 @@ export type OrderType = z.infer<typeof orderSchema>;
 
 const orderSchema = z.object({
   forecastDate: z.string().date(),
+  closingDate: z.string().date(),
   comment: z.string(),
   clientId: z.number(),
   status: z.enum(orderStatus).optional(),
