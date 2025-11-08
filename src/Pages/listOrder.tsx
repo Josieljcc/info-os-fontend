@@ -8,12 +8,12 @@ import useDebounce from "@/hook/useDebounce/useDebounce";
 import useOrder from "@/hook/useOrderService/useOrder";
 import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
-import { useOrderSearch } from "@/hook/useOrderService/useSearchOrder";
+import { useOrderSearch, OrderSearchTerm } from "@/hook/useOrderService/useSearchOrder";
 import { OrderSearchField } from "@/hook/useOrderService/types";
+import DateRangePicker from "@/components/DateRangePicker/DateRangePicker";
 import SelectStatusOder from "@/components/selectStatusOrder/selectStatusOder";
 import { OrderResponse, StatusType } from "@/types";
 import { useState } from "react";
-import DatePickerList from "@/components/DatePickerList/DatePickerList";
 
 const searchMap = {
   clientName: "Digite o Cliente",
@@ -26,25 +26,39 @@ const ListOrderService = () => {
 
   const [searchType, setSearchType] = useState<OrderSearchField>("clientName");
   const [searchValue, setSearchValue] = useState("");
+  const [dateRange, setDateRange] = useState<{
+    startDate?: string;
+    endDate?: string;
+  }>({});
   const { ref, rect } = useResizeObserver();
   const [debouncedSearch] = useDebounce(searchValue, 400);
 
-  const searchParams = {
-    [searchType]: debouncedSearch,
-  };
+  const searchParams: OrderSearchTerm = {};
+  if (searchType === "openingDate") {
+    searchParams.openingStartDate = dateRange.startDate;
+    searchParams.openingEndDate = dateRange.endDate;
+  } else if (searchType === "forecastDate") {
+    searchParams.forecastStartDate = dateRange.startDate;
+    searchParams.forecastEndDate = dateRange.endDate;
+  } else if (searchType === "clientName" || searchType === "status") {
+    searchParams[searchType] = debouncedSearch;
+  }
 
   const { data: searchedOrders } = useOrderSearch({
     searchTerm: searchParams,
-    enabled: Boolean(debouncedSearch.trim()),
+    enabled:
+      Boolean(debouncedSearch.trim()) ||
+      (Boolean(dateRange.startDate) && Boolean(dateRange.endDate)),
   });
 
   const safeOrders: OrderResponse[] = (orders || []).filter(
     (o): o is OrderResponse => Boolean(o)
   );
 
-  const displayedOrders = debouncedSearch.trim()
-    ? searchedOrders ?? []
-    : safeOrders;
+  const displayedOrders =
+    debouncedSearch.trim() || (dateRange.startDate && dateRange.endDate)
+      ? searchedOrders ?? []
+      : safeOrders;
 
   const rowVirtualizer = useRowVirtualizer({
     estimateSize: 70,
@@ -74,6 +88,7 @@ const ListOrderService = () => {
               onChange={(event) => {
                 setSearchType(event.target.value as OrderSearchField);
                 setSearchValue("");
+                setDateRange({});
               }}
               className="bg-secondaryColor text-white focus:outline-none pl-2 md:pr-6 border-2 border-[#e9ecef7b] rounded-2xl hover:bg-[#505050] transition-all"
             >
@@ -92,9 +107,9 @@ const ListOrderService = () => {
             </select>
 
             {searchType === "openingDate" || searchType === "forecastDate" ? (
-              <DatePickerList
-                value={searchValue}
-                onChange={(date) => setSearchValue(date)}
+              <DateRangePicker
+                value={dateRange}
+                onChange={(dates) => setDateRange(dates)}
               />
             ) : searchType === "status" ? (
               <SelectStatusOder

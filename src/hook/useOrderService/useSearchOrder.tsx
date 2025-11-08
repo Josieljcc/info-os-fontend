@@ -8,8 +8,10 @@ import useNotify from "../useNotify";
 
 export type OrderSearchTerm = {
   clientName?: string;
-  openingDate?: string;
-  forecastDate?: string;
+  openingStartDate?: string;
+  openingEndDate?: string;
+  forecastStartDate?: string;
+  forecastEndDate?: string;
   status?: string;
 };
 
@@ -33,10 +35,14 @@ export const useOrderSearch = ({
     const params = new URLSearchParams();
     if (searchTerm.clientName)
       params.append("clientName", searchTerm.clientName);
-    if (searchTerm.openingDate)
-      params.append("openingDate", searchTerm.openingDate);
-    if (searchTerm.forecastDate)
-      params.append("forecastDate", searchTerm.forecastDate);
+    if (searchTerm.openingStartDate)
+      params.append("openingStartDate", searchTerm.openingStartDate);
+    if (searchTerm.openingEndDate)
+      params.append("openingEndDate", searchTerm.openingEndDate);
+    if (searchTerm.forecastStartDate)
+      params.append("forecastStartDate", searchTerm.forecastStartDate);
+    if (searchTerm.forecastEndDate)
+      params.append("forecastEndDate", searchTerm.forecastEndDate);
     if (searchTerm.status) params.append("status", searchTerm.status);
 
     const url = `${BASE_URL}/order?${params.toString()}`;
