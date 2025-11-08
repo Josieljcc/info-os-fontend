@@ -11,6 +11,7 @@ import { MultiSelectServicesDropdown } from "../MultiSelectDropdown/multiSelectD
 import InputSelect, { SelectType } from "../inputSelect/inputSelect";
 import useGetTechnician from "@/hook/useTechnician/useGetTechnician";
 import useEditOrderService from "@/hook/useOrderService/useEditeOrderService";
+import { formatToSave, formatToShow } from "@/util/dateUtil";
 
 type EditOrderFormProps = {
   order: OrderResponse;
@@ -32,17 +33,17 @@ const EditOrderForm = ({ order, setIsEditing }: EditOrderFormProps) => {
   const handleEditOrder = (data: OrderType) => {
     const payload = {
       ...data,
-      openingDate: formatDateToISO(data.openingDate || ""),
-      forecastDate: formatDateToISO(data.forecastDate || ""),
-      closingDate: data.closingDate ? formatDateToISO(data.closingDate) : null,
-      technicianId: String(selectedTechnicianId ?? order.technician.id),
-      clientId: String(order.client.id),
+      openingDate: formatToSave(data.openingDate!),
+      forecastDate: formatToSave(data.forecastDate),
+      closingDate: formatToSave(data.closingDate),
+      technicianId: selectedTechnicianId,
+      clientId: order.client.id!,
       services: selectedServices.length ? selectedServices : order.services,
       parts: order.parts.map((part) => ({
         name: part.name,
         description: part.description,
-        price: String(part.price),
-        quantity: String(part.quantity),
+        price: part.price,
+        quantity: part.quantity,
       })),
     };
 
@@ -50,31 +51,12 @@ const EditOrderForm = ({ order, setIsEditing }: EditOrderFormProps) => {
     setIsEditing(false);
   };
 
-  // Função para converter data para formato brasileiro (dd/mm/aaaa)
-  const formatDateToBrazilian = (dateString: string) => {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
-  // Função para converter data do formato brasileiro para ISO
-  const formatDateToISO = (dateString: string) => {
-    if (!dateString) return "";
-    const [day, month, year] = dateString.split("/");
-    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-  };
-
   useEffect(() => {
     if (order) {
       reset({
-        openingDate: formatDateToBrazilian(order.openingDate),
-        forecastDate: formatDateToBrazilian(order.forecastDate),
-        closingDate: order.closingDate
-          ? formatDateToBrazilian(order.closingDate)
-          : "",
+        openingDate: formatToShow(order.openingDate),
+        forecastDate: formatToShow(order.forecastDate),
+        closingDate: order.closingDate ? formatToShow(order.closingDate) : "",
         status: order.status,
         comment: order.comment,
       });
