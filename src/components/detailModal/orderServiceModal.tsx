@@ -8,8 +8,9 @@ import {
 } from "../ui/alert-dialog";
 import { FiEdit3 } from "react-icons/fi";
 import { OrderResponse } from "@/types";
-import { formatDateBR } from "@/lib/utils";
 import EditOrderForm from "../EditForm/editOrderForm";
+import { format } from "date-fns";
+
 type DetailModalOrderServiceProps = { order: OrderResponse };
 const DetailModalOrderService = ({ order }: DetailModalOrderServiceProps) => {
   const [open, setOpen] = useState(false);
@@ -33,10 +34,11 @@ const DetailModalOrderService = ({ order }: DetailModalOrderServiceProps) => {
               </p>
               <p>
                 <strong>Data Abertura:</strong>
-                {formatDateBR(order.openingDate)}
+                {format(order?.openingDate, "dd-MM-yyyy")}
               </p>
               <p>
-                <strong>Previsão:</strong> {formatDateBR(order.forecastDate)}
+                <strong>Previsão:</strong>{" "}
+                {format(order?.forecastDate, "dd-MM-yyyy")}
               </p>
               <p>
                 <strong>Comentário:</strong> {order.comment}
