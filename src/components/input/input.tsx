@@ -24,6 +24,7 @@ const Input = ({
       </div>
       <input
         {...register(formName, { valueAsNumber: type === "number" })}
+        type={type}
         {...props}
         className={`h-10 w-full pl-8 shadow-md rounded-lg border-2 border-transparent placeholder-zinc-500 bg-[#3f3f3f] p-2 hover:border-blue-500 focus:border-blue-500 focus:outline-none ${className}`}
       />
