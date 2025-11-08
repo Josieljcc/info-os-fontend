@@ -66,7 +66,7 @@ export type User = {
 };
 
 export type Part = {
-  id: number | undefined;
+  id?: number | undefined;
   name: string;
   description: string;
   quantity: number;
@@ -94,11 +94,11 @@ export type Order = {
 export type OrderResponse = {
   id: number;
   // Datas da OS
-  openingDate: string;
-  forecastDate: string;
+  openingDate: Date;
+  forecastDate: Date;
   closingDate?: string | null;
   // Informações principais
-  status: string;
+  status: StatusType;
   comment: string;
   // Relações
   client: Client;
