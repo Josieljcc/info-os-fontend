@@ -1,6 +1,6 @@
 import UserContext from "@/context/userContext";
 import { OrderType } from "@/schemas/order";
-import { format } from "path";
+import { format } from "date-fns";
 import { useContext } from "react";
 import useOrder from "../useOrderService/useOrder";
 
@@ -13,8 +13,11 @@ const useFormOrder = () => {
     const payLoad: OrderType = {
       ...data,
       technicianId: user.id,
-      forecastDate: format(data.forecastDate, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
-      openingDate: format(Date.now(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
+      forecastDate: format(
+        new Date(data.forecastDate),
+        "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
+      ),
+      openingDate: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
     };
     registerOrder(payLoad);
   };
