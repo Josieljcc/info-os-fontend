@@ -66,7 +66,7 @@ const Login = () => {
             <p className="text-zinc-200 text-center">
               Não tem cadastro?{" "}
               <Link
-                to="/register/technician"
+                to="/"
                 className="text-blue-400 underline hover:text-blue-500 transition-all duration-200"
               >
                 Registre aqui

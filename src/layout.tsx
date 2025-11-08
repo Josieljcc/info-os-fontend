@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import SideBar from "./components/sideBar/sideBar";
 import useAuthentication from "./hook/useAuthentication";
 import { TitleMapType } from "./types";
+import SideBarMobile from "./components/sideBar/sideBarMobile";
 
 const titleMap = {
   "/app/client": "Clientes",
@@ -22,9 +23,9 @@ const AppLayout = () => {
   }
   return (
     <div className="bg-zinc-800 fixed w-full h-screen text-zinc-100">
-      <header>header</header>
-      <div className="flex">
+      <div className="flex relative">
         <SideBar />
+        <SideBarMobile />
         <div className="w-full md:px-6 ">
           <h1 className="font-semibold md:text-4xl text-2xl m-3">
             {titleMap[pathname as TitleMapType]}
