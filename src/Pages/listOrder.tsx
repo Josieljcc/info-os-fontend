@@ -1,3 +1,5 @@
+"use client";
+
 import CardOrderService from "@/components/Cards/CardOrder";
 import DrawerOrderService from "@/components/drawerOrderService/drawerOrderService";
 import SearchInput from "@/components/searchInput/searchInput";
@@ -8,18 +10,28 @@ import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import { useOrderSearch } from "@/hook/useOrderService/useSearchOrder";
 import { OrderSearchField } from "@/hook/useOrderService/types";
-import { OrderResponse } from "@/types";
+import SelectStatusOder from "@/components/selectStatusOrder/selectStatusOder";
+import { OrderResponse, StatusType } from "@/types";
 import { useState } from "react";
+import DatePickerList from "@/components/DatePickerList/DatePickerList";
+
+const searchMap = {
+  clientName: "Digite o Cliente",
+  status: "Selecione o Status",
+};
 
 const ListOrderService = () => {
   const { orders, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useOrder();
+
   const [searchType, setSearchType] = useState<OrderSearchField>("clientName");
   const [searchValue, setSearchValue] = useState("");
   const { ref, rect } = useResizeObserver();
   const [debouncedSearch] = useDebounce(searchValue, 400);
 
-  const searchParams = { [searchType]: debouncedSearch };
+  const searchParams = {
+    [searchType]: debouncedSearch,
+  };
 
   const { data: searchedOrders } = useOrderSearch({
     searchTerm: searchParams,
@@ -33,6 +45,7 @@ const ListOrderService = () => {
   const displayedOrders = debouncedSearch.trim()
     ? searchedOrders ?? []
     : safeOrders;
+
   const rowVirtualizer = useRowVirtualizer({
     estimateSize: 70,
     fetchNextPage,
@@ -42,21 +55,26 @@ const ListOrderService = () => {
     list: displayedOrders,
     ref,
   });
+
   const getCardHeight = () => {
     return Number(rect?.width) >= 768 ? "69px" : "64px";
   };
+
   if (isLoading) return <Spinner />;
+
   return (
     <div className="h-screen w-full bg-secondaryColor flex flex-col px-6 pt-8 relative gap-10 rounded-lg">
       <header className="flex flex-col gap-5">
         <div className="flex md:flex-row flex-col-reverse justify-between flex-wrap gap-4 md:gap-0">
           <DrawerOrderService />
-          <div className="flex gap-5">
+
+          <div className="flex gap-5 ">
             <select
               value={searchType}
-              onChange={(event) =>
-                setSearchType(event.target.value as OrderSearchField)
-              }
+              onChange={(event) => {
+                setSearchType(event.target.value as OrderSearchField);
+                setSearchValue("");
+              }}
               className="bg-secondaryColor text-white focus:outline-none pl-2 md:pr-6 border-2 border-[#e9ecef7b] rounded-2xl hover:bg-[#505050] transition-all"
             >
               <option value="clientName" className="bg-[#2a2a2a] text-sm">
@@ -72,18 +90,38 @@ const ListOrderService = () => {
                 Situação
               </option>
             </select>
-            <SearchInput setValue={setSearchValue} />
+
+            {searchType === "openingDate" || searchType === "forecastDate" ? (
+              <DatePickerList
+                value={searchValue}
+                onChange={(date) => setSearchValue(date)}
+              />
+            ) : searchType === "status" ? (
+              <SelectStatusOder
+                placeholder={searchMap[searchType]}
+                onChange={(status) => setSearchValue(status as StatusType)}
+                value={searchValue}
+              />
+            ) : (
+              <SearchInput
+                setValue={setSearchValue}
+                placeholder={searchMap[searchType]}
+              />
+            )}
           </div>
         </div>
-        <div className="md:flex hidden w-[95%] flex-1 items-center text-base  text-[#B5B7C0] font-medium px-7">
-          <p className="text-sm font-medium w-1/5">ID</p>
-          <p className="text-sm font-medium w-1/5">Cliente</p>
-          <p className="text-sm font-medium w-1/5">Abertura</p>
-          <p className="text-sm font-medium w-1/5">Entrega</p>
-          <p className="text-sm font-medium w-1/5">Situação</p>
+
+        <div className="md:flex hidden w-full  items-center text-base text-[#B5B7C0] font-medium px-7">
+          <p className="text-sm font-medium">ID</p>
+          <p className="text-sm font-medium">Cliente</p>
+          <p className="text-sm font-medium">Abertura</p>
+          <p className="text-sm font-medium">Entrega</p>
+          <p className="text-sm font-medium">Situação</p>
+          <div className="min-w-[72px]"></div>
         </div>
         <div className="w-full left-0 md:block hidden top-32 p-[.0313rem] bg-[#464646] absolute" />
       </header>
+
       <div
         ref={ref}
         className="overflow-auto scrollbar-thin scrollbar-thumb-[#9f9f9f] scrollbar-track-[#2c2c2c] pr-3"
@@ -118,4 +156,5 @@ const ListOrderService = () => {
     </div>
   );
 };
+
 export default ListOrderService;
