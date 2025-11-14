@@ -16,18 +16,15 @@ interface DateRangePickerProps {
   onChange?: (dates: { startDate?: string; endDate?: string }) => void;
 }
 
-const DateRangePicker: React.FC<DateRangePickerProps> = ({
-  value,
-  onChange,
-}) => {
+function DateRangePicker({ value, onChange }: DateRangePickerProps) {
   const [openStartDate, setOpenStartDate] = React.useState(false);
   const [openEndDate, setOpenEndDate] = React.useState(false);
 
   const startDate = value?.startDate
-    ? new Date(`${value.startDate}T00:00:00`)
+    ? new Date(value.startDate.replace(/-/g, "/"))
     : undefined;
   const endDate = value?.endDate
-    ? new Date(`${value.endDate}T00:00:00`)
+    ? new Date(value.endDate.replace(/-/g, "/"))
     : undefined;
 
   const handleSelectStartDate = (date?: Date) => {
@@ -88,6 +85,6 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
       </Popover>
     </div>
   );
-};
+}
 
 export default DateRangePicker;
