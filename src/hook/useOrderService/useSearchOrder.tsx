@@ -5,15 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useContext } from "react";
 import useNotify from "../useNotify";
-
-export type OrderSearchTerm = {
-  clientName?: string;
-  openingStartDate?: string;
-  openingEndDate?: string;
-  forecastStartDate?: string;
-  forecastEndDate?: string;
-  status?: string;
-};
+import { OrderSearchTerm } from "./types";
 
 type useOrderSearchProps = {
   searchTerm: OrderSearchTerm;
@@ -39,10 +31,14 @@ export const useOrderSearch = ({
       params.append("openingStartDate", searchTerm.openingStartDate);
     if (searchTerm.openingEndDate)
       params.append("openingEndDate", searchTerm.openingEndDate);
-    if (searchTerm.forecastStartDate)
-      params.append("forecastStartDate", searchTerm.forecastStartDate);
-    if (searchTerm.forecastEndDate)
-      params.append("forecastEndDate", searchTerm.forecastEndDate);
+    if (searchTerm.forecastdate) {
+      params.append("forecastDate", searchTerm.forecastdate);
+    } else {
+      if (searchTerm.forecastStartDate)
+        params.append("forecastStartDate", searchTerm.forecastStartDate);
+      if (searchTerm.forecastEndDate)
+        params.append("forecastEndDate", searchTerm.forecastEndDate);
+    }
     if (searchTerm.status) params.append("status", searchTerm.status);
 
     const url = `${BASE_URL}/order?${params.toString()}`;
