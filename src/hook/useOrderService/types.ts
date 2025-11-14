@@ -1,7 +1,10 @@
 export type OrderSearchTerm = {
   clientName?: string;
-  openingDate?: string;
-  forecastDate?: string;
+  openingStartDate?: string;
+  openingEndDate?: string;
+  forecastStartDate?: string;
+  forecastEndDate?: string;
+  forecastdate?: string;
   status?: string;
 };
 
