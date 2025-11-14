@@ -14,6 +14,8 @@ import DateRangePicker from "@/components/DateRangePicker/DateRangePicker";
 import SelectStatusOder from "@/components/selectStatusOrder/selectStatusOder";
 import { OrderResponse, StatusType } from "@/types";
 import { useState } from "react";
+import { isSameDay } from "date-fns";
+import { getForecastParams } from "@/util/dateUtil";
 
 const searchMap = {
   clientName: "Digite o Cliente",
@@ -34,12 +36,11 @@ const ListOrderService = () => {
   const [debouncedSearch] = useDebounce(searchValue, 400);
 
   const searchParams: OrderSearchTerm = {};
-  if (searchType === "openingDate") {
+  if (searchType === "openingStartDate") {
     searchParams.openingStartDate = dateRange.startDate;
     searchParams.openingEndDate = dateRange.endDate;
-  } else if (searchType === "forecastDate") {
-    searchParams.forecastStartDate = dateRange.startDate;
-    searchParams.forecastEndDate = dateRange.endDate;
+  } else if (searchType === "forecastStartDate") {
+    Object.assign(searchParams, getForecastParams(dateRange.startDate, dateRange.endDate));
   } else if (searchType === "clientName" || searchType === "status") {
     searchParams[searchType] = debouncedSearch;
   }
@@ -48,7 +49,7 @@ const ListOrderService = () => {
     searchTerm: searchParams,
     enabled:
       Boolean(debouncedSearch.trim()) ||
-      (Boolean(dateRange.startDate) && Boolean(dateRange.endDate)),
+      (Boolean(dateRange.startDate) && Boolean(dateRange.endDate)) || Boolean(searchParams.forecastdate),
   });
 
   const safeOrders: OrderResponse[] = (orders || []).filter(
@@ -95,10 +96,10 @@ const ListOrderService = () => {
               <option value="clientName" className="bg-[#2a2a2a] text-sm">
                 Cliente
               </option>
-              <option value="openingDate" className="bg-[#2a2a2a] text-sm">
+              <option value="openingStartDate" className="bg-[#2a2a2a] text-sm">
                 Data Abertura
               </option>
-              <option value="forecastDate" className="bg-[#2a2a2a] text-sm">
+              <option value="forecastStartDate" className="bg-[#2a2a2a] text-sm">
                 Data Entrega
               </option>
               <option value="status" className="bg-[#2a2a2a] text-sm">
@@ -106,7 +107,7 @@ const ListOrderService = () => {
               </option>
             </select>
 
-            {searchType === "openingDate" || searchType === "forecastDate" ? (
+            {searchType === "openingStartDate" || searchType === "forecastStartDate" ? (
               <DateRangePicker
                 value={dateRange}
                 onChange={(dates) => setDateRange(dates)}
@@ -117,12 +118,12 @@ const ListOrderService = () => {
                 onChange={(status) => setSearchValue(status as StatusType)}
                 value={searchValue}
               />
-            ) : (
+            ) : searchType === "clientName" ? (
               <SearchInput
                 setValue={setSearchValue}
                 placeholder={searchMap[searchType]}
               />
-            )}
+            ) : null}
           </div>
         </div>
 
