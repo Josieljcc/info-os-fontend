@@ -81,36 +81,34 @@ const ListOrderService = () => {
     return Number(rect?.width) >= 768 ? "69px" : "64px";
   };
 
-  const renderSearchInput = () => {
-    if (
-      searchType === "openingStartDate" ||
-      searchType === "forecastStartDate"
-    ) {
-      return (
-        <DateRangePicker
-          value={dateRange}
-          onChange={(dates) => setDateRange(dates)}
-        />
-      );
+  const renderSearchComponent = () => {
+    switch (searchType) {
+      case "openingStartDate":
+      case "forecastStartDate":
+        return (
+          <DateRangePicker
+            value={dateRange}
+            onChange={(dates) => setDateRange(dates)}
+          />
+        );
+      case "status":
+        return (
+          <SelectStatusOder
+            placeholder={searchMap[searchType]}
+            onChange={setSearchValue}
+            value={searchValue}
+          />
+        );
+      case "clientName":
+        return (
+          <SearchInput
+            setValue={setSearchValue}
+            placeholder={searchMap[searchType]}
+          />
+        );
+      default:
+        return null;
     }
-    if (searchType === "status") {
-      return (
-        <SelectStatusOder
-          placeholder={searchMap[searchType]}
-          onChange={(status) => setSearchValue(status)}
-          value={searchValue}
-        />
-      );
-    }
-    if (searchType === "clientName") {
-      return (
-        <SearchInput
-          setValue={setSearchValue}
-          placeholder={searchMap[searchType]}
-        />
-      );
-    }
-    return null;
   };
 
   if (isLoading) return <Spinner />;
@@ -148,24 +146,7 @@ const ListOrderService = () => {
               </option>
             </select>
 
-            {searchType === "openingStartDate" ||
-            searchType === "forecastStartDate" ? (
-              <DateRangePicker
-                value={dateRange}
-                onChange={(dates) => setDateRange(dates)}
-              />
-            ) : searchType === "status" ? (
-              <SelectStatusOder
-                placeholder={searchMap[searchType]}
-                onChange={(status) => setSearchValue(status as StatusType)}
-                value={searchValue}
-              />
-            ) : searchType === "clientName" ? (
-              <SearchInput
-                setValue={setSearchValue}
-                placeholder={searchMap[searchType]}
-              />
-            ) : null}
+            {renderSearchComponent()}
           </div>
         </div>
 
@@ -205,7 +186,7 @@ const ListOrderService = () => {
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
               >
-                <CardOrderService order={order as OrderResponse} />
+                <CardOrderService order={order} />
               </div>
             );
           })}
