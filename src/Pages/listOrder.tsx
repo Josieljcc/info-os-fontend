@@ -19,6 +19,10 @@ import { OrderResponse, StatusType } from "@/types";
 import { useState } from "react";
 import { getForecastParams } from "@/util/dateUtil";
 
+function isOrderResponse(o: unknown): o is OrderResponse {
+  return Boolean(o);
+}
+
 const searchMap = {
   clientName: "Digite o Cliente",
   status: "Selecione o Status",
@@ -58,9 +62,7 @@ const ListOrderService = () => {
       Boolean(searchParams.forecastdate),
   });
 
-  const safeOrders: OrderResponse[] = (orders || []).filter(
-    (o): o is OrderResponse => Boolean(o)
-  );
+  const safeOrders: OrderResponse[] = (orders || []).filter(isOrderResponse);
 
   const displayedOrders =
     debouncedSearch.trim() || (dateRange.startDate && dateRange.endDate)
