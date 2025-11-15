@@ -9,12 +9,14 @@ import useOrder from "@/hook/useOrderService/useOrder";
 import useResizeObserver from "@/hook/useResizeObserver";
 import useRowVirtualizer from "@/hook/useRowVirtualizer";
 import { useOrderSearch } from "@/hook/useOrderService/useSearchOrder";
-import { OrderSearchField, OrderSearchTerm } from "@/hook/useOrderService/types";
+import {
+  OrderSearchField,
+  OrderSearchTerm,
+} from "@/hook/useOrderService/types";
 import DateRangePicker from "@/components/DateRangePicker/DateRangePicker";
 import SelectStatusOder from "@/components/selectStatusOrder/selectStatusOder";
 import { OrderResponse, StatusType } from "@/types";
 import { useState } from "react";
-import { isSameDay } from "date-fns";
 import { getForecastParams } from "@/util/dateUtil";
 
 const searchMap = {
@@ -40,7 +42,10 @@ const ListOrderService = () => {
     searchParams.openingStartDate = dateRange.startDate;
     searchParams.openingEndDate = dateRange.endDate;
   } else if (searchType === "forecastStartDate") {
-    Object.assign(searchParams, getForecastParams(dateRange.startDate, dateRange.endDate));
+    Object.assign(
+      searchParams,
+      getForecastParams(dateRange.startDate, dateRange.endDate)
+    );
   } else if (searchType === "clientName" || searchType === "status") {
     searchParams[searchType] = debouncedSearch;
   }
@@ -49,7 +54,8 @@ const ListOrderService = () => {
     searchTerm: searchParams,
     enabled:
       Boolean(debouncedSearch.trim()) ||
-      (Boolean(dateRange.startDate) && Boolean(dateRange.endDate)) || Boolean(searchParams.forecastdate),
+      (Boolean(dateRange.startDate) && Boolean(dateRange.endDate)) ||
+      Boolean(searchParams.forecastdate),
   });
 
   const safeOrders: OrderResponse[] = (orders || []).filter(
@@ -99,7 +105,10 @@ const ListOrderService = () => {
               <option value="openingStartDate" className="bg-[#2a2a2a] text-sm">
                 Data Abertura
               </option>
-              <option value="forecastStartDate" className="bg-[#2a2a2a] text-sm">
+              <option
+                value="forecastStartDate"
+                className="bg-[#2a2a2a] text-sm"
+              >
                 Data Entrega
               </option>
               <option value="status" className="bg-[#2a2a2a] text-sm">
@@ -107,7 +116,8 @@ const ListOrderService = () => {
               </option>
             </select>
 
-            {searchType === "openingStartDate" || searchType === "forecastStartDate" ? (
+            {searchType === "openingStartDate" ||
+            searchType === "forecastStartDate" ? (
               <DateRangePicker
                 value={dateRange}
                 onChange={(dates) => setDateRange(dates)}
