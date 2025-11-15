@@ -60,7 +60,7 @@ const ListOrderService = () => {
       Boolean(searchParams.forecastdate),
   });
 
-  const safeOrders: OrderResponse[] = (orders || []).filter(isOrderResponse);
+  const safeOrders: OrderResponse[] = (orders || []).filter(Boolean);
 
   const displayedOrders =
     debouncedSearch.trim() || (dateRange.startDate && dateRange.endDate)
@@ -79,6 +79,38 @@ const ListOrderService = () => {
 
   const getCardHeight = () => {
     return Number(rect?.width) >= 768 ? "69px" : "64px";
+  };
+
+  const renderSearchInput = () => {
+    if (
+      searchType === "openingStartDate" ||
+      searchType === "forecastStartDate"
+    ) {
+      return (
+        <DateRangePicker
+          value={dateRange}
+          onChange={(dates) => setDateRange(dates)}
+        />
+      );
+    }
+    if (searchType === "status") {
+      return (
+        <SelectStatusOder
+          placeholder={searchMap[searchType]}
+          onChange={(status) => setSearchValue(status)}
+          value={searchValue}
+        />
+      );
+    }
+    if (searchType === "clientName") {
+      return (
+        <SearchInput
+          setValue={setSearchValue}
+          placeholder={searchMap[searchType]}
+        />
+      );
+    }
+    return null;
   };
 
   if (isLoading) return <Spinner />;
