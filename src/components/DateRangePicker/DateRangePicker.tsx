@@ -12,19 +12,33 @@ import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 
 interface DateRangePickerProps {
-  value?: { startDate?: string; endDate?: string };
-  onChange?: (dates: { startDate?: string; endDate?: string }) => void;
+
+  readonly value?: { readonly startDate?: string; readonly endDate?: string };
+
+  readonly onChange?: (dates: { startDate?: string; endDate?: string }) => void;
+
 }
 
+
+
 function DateRangePicker({ value, onChange }: DateRangePickerProps) {
+
   const [openStartDate, setOpenStartDate] = React.useState(false);
+
   const [openEndDate, setOpenEndDate] = React.useState(false);
 
+
+
   const startDate = value?.startDate
-    ? new Date(value.startDate.replace(/-/g, "/"))
+
+    ? new Date(value.startDate.replaceAll("-", "/"))
+
     : undefined;
+
   const endDate = value?.endDate
-    ? new Date(value.endDate.replace(/-/g, "/"))
+
+    ? new Date(value.endDate.replaceAll("-", "/"))
+
     : undefined;
 
   const handleSelectStartDate = (date?: Date) => {
