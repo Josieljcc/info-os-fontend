@@ -2,7 +2,8 @@ import { SideBarItemType } from "./types";
 import { LiaHomeSolid } from "react-icons/lia";
 import { FiUser } from "react-icons/fi";
 import { VscTools } from "react-icons/vsc";
-import { HiMiniComputerDesktop } from "react-icons/hi2";
+import { HiMiniComputerDesktop, HiOutlineDocumentText } from "react-icons/hi2";
+import { BsGear } from "react-icons/bs";
 import { PiToolboxLight } from "react-icons/pi";
 
 export const menuItems: SideBarItemType[] = [
@@ -23,7 +24,7 @@ export const menuItems: SideBarItemType[] = [
   },
   {
     path: "/app/part",
-    icon: HiMiniComputerDesktop,
+    icon: BsGear,
     title: "Peças",
   },
   {
@@ -37,8 +38,8 @@ export const menuItems: SideBarItemType[] = [
     title: "Equipamento",
   },
   {
-    path: "/app/order",
-    icon: HiMiniComputerDesktop,
-    title: "OS",
+    path: "/app/os",
+    icon: HiOutlineDocumentText,
+    title: "O.S.",
   },
 ];

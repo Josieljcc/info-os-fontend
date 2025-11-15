@@ -8,24 +8,26 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { StatusType } from "@/types";
-import { useFormContext } from "react-hook-form";
 import { items } from "./constants";
 
 type SelectProps = {
   placeholder: string;
+  onChange: (value: StatusType) => void;
+  value: string;
 };
 
-const SelectStatusOder = ({ placeholder }: SelectProps) => {
-  const { setValue } = useFormContext();
-
+const SelectStatusOder = ({ placeholder, onChange, value }: SelectProps) => {
   const handleStatusOrder = (stat: StatusType) => {
-    setValue("status", stat);
+    onChange(stat);
   };
 
   return (
     <div className="">
-      <Select onValueChange={(value) => handleStatusOrder(value as StatusType)}>
-        <SelectTrigger className="py-4 px-4 text-xl w-1/4 text-[#D4D4D8] hover:border-blue-500 focus:outline-none">
+      <Select
+        onValueChange={(value) => handleStatusOrder(value as StatusType)}
+        value={value}
+      >
+        <SelectTrigger className="py-4 px-4 text-xl w-full text-[#D4D4D8] hover:border-blue-500 focus:outline-none">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent className="bg-[#131314f4] text-white border-none">

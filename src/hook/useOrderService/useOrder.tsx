@@ -6,11 +6,11 @@ import {
   OrderResponse,
   PageParam,
 } from "@/types";
+import { OrderType } from "@/schemas/order";
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
-import useNotify from "./useNotify";
+import useNotify from "../useNotify";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { OrderType } from "@/schemas/order";
 
 type OrderPaginatedResponse = {
   orders: OrderResponse[];

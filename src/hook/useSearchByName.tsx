@@ -12,7 +12,7 @@ type useSearchByNameProps = {
   enabled?: boolean;
 };
 
-function useSearchByName<T = any>({
+function useSearchByName<T = unknown>({
   url,
   name,
   enabled = true,

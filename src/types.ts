@@ -66,7 +66,7 @@ export type User = {
 };
 
 export type Part = {
-  id: number | undefined;
+  id?: number | undefined;
   name: string;
   description: string;
   quantity: number;
@@ -93,11 +93,18 @@ export type Order = {
 
 export type OrderResponse = {
   id: number;
-  date: string;
-  status: string;
+  // Datas da OS
+  openingDate: Date;
+  forecastDate: Date;
+  closingDate?: string | null;
+  // Informações principais
+  status: StatusType;
   comment: string;
-  clientId: string;
-  technicianID: string;
+  // Relações
+  client: Client;
+  technician: Technician;
+  services: Service[];
+  parts: Part[];
 };
 
 export type PageParam = {
