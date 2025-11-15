@@ -19,9 +19,7 @@ import { OrderResponse, StatusType } from "@/types";
 import { useState } from "react";
 import { getForecastParams } from "@/util/dateUtil";
 
-function isOrderResponse(o: unknown): o is OrderResponse {
-  return Boolean(o);
-}
+
 
 const searchMap = {
   clientName: "Digite o Cliente",
