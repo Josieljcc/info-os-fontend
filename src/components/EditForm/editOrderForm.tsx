@@ -33,7 +33,9 @@ const EditOrderForm = ({ order, setIsEditing }: EditOrderFormProps) => {
   const handleEditOrder = (data: OrderType) => {
     const payload = {
       ...data,
-      openingDate: formatToSave(data.openingDate!),
+      openingDate: data.openingDate
+        ? formatToSave(data.openingDate)
+        : undefined,
       forecastDate: formatToSave(data.forecastDate),
       closingDate: formatToSave(data.closingDate),
       technicianId: selectedTechnicianId,
