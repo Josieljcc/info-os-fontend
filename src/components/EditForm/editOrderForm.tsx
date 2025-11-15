@@ -88,7 +88,7 @@ const EditOrderForm = ({ order, setIsEditing }: EditOrderFormProps) => {
             <ClientSearchDropdown />
 
             <InputSelect
-              list={technicians as SelectType[]}
+              list={technicians}
               setValue={setSelectedTechnicianId}
               placeholder="Selecione Técnico"
             />
