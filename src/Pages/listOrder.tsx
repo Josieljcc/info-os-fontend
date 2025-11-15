@@ -15,7 +15,7 @@ import {
 } from "@/hook/useOrderService/types";
 import DateRangePicker from "@/components/DateRangePicker/DateRangePicker";
 import SelectStatusOder from "@/components/selectStatusOrder/selectStatusOder";
-import { OrderResponse, StatusType } from "@/types";
+import { OrderResponse } from "@/types";
 import { useState } from "react";
 import { getForecastParams } from "@/util/dateUtil";
 
